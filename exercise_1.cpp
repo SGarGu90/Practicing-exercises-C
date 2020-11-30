@@ -16,9 +16,7 @@ float calc_operation_by_function_name(string function_name, float num_1 = 0, flo
         if (num_1 < 0) result = 0;
         else if(num_1 == 0) result = 1;
         else {
-            for (int i = 1; i <= num_1; i++) {
-                result *= i;
-            };
+            result = calc_factorial(num_1);
         }
     }
     else if (function_name == "exponential") {
