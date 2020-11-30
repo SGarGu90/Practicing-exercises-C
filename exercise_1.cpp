@@ -1,17 +1,8 @@
 #include <iostream>
 #include <string>
-#include <limits>
 using namespace std;
 
-float cin_number() {
-    float input;
-    while (!(cin >> input)) {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Entered value is not a number, please introduce number\n";
-    }
-    return input;
-}
+#include <helpers.cpp>
 
 float calc_operation_by_function_name(string function_name, float num_1 = 0, float num_2 = 0) {
     float result = 1;
