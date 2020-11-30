@@ -20,7 +20,6 @@ int addition()
     cout << "Enter many number to add or 0 to finish\n";
     cout << "------------------------------------------\n";
     double total_addition = 0;
-    int current_number = 1;
     double number_to_add;
     cout << total_addition << "\n";
     do {
@@ -29,7 +28,6 @@ int addition()
         cout << "----------\n";
         total_addition += (number_to_add);
         cout << total_addition << "\n";
-        current_number++;
     } while (number_to_add != 0);
 
     return total_addition;
@@ -37,7 +35,22 @@ int addition()
 
 int substract()
 {
-    cout << "substract\n";
+    cout << "SUBSTRACT FUNTION\n";
+    cout << "------------------------------------------\n";
+    cout << "Enter many number to substract or 0 to finish\n";
+    cout << "------------------------------------------\n";
+    double total_substract = 0;
+    double number_to_substract;
+    cout << total_substract << "\n";
+    do {
+        cout << "+" << "\n";
+        number_to_substract = cin_number();
+        cout << "----------\n";
+        total_substract -= (number_to_substract);
+        cout << total_substract << "\n";
+    } while (number_to_substract != 0);
+
+    return total_substract;
 }
 
 int multiply()
