@@ -27,6 +27,14 @@ void print_filled_triangle_characters(int row_number, int EMPTY_WIDTH) {
     cout << "\n";
 }
 
+void print_pascal_triangle(int total_number_rows) {
+    for(int row_number = 0; row_number < total_number_rows; row_number++) {
+        int total_start_empty_characters_in_row = total_number_rows-row_number-1;
+        print_empty_start_characters_in_row(total_start_empty_characters_in_row, EMPTY_WIDTH);
+        print_filled_triangle_characters(row_number, EMPTY_WIDTH);
+    }
+}
+
 int main() 
 {
     int EMPTY_WIDTH = 2;
@@ -35,12 +43,7 @@ int main()
     total_number_rows = cin_number();
     cout << "----------------------\n";
 
-    for(int row_number = 0; row_number < total_number_rows; row_number++) {
-        int total_start_empty_characters_in_row = total_number_rows-row_number-1;
-        print_empty_start_characters_in_row(total_start_empty_characters_in_row, EMPTY_WIDTH);
-        print_filled_triangle_characters(row_number, EMPTY_WIDTH);
-    }
-
+    print_pascal_triangle(total_number_rows);
 
     return 0;
 }
