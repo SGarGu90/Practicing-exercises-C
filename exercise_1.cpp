@@ -15,20 +15,22 @@ int cin_number() {
 
 int addition()
 {
+    cout << "ADDITION FUNTION\n";
+    cout << "------------------------------------------\n";
+    cout << "Enter many number to add or 0 to finish\n";
+    cout << "------------------------------------------\n";
     double total_addition = 0;
     int current_number = 1;
     double number_to_add;
-    cout << "Enter many numbers you need or 0 to finish\n";
+    cout << total_addition << "\n";
     do {
-        cout << "Enter number: " << current_number << "\n";
+        cout << "+" << "\n";
         number_to_add = cin_number();
-        cout << "Current total:  " << total_addition << "\n";
-        cout << "Current number: " << number_to_add << "\n";
-        cout << "------------------------------------------";
+        cout << "----------\n";
         total_addition += (number_to_add);
-        cout << "Total after add " << total_addition << "\n";
+        cout << total_addition << "\n";
         current_number++;
-    } while (number_to_add == 0);
+    } while (number_to_add != 0);
 
     return total_addition;
 }
@@ -67,7 +69,6 @@ int run_operations()
 {
     int FIRST_OPERATION_NUMBER = 1;
     int TOTAL_NUMBER_OPERATIONS = 7;
-    int total_addition = 0;
     string operation_types[TOTAL_NUMBER_OPERATIONS] = {
         "\t1: (+) addition", 
         "\t2: (-) substract", 
@@ -77,42 +78,45 @@ int run_operations()
         "\t6: (!) factorial",
         "\t7: (^) exponential",
     };
+    int selected_operation_option;
+    int total_addition = 0;
     bool is_exist_operation;
 
     do{
         cout << "\nSelect option or other different value to exit program: \n";
-        for (int i = 1; i < TOTAL_NUMBER_OPERATIONS; i++)
-            cout << operation_types[i] << "\n";
-        int operation_type = cin_number();
-        bool is_exist_operation = (operation_type >= FIRST_OPERATION_NUMBER && operation_type <= TOTAL_NUMBER_OPERATIONS);
+        for (int i = 1; i <= TOTAL_NUMBER_OPERATIONS; i++)
+            cout << operation_types[i-1] << "\n";
+        selected_operation_option = cin_number();
+        is_exist_operation = (selected_operation_option >= FIRST_OPERATION_NUMBER && selected_operation_option <= TOTAL_NUMBER_OPERATIONS);
+
         
-        switch (operation_type) {
-        case 0:
+        if (selected_operation_option == 1) {
             total_addition = addition();
             cout << "Total addition operation: " << total_addition << "\n";
-            break;
-        case 1:
+            cout << selected_operation_option << "\n";
+        }
+        else if (selected_operation_option == 2) {
             substract();
-            break;
-        case 2:
+        } 
+        else if (selected_operation_option == 3) {
             multiply();
-            break;
-        case 3:
+        } 
+        else if (selected_operation_option == 4) {
             divide();
-            break;
-        case 4:
+        } 
+        else if (selected_operation_option == 5) {
             module();
-            break;
-        case 5:
+        } 
+        else if (selected_operation_option == 6) {
             factorial();
-            break;
-        case 6:
+        } 
+        else if (selected_operation_option == 7) {
             exponential();
-            break;
-        default:
+        } else {
             cout << "Option does not exist, program exited correctly.\n";
             return 0;
         }
+    
     } while (is_exist_operation);
     
     return 0;
