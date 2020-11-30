@@ -3,8 +3,8 @@
 #include <limits>
 using namespace std;
 
-int cin_number() {
-    int input;
+float cin_number() {
+    float input;
     while (!(cin >> input)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -13,8 +13,9 @@ int cin_number() {
     return input;
 }
 
-int calc_operation_by_function_name(string function_name, double num_1, double num_2) {
-    double result;
+float calc_operation_by_function_name(string function_name, float num_1 = 0, float num_2 = 0) {
+    float result = 1;
+    if (num_1 == 0 && num_2 == 0) return 0;
     if (function_name == "addition") result = num_1 + num_2;
     else if (function_name == "substract") result = num_1 - num_2;
     else if (function_name == "multiply") result = num_1 * num_2;
@@ -24,7 +25,9 @@ int calc_operation_by_function_name(string function_name, double num_1, double n
         if (num_1 < 0) result = 0;
         else if(num_1 == 0) result = 1;
         else {
-            for (int i = 1; i <= num_1; i++) result *= i;
+            for (int i = 1; i <= num_1; i++) {
+                result *= i;
+            };
         }
     }
     else if (function_name == "exponential") {
@@ -50,19 +53,27 @@ double execute(string function_name)
     double number_to_operate_2;
     cout << "Operating '" << function_name << "' function ..\n";
     cout << "------------------------------------------\n";
-    cout << "Enter both numbers 0 to finish operation\n";
+    cout << "Enter all values 0 to finish current operation\n";
     cout << "------------------------------------------\n";
-    double total_calc_operation;
+    float total_calc_operation;
     do {
-        number_to_operate_1 = cin_number();
-        
-        cout << get_operation_symbol(function_name) << "\n";
-
-        if (function_name != "factorial") number_to_operate_2 = cin_number();
+        if (function_name == "factorial") {
+            cout << "Enter ONE number: \n";
+            number_to_operate_1 = cin_number();
+            cout << get_operation_symbol(function_name) << "\n";
+            number_to_operate_2 = 0;
+        }
+        else {
+            cout << "Enter TWO numbers: \n";
+            number_to_operate_1 = cin_number();
+            cout << get_operation_symbol(function_name) << "\n";
+            number_to_operate_2 = cin_number();
+        }
 
         total_calc_operation = calc_operation_by_function_name(function_name, number_to_operate_1, number_to_operate_2);
+        cout << "-------\n";
         cout << total_calc_operation << "\n";
-    } while (number_to_operate_1 != 0 && number_to_operate_2 != 0);
+    } while (number_to_operate_1 != 0 || number_to_operate_2 != 0);
 }
 
 string get_operation_name_by(int operation_id)
@@ -108,7 +119,7 @@ int main()
     string operation_name;
 
     do{
-        load_menu;
+        load_menu();
         selected_option_id = cin_number();
         operation_name = get_operation_name_by_id(selected_option_id);
         is_valid_operation_option = operation_name != "undefined";
