@@ -1,10 +1,24 @@
 #include <iostream>
 #include <string>
+#include <limits>
 using namespace std;
 
+int cin_number() {
+    int input;
+    while (!(cin >> input)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Entered values i not a number, please introduce number\n";
+    }
+    return input;
+}
 
 int addition()
 {
+    int total_addition_numbers;
+    cout << "How many numbers to addition \n";
+    total_addition_numbers = cin_number();
+
     cout << "addition\n";
 }
 
@@ -40,30 +54,25 @@ int exponential()
 
 int run_operations()
 {
+    int FIRST_OPERATION_NUMBER = 1;
     int TOTAL_NUMBER_OPERATIONS = 7;
-    const string operation_types[TOTAL_NUMBER_OPERATIONS] = {
-        "\t0: (+) addition", 
-        "\t1: (-) substract", 
-        "\t2: (*) multiply", 
-        "\t3: (/) divide", 
-        "\t4: (%) module",
-        "\t5: (!) factorial",
-        "\t6: (^) exponential",
+    string operation_types[TOTAL_NUMBER_OPERATIONS] = {
+        "\t1: (+) addition", 
+        "\t2: (-) substract", 
+        "\t3: (*) multiply", 
+        "\t4: (/) divide", 
+        "\t5: (%) module",
+        "\t6: (!) factorial",
+        "\t7: (^) exponential",
     };
-    bool is_operation_in_range;
-    int operation_type;
+    bool is_exist_operation;
 
     do{
-        cout << "\n Select option or other different value to exit program: \n";
-        for (int i = 0; i < TOTAL_NUMBER_OPERATIONS; i++)
+        cout << "\nSelect option or other different value to exit program: \n";
+        for (int i = 1; i < TOTAL_NUMBER_OPERATIONS; i++)
             cout << operation_types[i] << "\n";
-        cin >> operation_type;
-        if (!cin) {
-            operation_type = 9999;
-        }
-        is_operation_in_range = (operation_type >= 0 && operation_type <= 6);
-
-        if (is_operation_in_range) cout << "Selected operation" << operation_types[operation_type] << "'\n\n\n\n";
+        int operation_type = cin_number();
+        bool is_exist_operation = (operation_type >= FIRST_OPERATION_NUMBER && operation_type <= TOTAL_NUMBER_OPERATIONS);
         
         switch (operation_type) {
         case 0:
@@ -91,7 +100,7 @@ int run_operations()
             cout << "Option does not exist, program exited correctly.\n";
             return 0;
         }
-    } while (is_operation_in_range);
+    } while (is_exist_operation);
     
     return 0;
 }
