@@ -11,3 +11,10 @@ float cin_number() {
     }
     return input;
 }
+
+int calc_factorial(float number) {
+   int i, result = 1;
+   for(i = number; i>1; i--)
+      result *= i;
+   return result;
+}
