@@ -15,11 +15,22 @@ int cin_number() {
 
 int addition()
 {
-    int total_addition_numbers;
-    cout << "How many numbers to addition \n";
-    total_addition_numbers = cin_number();
+    double total_addition = 0;
+    int current_number = 1;
+    double number_to_add;
+    cout << "Enter many numbers you need or 0 to finish\n";
+    do {
+        cout << "Enter number: " << current_number << "\n";
+        number_to_add = cin_number();
+        cout << "Current total:  " << total_addition << "\n";
+        cout << "Current number: " << number_to_add << "\n";
+        cout << "------------------------------------------";
+        total_addition += (number_to_add);
+        cout << "Total after add " << total_addition << "\n";
+        current_number++;
+    } while (number_to_add == 0);
 
-    cout << "addition\n";
+    return total_addition;
 }
 
 int substract()
@@ -56,6 +67,7 @@ int run_operations()
 {
     int FIRST_OPERATION_NUMBER = 1;
     int TOTAL_NUMBER_OPERATIONS = 7;
+    int total_addition = 0;
     string operation_types[TOTAL_NUMBER_OPERATIONS] = {
         "\t1: (+) addition", 
         "\t2: (-) substract", 
@@ -76,7 +88,8 @@ int run_operations()
         
         switch (operation_type) {
         case 0:
-            addition();
+            total_addition = addition();
+            cout << "Total addition operation: " << total_addition << "\n";
             break;
         case 1:
             substract();
