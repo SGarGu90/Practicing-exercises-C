@@ -11,7 +11,7 @@
 
 
 # Exercise 3 |
-
+> g++ exercise_3.cpp -o exercise_3 && ./exercise_3
 
 
 # Exercise 4 |
