@@ -5,7 +5,8 @@ using namespace std;
 #include "helpers.cpp"
 
 
-long character_value(int row_number, int filled_char_slot) {
+long character_value(int row_number, int filled_char_slot)
+{
     long char_pos_value = 1;
     long char_position;
     for(char_position = row_number; char_position > filled_char_slot; char_position--)
@@ -15,20 +16,23 @@ long character_value(int row_number, int filled_char_slot) {
     return char_pos_value/calc_factorial(number_to_calc_factorial);
 }
 
-void print_empty_start_characters_in_row(int total_start_empty_characters_in_row, int TRIANGLE_WIDTH_SPACING) {
+void print_empty_start_characters_in_row(int total_start_empty_characters_in_row, int TRIANGLE_WIDTH_SPACING)
+{
     for (int empty_char_slot = 0; empty_char_slot < total_start_empty_characters_in_row; empty_char_slot++) {
         cout << setw(TRIANGLE_WIDTH_SPACING) << " ";
     }
 }
 
-void print_filled_triangle_characters(int row_number, int TRIANGLE_WIDTH_SPACING) {
+void print_filled_triangle_characters(int row_number, int TRIANGLE_WIDTH_SPACING)
+{
     int total_filled_chars = row_number + 1;
     for(int filled_char_slot = 0; filled_char_slot < total_filled_chars; filled_char_slot++)
         cout << setw(TRIANGLE_WIDTH_SPACING) << character_value(row_number, filled_char_slot) << setw(TRIANGLE_WIDTH_SPACING)<< " ";
     cout << "\n";
 }
 
-void print_pascal_triangle(int total_number_rows) {
+void print_pascal_triangle(int total_number_rows)
+{
     int TRIANGLE_WIDTH_SPACING = 2;
     if (total_number_rows >= 10) TRIANGLE_WIDTH_SPACING = 4;
     else if (total_number_rows >= 14) TRIANGLE_WIDTH_SPACING = 8;

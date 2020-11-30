@@ -2,7 +2,8 @@
 #include <limits>
 using namespace std;
 
-float cin_number() {
+float cin_number() 
+{
     float input;
     while (!(cin >> input)) {
         cin.clear();
@@ -12,7 +13,8 @@ float cin_number() {
     return input;
 }
 
-long calc_factorial(float number) {
+long calc_factorial(float number) 
+{
    int i, result = 1;
    for(i = number; i>1; i--)
       result *= i;

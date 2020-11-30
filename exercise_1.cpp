@@ -4,7 +4,8 @@ using namespace std;
 
 #include "helpers.cpp"
 
-float calc_operation_by_function_name(string function_name, float num_1 = 0, float num_2 = 0) {
+float calc_operation_by_function_name(string function_name, float num_1 = 0, float num_2 = 0)
+{
     float result = 1;
     if (num_1 == 0 && num_2 == 0) return 0;
     if (function_name == "addition") result = num_1 + num_2;
@@ -26,7 +27,8 @@ float calc_operation_by_function_name(string function_name, float num_1 = 0, flo
 }
 
 
-string get_operation_symbol(string function_name) {
+string get_operation_symbol(string function_name)
+{
     if (function_name == "addition") return "+";
     else if (function_name == "substract") return "-";
     else if (function_name == "multiply") return "*";
