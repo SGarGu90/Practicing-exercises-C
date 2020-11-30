@@ -13,13 +13,28 @@ int cin_number() {
     return input;
 }
 
-int operate_numbers_by_function_name(string function_name, double num_1, double num_2) {
-    if (function_name == "addition") return num_1 + num_2;
-    else if (function_name == "substract") return num_1 - num_2;
+int calc_operation_by_function_name(string function_name, double num_1, double num_2) {
+    double result;
+    if (function_name == "addition") result = num_1 + num_2;
+    else if (function_name == "substract") result = num_1 - num_2;
+    else if (function_name == "multiply") result = num_1 * num_2;
+    else if (function_name == "divide") result = num_1 / num_2;
+    else if (function_name == "module") result = int(num_1) % int(num_2);
+    else if (function_name == "factorial") {
+        if (num_1 < 0) result = 0;
+        else if(num_1 == 0) result = 1;
+        else {
+            for (int i = 1; i <= num_1; i++) result *= i;
+        }
+    }
+    else if (function_name == "exponential") {
+        result = int(num_1) ^ int(num_2);
+    }
+    return result;
 }
 
 
-string get_operation_sign_by(string function_name) {
+string get_operation_symbol(string function_name) {
     if (function_name == "addition") return "+";
     else if (function_name == "substract") return "-";
     else if (function_name == "multiply") return "*";
@@ -29,88 +44,25 @@ string get_operation_sign_by(string function_name) {
     else if (function_name == "exponential") return "^";
 }
 
-double addition_or_substract(string function_name)
+double execute(string function_name)
 {
-    double total_ammount = 0.00;
-    double number_to_operate;
-    cout << "Using '" << function_name << "' function ..\n";
+    double number_to_operate_1;
+    double number_to_operate_2;
+    cout << "Operating '" << function_name << "' function ..\n";
     cout << "------------------------------------------\n";
-    cout << "Enter number or 0 to finish operation\n";
+    cout << "Enter both numbers 0 to finish operation\n";
     cout << "------------------------------------------\n";
-    cout << total_ammount << "\n";
+    double total_calc_operation;
     do {
-        cout << get_operation_sign_by(function_name) << "\n";
-        number_to_operate = cin_number();
-        cout << "----------\n";
-        total_ammount = operate_numbers_by_function_name(function_name, total_ammount, number_to_operate);
-        cout << total_ammount << "\n";
-    } while (number_to_operate != 0);
-    return total_ammount;
-}
+        number_to_operate_1 = cin_number();
+        
+        cout << get_operation_symbol(function_name) << "\n";
 
-int addition()
-{
-    cout << "ADDITION FUNTION\n";
-    cout << "------------------------------------------\n";
-    cout << "Enter many number to add or 0 to finish\n";
-    cout << "------------------------------------------\n";
-    double total_addition = 0;
-    double number_to_add;
-    cout << total_addition << "\n";
-    do {
-        cout << "+" << "\n";
-        number_to_add = cin_number();
-        cout << "----------\n";
-        total_addition += (number_to_add);
-        cout << total_addition << "\n";
-    } while (number_to_add != 0);
+        if (function_name != "factorial") number_to_operate_2 = cin_number();
 
-    return total_addition;
-}
-
-int substract()
-{
-    cout << "SUBSTRACT FUNTION\n";
-    cout << "------------------------------------------\n";
-    cout << "Enter many number to substract or 0 to finish\n";
-    cout << "------------------------------------------\n";
-    double total_substract = 0;
-    double number_to_substract;
-    cout << total_substract << "\n";
-    do {
-        cout << "-" << "\n";
-        number_to_substract = cin_number();
-        cout << "----------\n";
-        total_substract -= (number_to_substract);
-        cout << total_substract << "\n";
-    } while (number_to_substract != 0);
-
-    return total_substract;
-}
-
-int multiply()
-{
-    cout << "multiply\n";
-}
-
-int divide()
-{
-    cout << "divide\n";
-}
-
-int module()
-{
-    cout << "module\n";
-}
-
-int factorial()
-{
-    cout << "factor\n";
-}
-
-int exponential()
-{
-    cout << "exponential\n";
+        total_calc_operation = calc_operation_by_function_name(function_name, number_to_operate_1, number_to_operate_2);
+        cout << total_calc_operation << "\n";
+    } while (number_to_operate_1 != 0 && number_to_operate_2 != 0);
 }
 
 string get_operation_name_by(int operation_id)
@@ -124,30 +76,45 @@ string get_operation_name_by(int operation_id)
            (operation_id == 7) ? "exponential" : "undefined";
 }
 
+string get_operation_name_by_id(int operation_id)
+{
+    return (operation_id == 1) ? "addition" : 
+            (operation_id == 2) ? "substract" : 
+            (operation_id == 3) ? "multiply" : 
+            (operation_id == 4) ? "divide" : 
+            (operation_id == 5) ? "module" : 
+            (operation_id == 6) ? "factorial" : 
+            (operation_id == 7) ? "exponential" : "undefined";
+}
+
+void load_menu()
+{
+    string operation_name;
+    int TOTAL_OPERATION_OPTIONS = 7;
+    cout << "\nSelect operation option: \n";
+    for (int operation_option_id = 1; operation_option_id <= TOTAL_OPERATION_OPTIONS; operation_option_id++) {
+        operation_name = get_operation_name_by_id(operation_option_id);
+        cout << "\t" << operation_option_id << ": (" << get_operation_symbol(operation_name) << ") " << operation_name << "\n";
+    }
+    cout << "\t0: EXIT\n";    
+}
+
 int main() 
 {
     int operation_option_id;
-    int TOTAL_OPERATION_OPTIONS = 7;
     double total_operation_ammount = 0;
+    int selected_option_id;
     bool is_valid_operation_option;
+    string operation_name;
 
     do{
-        string operation_name;
-        cout << "\nSelect operation option: \n";
-        for (int operation_option_id = 1; operation_option_id <= TOTAL_OPERATION_OPTIONS; operation_option_id++)
-            cout << "\t" << operation_option_id << ": (" << get_operation_sign_by(get_operation_name_by(operation_option_id)) << ") " << get_operation_name_by(operation_option_id) << "\n";
-        cout << "\t0: EXIT\n";
-        
-        operation_name = get_operation_name_by(cin_number());
+        load_menu;
+        selected_option_id = cin_number();
+        operation_name = get_operation_name_by_id(selected_option_id);
         is_valid_operation_option = operation_name != "undefined";
         
-        if (!is_valid_operation_option) {
-            cout << "Program exited correctly.\n";
-        }
-        else {
-            total_operation_ammount = addition_or_substract(operation_name);
-            cout << "Total '" << operation_name << "' operation: " << total_operation_ammount << "\n";
-        }
+        if (is_valid_operation_option) execute(operation_name);
+        else cout << "Program exited correctly.\n";
 
     } while (is_valid_operation_option);
 
