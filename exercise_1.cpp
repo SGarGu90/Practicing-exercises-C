@@ -8,9 +8,44 @@ int cin_number() {
     while (!(cin >> input)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Entered values i not a number, please introduce number\n";
+        cout << "Entered value is not a number, please introduce number\n";
     }
     return input;
+}
+
+int operate_numbers_by_function_name(string function_name, double num_1, double num_2) {
+    if (function_name == "addition") return num_1 + num_2;
+    else if (function_name == "substract") return num_1 - num_2;
+}
+
+
+string get_operation_sign_by(string function_name) {
+    if (function_name == "addition") return "+";
+    else if (function_name == "substract") return "-";
+    else if (function_name == "multiply") return "*";
+    else if (function_name == "divide") return "/";
+    else if (function_name == "module") return "%";
+    else if (function_name == "factorial") return "!";
+    else if (function_name == "exponential") return "^";
+}
+
+double addition_or_substract(string function_name)
+{
+    double total_ammount = 0.00;
+    double number_to_operate;
+    cout << "Using '" << function_name << "' function ..\n";
+    cout << "------------------------------------------\n";
+    cout << "Enter number or 0 to finish operation\n";
+    cout << "------------------------------------------\n";
+    cout << total_ammount << "\n";
+    do {
+        cout << get_operation_sign_by(function_name) << "\n";
+        number_to_operate = cin_number();
+        cout << "----------\n";
+        total_ammount = operate_numbers_by_function_name(function_name, total_ammount, number_to_operate);
+        cout << total_ammount << "\n";
+    } while (number_to_operate != 0);
+    return total_ammount;
 }
 
 int addition()
@@ -43,7 +78,7 @@ int substract()
     double number_to_substract;
     cout << total_substract << "\n";
     do {
-        cout << "+" << "\n";
+        cout << "-" << "\n";
         number_to_substract = cin_number();
         cout << "----------\n";
         total_substract -= (number_to_substract);
@@ -78,64 +113,43 @@ int exponential()
     cout << "exponential\n";
 }
 
-int run_operations()
+string get_operation_name_by(int operation_id)
 {
-    int FIRST_OPERATION_NUMBER = 1;
-    int TOTAL_NUMBER_OPERATIONS = 7;
-    string operation_types[TOTAL_NUMBER_OPERATIONS] = {
-        "\t1: (+) addition", 
-        "\t2: (-) substract", 
-        "\t3: (*) multiply", 
-        "\t4: (/) divide", 
-        "\t5: (%) module",
-        "\t6: (!) factorial",
-        "\t7: (^) exponential",
-    };
-    int selected_operation_option;
-    int total_addition = 0;
-    bool is_exist_operation;
-
-    do{
-        cout << "\nSelect option or other different value to exit program: \n";
-        for (int i = 1; i <= TOTAL_NUMBER_OPERATIONS; i++)
-            cout << operation_types[i-1] << "\n";
-        selected_operation_option = cin_number();
-        is_exist_operation = (selected_operation_option >= FIRST_OPERATION_NUMBER && selected_operation_option <= TOTAL_NUMBER_OPERATIONS);
-
-        
-        if (selected_operation_option == 1) {
-            total_addition = addition();
-            cout << "Total addition operation: " << total_addition << "\n";
-            cout << selected_operation_option << "\n";
-        }
-        else if (selected_operation_option == 2) {
-            substract();
-        } 
-        else if (selected_operation_option == 3) {
-            multiply();
-        } 
-        else if (selected_operation_option == 4) {
-            divide();
-        } 
-        else if (selected_operation_option == 5) {
-            module();
-        } 
-        else if (selected_operation_option == 6) {
-            factorial();
-        } 
-        else if (selected_operation_option == 7) {
-            exponential();
-        } else {
-            cout << "Option does not exist, program exited correctly.\n";
-            return 0;
-        }
-    
-    } while (is_exist_operation);
-    
-    return 0;
+    return (operation_id == 1) ? "addition" : 
+           (operation_id == 2) ? "substract" : 
+           (operation_id == 3) ? "multiply" : 
+           (operation_id == 4) ? "divide" : 
+           (operation_id == 5) ? "module" : 
+           (operation_id == 6) ? "factorial" : 
+           (operation_id == 7) ? "exponential" : "undefined";
 }
 
 int main() 
 {
-    run_operations();
+    int operation_option_id;
+    int TOTAL_OPERATION_OPTIONS = 7;
+    double total_operation_ammount = 0;
+    bool is_valid_operation_option;
+
+    do{
+        string operation_name;
+        cout << "\nSelect operation option: \n";
+        for (int operation_option_id = 1; operation_option_id <= TOTAL_OPERATION_OPTIONS; operation_option_id++)
+            cout << "\t" << operation_option_id << ": (" << get_operation_sign_by(get_operation_name_by(operation_option_id)) << ") " << get_operation_name_by(operation_option_id) << "\n";
+        cout << "\t0: EXIT\n";
+        
+        operation_name = get_operation_name_by(cin_number());
+        is_valid_operation_option = operation_name != "undefined";
+        
+        if (!is_valid_operation_option) {
+            cout << "Program exited correctly.\n";
+        }
+        else {
+            total_operation_ammount = addition_or_substract(operation_name);
+            cout << "Total '" << operation_name << "' operation: " << total_operation_ammount << "\n";
+        }
+
+    } while (is_valid_operation_option);
+
+    return 0;
 }
