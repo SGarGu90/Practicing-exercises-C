@@ -76,17 +76,6 @@ double execute(string function_name)
     } while (number_to_operate_1 != 0 || number_to_operate_2 != 0);
 }
 
-string get_operation_name_by(int operation_id)
-{
-    return (operation_id == 1) ? "addition" : 
-           (operation_id == 2) ? "substract" : 
-           (operation_id == 3) ? "multiply" : 
-           (operation_id == 4) ? "divide" : 
-           (operation_id == 5) ? "module" : 
-           (operation_id == 6) ? "factorial" : 
-           (operation_id == 7) ? "exponential" : "undefined";
-}
-
 string get_operation_name_by_id(int operation_id)
 {
     return (operation_id == 1) ? "addition" : 
