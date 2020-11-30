@@ -1,7 +1,9 @@
 # Custom ignore files
 .vscode/
-exercise_1
-!exercise_1.cpp
+exercise_[0-9]
+!exercise_[0-9].cpp
+helpers
+!helpers.cpp
 
 # Prerequisites
 *.d

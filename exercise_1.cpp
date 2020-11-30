@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 
-#include <helpers.cpp>
+#include "helpers.cpp"
 
 float calc_operation_by_function_name(string function_name, float num_1 = 0, float num_2 = 0) {
     float result = 1;
