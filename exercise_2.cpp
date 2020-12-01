@@ -9,8 +9,9 @@ long character_value(int row_number, int filled_char_slot)
 {
     long char_pos_value = 1;
     long char_position;
-    for(char_position = row_number; char_position > filled_char_slot; char_position--)
+    for(char_position = row_number; char_position > filled_char_slot; char_position--) {
         char_pos_value *= char_position;
+    }
 
     long number_to_calc_factorial = row_number-filled_char_slot;
     return char_pos_value/calc_factorial(number_to_calc_factorial);
@@ -26,8 +27,10 @@ void print_empty_start_characters_in_row(int total_start_empty_characters_in_row
 void print_filled_triangle_characters(int row_number, int TRIANGLE_WIDTH_SPACING)
 {
     int total_filled_chars = row_number + 1;
-    for(int filled_char_slot = 0; filled_char_slot < total_filled_chars; filled_char_slot++)
+    for(int filled_char_slot = 0; filled_char_slot < total_filled_chars; filled_char_slot++) {
         cout << setw(TRIANGLE_WIDTH_SPACING) << character_value(row_number, filled_char_slot) << setw(TRIANGLE_WIDTH_SPACING)<< " ";
+    }
+        
     cout << "\n";
 }
 

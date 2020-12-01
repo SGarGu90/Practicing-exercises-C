@@ -5,40 +5,42 @@ using namespace std;
 
 #include "helpers.cpp"
 
-string calc_dni(string user)
+int MAX_TOTAL_USER_STORAGE = 50;
+
+string calc_dni()
 {
     cout << "calc_dni";
 }
 
-bool is_gender(string user)
+bool is_gender()
 {
     cout << "is_gender";
 }
 
-bool is_adult(string user)
+bool is_adult()
 {
     cout << "is_adult";
 }
 
-double calc_imc(string user)
+double calc_imc()
 {
     cout << "calc_imc";
 }
 
-double execute(string operation_name, string user_for_operation)
+double execute(string operation_name)
 {
-    if (operation_name == "imc") calc_imc(user_for_operation);
-    else if (operation_name == "isadult") is_adult(user_for_operation);
-    else if (operation_name == "isgender") is_gender(user_for_operation);
-    else if (operation_name == "newdni") calc_dni(user_for_operation);
+    if (operation_name == "imc") calc_imc();
+    else if (operation_name == "isadult") is_adult();
+    else if (operation_name == "isgender") is_gender();
+    else if (operation_name == "newdni") calc_dni();
 }
 
-void get_operation_title_by_name(string operation_name)
+string get_operation_title_by_name(string operation_name)
 {
-    if (operation_name == "imc") cout << "Indice de masa corporal";
-    else if (operation_name == "isadult") cout << "¿Es adulto?";
-    else if (operation_name == "isgender") cout << "Is gender?";
-    else if (operation_name == "newdni") cout << "New DNI number";
+    if (operation_name == "imc") return "Indice de masa corporal";
+    else if (operation_name == "isadult") return "¿Es adulto?";
+    else if (operation_name == "isgender") return "Is gender?";
+    else if (operation_name == "newdni") return "New DNI number";
 }
 
 string get_operation_name_by_id(int operation_id)
@@ -66,13 +68,41 @@ int main()
 {
     int selected_option_id;
     bool is_valid_operation_option;
-    int total_people;
+    int total_users;
     string operation_name;
-    
-    cout << "How many people to insert? ";
-    total_people = cin_number();
 
-    // Inser users loop number and insert values
+    string all_user_name[MAX_TOTAL_USER_STORAGE];
+    int all_user_age[MAX_TOTAL_USER_STORAGE];
+    char all_user_gender[MAX_TOTAL_USER_STORAGE];
+    string all_user_marital_status[MAX_TOTAL_USER_STORAGE];
+    float all_user_weight[MAX_TOTAL_USER_STORAGE];
+    float all_user_height[MAX_TOTAL_USER_STORAGE];
+
+    cout << "How many people to insert? ";
+    total_users = cin_number();
+
+    for (int user_position = 0; user_position < total_users; user_position++) {
+        cout << "Introduzca los datos del usuario " << user_position + 1 << "\n";
+
+        cout << "Nombre: ";
+        cin >> all_user_name[user_position];
+
+        cout << "Edad ";
+        all_user_age[user_position] = cin_number();
+
+        cout << "Gender:\n \t - (m) male\n \t - (f) female\n";
+        cin >> all_user_gender[user_position];
+
+        cout << "Marital status: \n \t - (s) single\n \t - (m) married\n \t - (d) divorced\n \t - (w) widowed\n";
+        cin >>  all_user_marital_status[user_position];
+
+        cout << "Weight: ";
+        all_user_weight[user_position] = cin_number();
+        
+        cout << "Height: ";
+        all_user_height[user_position] = cin_number();
+    }
+
 
     do {
         load_menu();
@@ -80,7 +110,7 @@ int main()
         operation_name = get_operation_name_by_id(selected_option_id);
         is_valid_operation_option = operation_name != "undefined";
 
-        if (is_valid_operation_option) execute(operation_name, user); // TBD users
+        if (is_valid_operation_option) execute(operation_name); // TBD users
         else cout << "Program exited correctly.\n";
         
     } while (is_valid_operation_option);
