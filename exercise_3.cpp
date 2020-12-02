@@ -8,6 +8,7 @@ using namespace std;
 #include "helpers.cpp"
 
 const int MAX_TOTAL_USER_ON_MEMORY = 50;
+int MENU_INDENT_WIDTH = 4;
 int MIN_AGE_ALLOWED = 0;
 int MAX_AGE_ALLOWED = 125;
 
@@ -28,14 +29,16 @@ bool is_gender(int user_id)
     cout << "is_gender";
 }
 
-bool is_adult(int user_id)
+bool is_adult(int age)
 {
-    cout << "is_adult";
+    if (age > 18) cout << "Is adult";
+    else cout << "Is young";
 }
 
 float calc_imc(float height, float weight)
 {
     float imc = (weight / ( int(height) ^ 2 )) / 100;
+    cout << "(IMC): ";
     if (imc < 20) cout << "Debajo de su peso: ";
     else if (imc >= 21 && imc <= 25) cout << "Peso ideal: ";
     else if (imc > 25) cout << "Sobrepeso: ";
@@ -91,16 +94,19 @@ int execute(string operation_name)
 {
     int selected_user_id = select_user();
     string user_name = all_user_name[selected_user_id];
+    int user_age = all_user_age[selected_user_id];
+    char user_gender = all_user_gender[selected_user_id];
     float user_height = all_user_height[selected_user_id];
     float user_weight = all_user_weight[selected_user_id];
 
     cout << "\n'" << operation_name << "' operation result: \n";
     cout << "User " << "'" << user_name << "' ";
     
-    if (operation_name == "imc") cout << "(IMC): " << calc_imc(user_height, user_weight);
-    else if (operation_name == "isadult") is_adult(selected_user_id);
-    else if (operation_name == "isgender") is_gender(selected_user_id);
+    if (operation_name == "imc") cout << calc_imc(user_height, user_weight);
+    else if (operation_name == "isadult") is_adult(user_age);
+    else if (operation_name == "isgender") is_gender(user_gender);
     else if (operation_name == "newdni") calc_dni(selected_user_id);
+    cout << "_______________________________________________\n";
 }
 
 string get_operation_title_by_name(string operation_name)
@@ -127,9 +133,9 @@ void load_menu()
     cout << "\nSelect operation: \n";
     for (int operation_id = 1; operation_id <= TOTAL_OPERATIONS; operation_id++) {
         operation_name = get_operation_name_by_id(operation_id);
-        cout << "\t" << operation_id << ": " << get_operation_title_by_name(operation_name) << "\n";
+        cout << setw(MENU_INDENT_WIDTH) << " "<< operation_id << ": " << get_operation_title_by_name(operation_name) << "\n";
     }
-    cout << "\t0: EXIT\n"; 
+    cout << setw(MENU_INDENT_WIDTH) << " " << "0: EXIT\n";
 }
 
 bool is_valid_height(float height)
@@ -246,11 +252,11 @@ void save_users_data()
     for (int user_position = 0; user_position < users_to_insert; user_position++) {
         cout << "Insert data user nº " << user_position + 1 << "\n";
         all_user_name[user_position] = save_user_name();
-        // all_user_age[user_position] = save_user_age();
-        // all_user_gender[user_position] = save_user_gender();
-        // all_user_marital_status[user_position] = save_user_marital_status();
-        all_user_weight[user_position] = save_user_weight();
-        all_user_height[user_position] = save_user_height();
+        all_user_age[user_position] = save_user_age();
+        //all_user_gender[user_position] = save_user_gender();
+        //all_user_marital_status[user_position] = save_user_marital_status();
+        //all_user_weight[user_position] = save_user_weight();
+        //all_user_height[user_position] = save_user_height();
         cout << "------------------------------\n";
         cout << "------------------------------\n";
     }
