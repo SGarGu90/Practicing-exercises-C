@@ -5,9 +5,16 @@ using namespace std;
 
 #include "helpers.cpp"
 
-int MAX_TOTAL_USER_ON_MEMORY = 50;
+const int MAX_TOTAL_USER_ON_MEMORY = 50;
 int MIN_AGE_ALLOWED = 0;
 int MAX_AGE_ALLOWED = 125;
+
+string all_user_name[MAX_TOTAL_USER_ON_MEMORY];
+int all_user_age[MAX_TOTAL_USER_ON_MEMORY];
+char all_user_gender[MAX_TOTAL_USER_ON_MEMORY];
+char all_user_marital_status[MAX_TOTAL_USER_ON_MEMORY];
+float all_user_weight[MAX_TOTAL_USER_ON_MEMORY];
+float all_user_height[MAX_TOTAL_USER_ON_MEMORY];
 
 string calc_dni()
 {
@@ -26,6 +33,7 @@ bool is_adult()
 
 double calc_imc()
 {
+    // List users,
     cout << "calc_imc";
 }
 
@@ -177,13 +185,6 @@ int main()
     int total_users;
     string operation_name;
 
-    string all_user_name[MAX_TOTAL_USER_ON_MEMORY];
-    int all_user_age[MAX_TOTAL_USER_ON_MEMORY];
-    char all_user_gender[MAX_TOTAL_USER_ON_MEMORY];
-    char all_user_marital_status[MAX_TOTAL_USER_ON_MEMORY];
-    float all_user_weight[MAX_TOTAL_USER_ON_MEMORY];
-    float all_user_height[MAX_TOTAL_USER_ON_MEMORY];
-
     cout << "Number of users to insert: ";
     total_users = cin_number_int();
 
@@ -203,7 +204,6 @@ int main()
         cout << "------------------------------\n";
         cout << "------------------------------\n";
     }
-
 
     do {
         load_menu();
