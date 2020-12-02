@@ -66,6 +66,25 @@ void load_menu()
     cout << "\t0: EXIT\n"; 
 }
 
+bool is_valid_age(float weight)
+{
+    return (weight > 0 && weight <= 1000);
+}
+
+float save_user_weight()
+{
+    float weight;
+    bool is_correct_weight = false;
+    cout << "Weight ";
+    do {
+        weight = cin_number_float();
+        is_correct_weight = is_valid_age(weight);
+        if (!is_correct_weight) cout << "Weight '" << weight << "'" << " is not valid range.\nEnter valid range(0.1 - 1000)\n";
+    } while (!is_correct_weight);
+    
+    return weight;  
+}
+
 bool is_valid_marital_status(char marital_status)
 {
     return (marital_status == 's' || marital_status == 'm' || marital_status == 'd' || marital_status == 'w');
@@ -106,7 +125,7 @@ char save_user_gender()
 
 bool is_valid_age(int age)
 {
-    return (age >= 0 && age <= 125);
+    return (age >= 1 && age <= 125);
 }
 
 int save_user_age()
@@ -117,7 +136,7 @@ int save_user_age()
     do {
         age = cin_number_int();
         is_correct_age = is_valid_age(age);
-        if (!is_correct_age) cout << "Age '" << age << "'" << " is not valid range.\nEnter valid range(0 - 125)\n";
+        if (!is_correct_age) cout << "Age '" << age << "'" << " is not valid range.\nEnter valid range(1 - 125)\n";
     } while (!is_correct_age);
     
     return age;
@@ -156,9 +175,7 @@ int main()
         all_user_age[user_position] = save_user_age();
         all_user_gender[user_position] = save_user_gender();
         all_user_marital_status[user_position] = save_user_marital_status();
-
-        // cout << "Marital status: \n \t - (s) single\n \t - (m) married\n \t - (d) divorced\n \t - (w) widowed\n";
-        // cin >>  all_user_marital_status[user_position];
+        all_user_weight[user_position] = save_user_weight();
 
         // cout << "Weight: ";
         // all_user_weight[user_position] = cin_number();
