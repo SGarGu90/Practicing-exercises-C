@@ -66,26 +66,41 @@ void load_menu()
     cout << "\t0: EXIT\n"; 
 }
 
-int save_user_gender()
+char validate_gender(char gender)
 {
-    
+    if (gender == 'm' || gender == 'f') return true;
+    else cout << "Gender '" << gender << "'" << "is not valid.\n \t - (m) male\n \t - (f) female\n"; 
 }
 
-int validate_age(int age)
+int save_user_gender()
 {
-    if (age > 0 || age < 125) return true;
-    else cout << "'" << age << "'" << "is not valid range. (0 - 125)\n"; 
+    char gender;
+    bool is_not_correct_gender = true;
+    cout << "Gender:\n \t - (m) male\n \t - (f) female\n";
+    do {
+        cin >> gender;
+        is_not_correct_gender = validate_gender(gender);
+    } while (is_not_correct_gender);
+    
+    return gender;
+}
+
+bool is_valid_age(int age)
+{
+    return !(age >= 0 || age <= 125);
+    if (age >= 0 || age <= 125) return true;
 }
 
 int save_user_age()
 {
     int age;
-    bool is_not_correct_age = true;
+    bool is_correct_age = false;
     cout << "Edad ";
     do {
         age = cin_number();
-        is_not_correct_age = validate_age(age);
-    } while (is_not_correct_age);
+        is_correct_age = is_valid_age(age);
+        if (!is_correct_age) cout << "Age '" << age << "'" << " is not valid range.\nEnter valid range(0 - 125)\n";
+    } while (!is_correct_age);
     
     return age;
 }
@@ -123,17 +138,17 @@ int main()
         all_user_age[user_position] = save_user_age();
         all_user_gender[user_position] = save_user_gender();
 
-        cout << "Gender:\n \t - (m) male\n \t - (f) female\n";
-        cin >> all_user_gender[user_position];
+        // cout << "Gender:\n \t - (m) male\n \t - (f) female\n";
+        // cin >> all_user_gender[user_position];
 
-        cout << "Marital status: \n \t - (s) single\n \t - (m) married\n \t - (d) divorced\n \t - (w) widowed\n";
-        cin >>  all_user_marital_status[user_position];
+        // cout << "Marital status: \n \t - (s) single\n \t - (m) married\n \t - (d) divorced\n \t - (w) widowed\n";
+        // cin >>  all_user_marital_status[user_position];
 
-        cout << "Weight: ";
-        all_user_weight[user_position] = cin_number();
+        // cout << "Weight: ";
+        // all_user_weight[user_position] = cin_number();
         
-        cout << "Height: ";
-        all_user_height[user_position] = cin_number();
+        // cout << "Height: ";
+        // all_user_height[user_position] = cin_number();
     }
 
 
