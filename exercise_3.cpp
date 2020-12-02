@@ -66,7 +66,26 @@ void load_menu()
     cout << "\t0: EXIT\n"; 
 }
 
-bool is_valid_age(float weight)
+bool is_valid_height(float height)
+{
+    return (height > 100.1 && height <= 300);
+}
+
+float save_user_height()
+{
+    float height;
+    bool is_correct_height = false;
+    cout << "height ";
+    do {
+        height = cin_number_float();
+        is_correct_height = is_valid_height(height);
+        if (!is_correct_height) cout << "Height '" << height << "'" << " is not valid range.\nEnter valid range(100.1 - 300) cm\n";
+    } while (!is_correct_height);
+    
+    return height;  
+}
+
+bool is_valid_weight(float weight)
 {
     return (weight > 0 && weight <= 1000);
 }
@@ -78,8 +97,8 @@ float save_user_weight()
     cout << "Weight ";
     do {
         weight = cin_number_float();
-        is_correct_weight = is_valid_age(weight);
-        if (!is_correct_weight) cout << "Weight '" << weight << "'" << " is not valid range.\nEnter valid range(0.1 - 1000)\n";
+        is_correct_weight = is_valid_weight(weight);
+        if (!is_correct_weight) cout << "Weight '" << weight << "'" << " is not valid range.\nEnter valid range(0.1 - 1000) kg\n";
     } while (!is_correct_weight);
     
     return weight;  
@@ -176,12 +195,7 @@ int main()
         all_user_gender[user_position] = save_user_gender();
         all_user_marital_status[user_position] = save_user_marital_status();
         all_user_weight[user_position] = save_user_weight();
-
-        // cout << "Weight: ";
-        // all_user_weight[user_position] = cin_number();
-        
-        // cout << "Height: ";
-        // all_user_height[user_position] = cin_number();
+        all_user_height[user_position] = save_user_height();
     }
 
 
