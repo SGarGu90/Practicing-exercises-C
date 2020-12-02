@@ -50,15 +50,15 @@ double execute(string function_name)
     do {
         if (function_name == "factorial") {
             cout << "Enter ONE number: \n";
-            number_to_operate_1 = cin_number();
+            number_to_operate_1 = cin_number_float();
             cout << get_operation_symbol(function_name) << "\n";
             number_to_operate_2 = 0;
         }
         else {
             cout << "Enter TWO numbers: \n";
-            number_to_operate_1 = cin_number();
+            number_to_operate_1 = cin_number_float();
             cout << get_operation_symbol(function_name) << "\n";
-            number_to_operate_2 = cin_number();
+            number_to_operate_2 = cin_number_float();
         }
 
         total_calc_operation = calc_operation_by_function_name(function_name, number_to_operate_1, number_to_operate_2);
@@ -100,7 +100,7 @@ int main()
 
     do{
         load_menu();
-        selected_option_id = cin_number();
+        selected_option_id = cin_number_float();
         operation_name = get_operation_name_by_id(selected_option_id);
         is_valid_operation_option = operation_name != "undefined";
         

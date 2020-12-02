@@ -66,29 +66,28 @@ void load_menu()
     cout << "\t0: EXIT\n"; 
 }
 
-char validate_gender(char gender)
+bool is_valid_gender(char gender)
 {
-    if (gender == 'm' || gender == 'f') return true;
-    else cout << "Gender '" << gender << "'" << "is not valid.\n \t - (m) male\n \t - (f) female\n"; 
+    return !(gender == 'm' || gender == 'f');
 }
 
 int save_user_gender()
 {
     char gender;
-    bool is_not_correct_gender = true;
+    bool is_correct_gender = false;
     cout << "Gender:\n \t - (m) male\n \t - (f) female\n";
     do {
         cin >> gender;
-        is_not_correct_gender = validate_gender(gender);
-    } while (is_not_correct_gender);
+        is_correct_gender = is_valid_gender(gender);
+        if (!is_correct_gender) cout << "Gender '" << gender << "'" << " is not valid.\n \t - (m) male\n \t - (f) female\n";
+    } while (!is_correct_gender);
     
     return gender;
 }
 
 bool is_valid_age(int age)
 {
-    return !(age >= 0 || age <= 125);
-    if (age >= 0 || age <= 125) return true;
+    return (age >= 0 || age <= 125) ? true : false;
 }
 
 int save_user_age()
@@ -97,7 +96,7 @@ int save_user_age()
     bool is_correct_age = false;
     cout << "Edad ";
     do {
-        age = cin_number();
+        age = cin_number_int();
         is_correct_age = is_valid_age(age);
         if (!is_correct_age) cout << "Age '" << age << "'" << " is not valid range.\nEnter valid range(0 - 125)\n";
     } while (!is_correct_age);
@@ -129,12 +128,12 @@ int main()
     float all_user_height[MAX_TOTAL_USER_ON_MEMORY];
 
     cout << "How many people to insert? ";
-    total_users = cin_number();
+    total_users = cin_number_int();
 
     for (int user_position = 0; user_position < total_users; user_position++) {
         cout << "Introduzca los datos del usuario " << user_position + 1 << "\n";
 
-        all_user_name[user_position] = save_user_name();
+        //all_user_name[user_position] = save_user_name();
         all_user_age[user_position] = save_user_age();
         all_user_gender[user_position] = save_user_gender();
 

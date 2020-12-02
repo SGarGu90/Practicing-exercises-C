@@ -50,7 +50,7 @@ void print_pascal_triangle(int total_number_rows)
 int main() 
 {
     cout << "Enter number of rows: ";
-    int total_number_rows = cin_number();
+    int total_number_rows = cin_number_int();
     cout << "----------------------\n";
 
     print_pascal_triangle(total_number_rows);
