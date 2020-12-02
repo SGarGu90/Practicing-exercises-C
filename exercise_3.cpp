@@ -66,12 +66,31 @@ void load_menu()
     cout << "\t0: EXIT\n"; 
 }
 
+bool is_valid_marital_status(char marital_status)
+{
+    return (marital_status == 's' || marital_status == 'm' || marital_status == 'd' || marital_status == 'w');
+}
+
+char save_user_marital_status()
+{
+    char marital_status;
+    bool is_correct_marital_status = false;
+    cout << "Marital status:\n \t - (s) single\n \t - (m) married\n \t - (d) divorced\n \t - (w) widowed\n";
+    do {
+        cin >> marital_status;
+        is_correct_marital_status = is_valid_marital_status(marital_status);
+        if (!is_correct_marital_status) cout << "Marital status '" << marital_status << "'" << " is not valid.\n \t - (s) single\n \t - (m) married\n \t - (d) divorced\n \t - (w) widowed\n";
+    } while (!is_correct_marital_status);
+    
+    return marital_status;
+}
+
 bool is_valid_gender(char gender)
 {
     return (gender == 'm' || gender == 'f');
 }
 
-int save_user_gender()
+char save_user_gender()
 {
     char gender;
     bool is_correct_gender = false;
@@ -123,7 +142,7 @@ int main()
     string all_user_name[MAX_TOTAL_USER_ON_MEMORY];
     int all_user_age[MAX_TOTAL_USER_ON_MEMORY];
     char all_user_gender[MAX_TOTAL_USER_ON_MEMORY];
-    string all_user_marital_status[MAX_TOTAL_USER_ON_MEMORY];
+    char all_user_marital_status[MAX_TOTAL_USER_ON_MEMORY];
     float all_user_weight[MAX_TOTAL_USER_ON_MEMORY];
     float all_user_height[MAX_TOTAL_USER_ON_MEMORY];
 
@@ -136,9 +155,7 @@ int main()
         all_user_name[user_position] = save_user_name();
         all_user_age[user_position] = save_user_age();
         all_user_gender[user_position] = save_user_gender();
-
-        // cout << "Gender:\n \t - (m) male\n \t - (f) female\n";
-        // cin >> all_user_gender[user_position];
+        all_user_marital_status[user_position] = save_user_marital_status();
 
         // cout << "Marital status: \n \t - (s) single\n \t - (m) married\n \t - (d) divorced\n \t - (w) widowed\n";
         // cin >>  all_user_marital_status[user_position];
