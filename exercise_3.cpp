@@ -68,18 +68,18 @@ void load_menu()
 
 bool is_valid_height(float height)
 {
-    return (height > 100.1 && height <= 300);
+    return (height > 50 && height <= 300);
 }
 
 float save_user_height()
 {
     float height;
     bool is_correct_height = false;
-    cout << "height ";
+    cout << "Height (50.1 - 300) cm: ";
     do {
         height = cin_number_float();
         is_correct_height = is_valid_height(height);
-        if (!is_correct_height) cout << "Height '" << height << "'" << " is not valid range.\nEnter valid range(100.1 - 300) cm\n";
+        if (!is_correct_height) cout << "Height '" << height << "'" << " is not valid range.\nEnter valid range(50.1 - 300) cm\n";
     } while (!is_correct_height);
     
     return height;  
@@ -94,7 +94,7 @@ float save_user_weight()
 {
     float weight;
     bool is_correct_weight = false;
-    cout << "Weight ";
+    cout << "Weight (0.1 - 1000) kg: ";
     do {
         weight = cin_number_float();
         is_correct_weight = is_valid_weight(weight);
@@ -151,7 +151,7 @@ int save_user_age()
 {
     int age;
     bool is_correct_age = false;
-    cout << "Edad ";
+    cout << "Age: ";
     do {
         age = cin_number_int();
         is_correct_age = is_valid_age(age);
@@ -164,7 +164,7 @@ int save_user_age()
 string save_user_name()
 {
     string user_name;
-    cout << "Nombre: ";
+    cout << "Name: ";
     cin >> user_name;
 
     return user_name;
@@ -184,33 +184,39 @@ int main()
     float all_user_weight[MAX_TOTAL_USER_ON_MEMORY];
     float all_user_height[MAX_TOTAL_USER_ON_MEMORY];
 
-    cout << "How many people to insert? ";
+    cout << "Number of users to insert: ";
     total_users = cin_number_int();
 
     for (int user_position = 0; user_position < total_users; user_position++) {
-        cout << "Introduzca los datos del usuario " << user_position + 1 << "\n";
-
+        cout << "Insert data user nº " << user_position + 1 << "\n";
         all_user_name[user_position] = save_user_name();
+        cout << "----\n";
         all_user_age[user_position] = save_user_age();
+        cout << "----\n";
         all_user_gender[user_position] = save_user_gender();
+        cout << "----\n";
         all_user_marital_status[user_position] = save_user_marital_status();
+        cout << "----\n";
         all_user_weight[user_position] = save_user_weight();
+        cout << "----\n";
         all_user_height[user_position] = save_user_height();
+        cout << "------------------------------\n";
+        cout << "------------------------------\n";
     }
 
 
-    // do {
-    //     load_menu();
-    //     selected_option_id = cin_number();
-    //     operation_name = get_operation_name_by_id(selected_option_id);
-    //     is_valid_operation_option = operation_name != "undefined";
+    do {
+        load_menu();
+        selected_option_id = cin_number_int();
+        operation_name = get_operation_name_by_id(selected_option_id);
+        is_valid_operation_option = operation_name != "undefined";
 
-    //     // Select user of list to apply operation
-    //     if (is_valid_operation_option) execute(operation_name);
+        // Select user of list to apply operation
+        if (is_valid_operation_option) execute(operation_name);
 
-    //     else cout << "Program exited correctly.\n";
+        else cout << "Program exited correctly.\n";
         
-    // } while (is_valid_operation_option);
+    } while (is_valid_operation_option);
     
 
     return 0;
