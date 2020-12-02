@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <bits/stdc++.h>
+
 using namespace std;
 
 #include "helpers.cpp"
@@ -36,29 +38,46 @@ double calc_imc()
     cout << "calc_imc";
 }
 
+int get_highest_name_length()
+{
+    int count;
+    int longest_name = all_user_name[0].size();
+    for (int i = 1; i < 50; i++) {
+        if (all_user_name[i].size() > longest_name) longest_name = all_user_name[i].size();
+    }
+    return longest_name;
+}
+
 void list_users()
 {
-    int total_users = sizeof(total_users)/sizeof(all_user_name[0]);
+    string user_name;
+    int total_users = MAX_TOTAL_USER_ON_MEMORY;
+    int highet_name_length = get_highest_name_length();
     cout << "Gender: (m) male | (f) female\n";
     cout << "Marital status: (s) single | (m) married | (d) divorced | (w) widowed\n";
-    cout << "(id) name | age | gender | marital status | weight (kg) | height (cm)\n";
-    for (int user_position = 0; user_position < total_users; user_position++) {
-        cout << "- (" >> user_position >> ") " 
-                    >> all_user_name[user_position] >> "|" 
-                    >> all_user_age[user_position] >>  "|"
-                    >> all_user_gender[user_position] >> "|"
-                    >> all_user_marital_status[user_position] >> "|"
-                    >> all_user_weight[user_position] >> " (kg) |"
-                    >> all_user_height[user_position] >> " (cm)\n";
-        cout << "\n";
+    cout << " - (id) name | age | gender | marital status | weight (kg) | height (cm)\n";
+    cout << "_______________________________________________________________________\n";
+    for (int user_pos = 0; user_pos < total_users; user_pos++) {
+        user_name = all_user_name[user_pos];
+        if (all_user_name[user_pos] == "") break;
+
+        int right_empty_spaces = highet_name_length - user_name.size();
+        if (right_empty_spaces != 0 ) right_empty_spaces += 1;
+        cout << " - (" << user_pos << ") " << all_user_name[user_pos] << setw(right_empty_spaces) << " ";
+        cout << "  |  " << all_user_age[user_pos] <<  "  |  "
+                << all_user_gender[user_pos] << "  |  "
+                << all_user_marital_status[user_pos] << "  |  "
+                << all_user_weight[user_pos] << " (kg)  |  "
+                << all_user_height[user_pos] << " (cm)\n";
     }
 }
 
 int select_user()
 {
     int selected_user_id;
-    cout << "Select user id: \n";
     list_users();
+    
+    cout << "\nSelect user id: \n";
     selected_user_id = cin_number_int();
 }
 
@@ -207,26 +226,24 @@ string save_user_name()
 
 void save_users_data()
 {
-    cout << "Number of users to insert: ";
     int users_to_insert;
+    cout << "Number of users to insert: ";
     users_to_insert = cin_number_int();
+    cout << "\n";
 
     for (int user_position = 0; user_position < users_to_insert; user_position++) {
         cout << "Insert data user nº " << user_position + 1 << "\n";
         all_user_name[user_position] = save_user_name();
-        cout << "\n";
-        all_user_age[user_position] = save_user_age();
-        cout << "\n";
-        all_user_gender[user_position] = save_user_gender();
-        cout << "\n";
-        all_user_marital_status[user_position] = save_user_marital_status();
-        cout << "\n";
-        all_user_weight[user_position] = save_user_weight();
-        cout << "\n";
-        all_user_height[user_position] = save_user_height();
+        // all_user_age[user_position] = save_user_age();
+        // all_user_gender[user_position] = save_user_gender();
+        // all_user_marital_status[user_position] = save_user_marital_status();
+        // all_user_weight[user_position] = save_user_weight();
+        // all_user_height[user_position] = save_user_height();
         cout << "------------------------------\n";
         cout << "------------------------------\n";
     }
+
+    cout << "Users saved sucessfully\n";
 }
 
 int main()
