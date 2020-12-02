@@ -18,24 +18,29 @@ char all_user_marital_status[MAX_TOTAL_USER_ON_MEMORY];
 float all_user_weight[MAX_TOTAL_USER_ON_MEMORY];
 float all_user_height[MAX_TOTAL_USER_ON_MEMORY];
 
-string calc_dni()
+string calc_dni(int user_id)
 {
     cout << "calc_dni";
 }
 
-bool is_gender()
+bool is_gender(int user_id)
 {
     cout << "is_gender";
 }
 
-bool is_adult()
+bool is_adult(int user_id)
 {
     cout << "is_adult";
 }
 
-double calc_imc()
+float calc_imc(float height, float weight)
 {
-    cout << "calc_imc";
+    float imc = (weight / ( int(height) ^ 2 )) / 100;
+    if (imc < 20) cout << "Debajo de su peso: ";
+    else if (imc >= 21 && imc <= 25) cout << "Peso ideal: ";
+    else if (imc > 25) cout << "Sobrepeso: ";
+    else cout << "It has not been possible to calculate IMC. Check 'weight' nor 'height' of user";
+    cout << imc << " (kg/m)";
 }
 
 int get_highest_name_length()
@@ -55,8 +60,9 @@ void list_users()
     int highet_name_length = get_highest_name_length();
     cout << "Gender: (m) male | (f) female\n";
     cout << "Marital status: (s) single | (m) married | (d) divorced | (w) widowed\n";
+    cout << "------------------------------------------------------------------------\n";
     cout << " - (id) name | age | gender | marital status | weight (kg) | height (cm)\n";
-    cout << "_______________________________________________________________________\n";
+    cout << "------------------------------------------------------------------------\n";
     for (int user_pos = 0; user_pos < total_users; user_pos++) {
         user_name = all_user_name[user_pos];
         if (all_user_name[user_pos] == "") break;
@@ -64,7 +70,7 @@ void list_users()
         int right_empty_spaces = highet_name_length - user_name.size();
         if (right_empty_spaces != 0 ) right_empty_spaces += 1;
         cout << " - (" << user_pos << ") " << all_user_name[user_pos] << setw(right_empty_spaces) << " ";
-        cout << "  |  " << all_user_age[user_pos] <<  "  |  "
+        cout << "|  " << all_user_age[user_pos] <<  "  |  "
                 << all_user_gender[user_pos] << "  |  "
                 << all_user_marital_status[user_pos] << "  |  "
                 << all_user_weight[user_pos] << " (kg)  |  "
@@ -76,19 +82,25 @@ int select_user()
 {
     int selected_user_id;
     list_users();
-    
     cout << "\nSelect user id: \n";
     selected_user_id = cin_number_int();
+    return selected_user_id;
 }
 
-double execute(string operation_name)
+int execute(string operation_name)
 {
     int selected_user_id = select_user();
+    string user_name = all_user_name[selected_user_id];
+    float user_height = all_user_height[selected_user_id];
+    float user_weight = all_user_weight[selected_user_id];
 
-    if (operation_name == "imc") calc_imc();
-    else if (operation_name == "isadult") is_adult();
-    else if (operation_name == "isgender") is_gender();
-    else if (operation_name == "newdni") calc_dni();
+    cout << "\n'" << operation_name << "' operation result: \n";
+    cout << "User " << "'" << user_name << "' ";
+    
+    if (operation_name == "imc") cout << "(IMC): " << calc_imc(user_height, user_weight);
+    else if (operation_name == "isadult") is_adult(selected_user_id);
+    else if (operation_name == "isgender") is_gender(selected_user_id);
+    else if (operation_name == "newdni") calc_dni(selected_user_id);
 }
 
 string get_operation_title_by_name(string operation_name)
@@ -122,18 +134,18 @@ void load_menu()
 
 bool is_valid_height(float height)
 {
-    return (height > 50 && height <= 300);
+    return (height > 9 && height <= 250);
 }
 
 float save_user_height()
 {
     float height;
     bool is_correct_height = false;
-    cout << "Height (50.1 - 300) cm: ";
+    cout << "Height (10 - 250) cm: ";
     do {
         height = cin_number_float();
         is_correct_height = is_valid_height(height);
-        if (!is_correct_height) cout << "Height '" << height << "'" << " is not valid range.\nEnter valid range(50.1 - 300) cm\n";
+        if (!is_correct_height) cout << "Height '" << height << "'" << " is not valid range.\nEnter valid range(10 - 250) cm\n";
     } while (!is_correct_height);
     
     return height;  
@@ -237,8 +249,8 @@ void save_users_data()
         // all_user_age[user_position] = save_user_age();
         // all_user_gender[user_position] = save_user_gender();
         // all_user_marital_status[user_position] = save_user_marital_status();
-        // all_user_weight[user_position] = save_user_weight();
-        // all_user_height[user_position] = save_user_height();
+        all_user_weight[user_position] = save_user_weight();
+        all_user_height[user_position] = save_user_height();
         cout << "------------------------------\n";
         cout << "------------------------------\n";
     }
