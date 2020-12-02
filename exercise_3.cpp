@@ -36,26 +36,35 @@ double calc_imc()
     cout << "calc_imc";
 }
 
+void list_users()
+{
+    int total_users = sizeof(total_users)/sizeof(all_user_name[0]);
+    cout << "Gender: (m) male | (f) female\n";
+    cout << "Marital status: (s) single | (m) married | (d) divorced | (w) widowed\n";
+    cout << "(id) name | age | gender | marital status | weight (kg) | height (cm)\n";
+    for (int user_position = 0; user_position < total_users; user_position++) {
+        cout << "- (" >> user_position >> ") " 
+                    >> all_user_name[user_position] >> "|" 
+                    >> all_user_age[user_position] >>  "|"
+                    >> all_user_gender[user_position] >> "|"
+                    >> all_user_marital_status[user_position] >> "|"
+                    >> all_user_weight[user_position] >> " (kg) |"
+                    >> all_user_height[user_position] >> " (cm)\n";
+        cout << "\n";
+    }
+}
+
+int select_user()
+{
+    int selected_user_id;
+    cout << "Select user id: \n";
+    list_users();
+    selected_user_id = cin_number_int();
+}
+
 double execute(string operation_name)
 {
-    // // List users and apply function on him
-    // int total_users = sizeof(total_users)/sizeof(all_user_name[0]);
-    // for (int user_position = 0; user_position < total_users; user_position++) {
-    //     cout << "Insert data user nº " << user_position + 1 << "\n";
-    //     all_user_name[user_position] = save_user_name();
-    //     cout << "----\n";
-    //     all_user_age[user_position] = save_user_age();
-    //     cout << "----\n";
-    //     all_user_gender[user_position] = save_user_gender();
-    //     cout << "----\n";
-    //     all_user_marital_status[user_position] = save_user_marital_status();
-    //     cout << "----\n";
-    //     all_user_weight[user_position] = save_user_weight();
-    //     cout << "----\n";
-    //     all_user_height[user_position] = save_user_height();
-    //     cout << "------------------------------\n";
-    //     cout << "------------------------------\n";
-    // }
+    int selected_user_id = select_user();
 
     if (operation_name == "imc") calc_imc();
     else if (operation_name == "isadult") is_adult();
@@ -234,7 +243,6 @@ int main()
         operation_name = get_operation_name_by_id(selected_option_id);
         is_valid_operation_option = operation_name != "undefined";
 
-        // Select user of list to apply operation
         if (is_valid_operation_option) execute(operation_name);
 
         else cout << "Program exited correctly.\n";
