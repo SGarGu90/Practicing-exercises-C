@@ -68,7 +68,7 @@ void load_menu()
 
 bool is_valid_gender(char gender)
 {
-    return !(gender == 'm' || gender == 'f');
+    return (gender == 'm' || gender == 'f');
 }
 
 int save_user_gender()
@@ -87,7 +87,7 @@ int save_user_gender()
 
 bool is_valid_age(int age)
 {
-    return (age >= 0 || age <= 125) ? true : false;
+    return (age >= 0 && age <= 125);
 }
 
 int save_user_age()
@@ -133,7 +133,7 @@ int main()
     for (int user_position = 0; user_position < total_users; user_position++) {
         cout << "Introduzca los datos del usuario " << user_position + 1 << "\n";
 
-        //all_user_name[user_position] = save_user_name();
+        all_user_name[user_position] = save_user_name();
         all_user_age[user_position] = save_user_age();
         all_user_gender[user_position] = save_user_gender();
 
