@@ -33,12 +33,30 @@ bool is_adult()
 
 double calc_imc()
 {
-    // List users,
     cout << "calc_imc";
 }
 
 double execute(string operation_name)
 {
+    // // List users and apply function on him
+    // int total_users = sizeof(total_users)/sizeof(all_user_name[0]);
+    // for (int user_position = 0; user_position < total_users; user_position++) {
+    //     cout << "Insert data user nº " << user_position + 1 << "\n";
+    //     all_user_name[user_position] = save_user_name();
+    //     cout << "----\n";
+    //     all_user_age[user_position] = save_user_age();
+    //     cout << "----\n";
+    //     all_user_gender[user_position] = save_user_gender();
+    //     cout << "----\n";
+    //     all_user_marital_status[user_position] = save_user_marital_status();
+    //     cout << "----\n";
+    //     all_user_weight[user_position] = save_user_weight();
+    //     cout << "----\n";
+    //     all_user_height[user_position] = save_user_height();
+    //     cout << "------------------------------\n";
+    //     cout << "------------------------------\n";
+    // }
+
     if (operation_name == "imc") calc_imc();
     else if (operation_name == "isadult") is_adult();
     else if (operation_name == "isgender") is_gender();
@@ -159,7 +177,7 @@ int save_user_age()
 {
     int age;
     bool is_correct_age = false;
-    cout << "Age: ";
+    cout << "Age (1 - 125): ";
     do {
         age = cin_number_int();
         is_correct_age = is_valid_age(age);
@@ -171,39 +189,44 @@ int save_user_age()
 
 string save_user_name()
 {
-    string user_name;
+    string user_name = "-";
     cout << "Name: ";
     cin >> user_name;
 
     return user_name;
 }
 
-int main() 
+void save_users_data()
 {
-    int selected_option_id;
-    bool is_valid_operation_option;
-    int total_users;
-    string operation_name;
-
     cout << "Number of users to insert: ";
-    total_users = cin_number_int();
+    int users_to_insert;
+    users_to_insert = cin_number_int();
 
-    for (int user_position = 0; user_position < total_users; user_position++) {
+    for (int user_position = 0; user_position < users_to_insert; user_position++) {
         cout << "Insert data user nº " << user_position + 1 << "\n";
         all_user_name[user_position] = save_user_name();
-        cout << "----\n";
+        cout << "\n";
         all_user_age[user_position] = save_user_age();
-        cout << "----\n";
+        cout << "\n";
         all_user_gender[user_position] = save_user_gender();
-        cout << "----\n";
+        cout << "\n";
         all_user_marital_status[user_position] = save_user_marital_status();
-        cout << "----\n";
+        cout << "\n";
         all_user_weight[user_position] = save_user_weight();
-        cout << "----\n";
+        cout << "\n";
         all_user_height[user_position] = save_user_height();
         cout << "------------------------------\n";
         cout << "------------------------------\n";
     }
+}
+
+int main()
+{
+    int selected_option_id;
+    bool is_valid_operation_option;
+    string operation_name;
+
+    save_users_data();
 
     do {
         load_menu();
