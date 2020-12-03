@@ -1,9 +1,13 @@
 #include <iostream>
-#include<iomanip>
+#include <iomanip> // use set() to generate empty spaces between text
 using namespace std;
 
-#include "helpers.cpp"
-
+long calc_factorial(float number) 
+{
+   int result = 1;
+   for(int i = number; i > 1; i--) result *= i;
+   return result;
+}
 
 long character_value(int row_number, int filled_char_slot)
 {
@@ -30,8 +34,7 @@ void print_filled_triangle_characters(int row_number, int TRIANGLE_WIDTH_SPACING
     for(int filled_char_slot = 0; filled_char_slot < total_filled_chars; filled_char_slot++) {
         cout << setw(TRIANGLE_WIDTH_SPACING) << character_value(row_number, filled_char_slot) << setw(TRIANGLE_WIDTH_SPACING)<< " ";
     }
-        
-    cout << "\n";
+    cout << endl;
 }
 
 void print_pascal_triangle(int total_number_rows)
@@ -47,11 +50,22 @@ void print_pascal_triangle(int total_number_rows)
     }
 }
 
+int cin_number_int() 
+{
+    int input;
+    while (!(cin >> input)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Entered value is not a number, please introduce number\n";
+    }
+    return input;
+}
+
 int main() 
 {
     cout << "Enter number of rows: ";
     int total_number_rows = cin_number_int();
-    cout << "----------------------\n";
+    cout << "----------------------" << endl;
 
     print_pascal_triangle(total_number_rows);
 
