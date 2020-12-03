@@ -39,17 +39,24 @@ char request_user_gender()
     return gender;
 }
 
-bool validate_gender(int user_id)
+int validate_gender(int user_id)
 {
-    cout << "Type gender to check user (" << user_id << ") " << all_user_name[user_id] << "\n";
+    string user_name = all_user_name[user_id];
+    char user_gender = all_user_gender[user_id];
+
+    cout << "To validate '" << user_name << "' type a gender: \n";
     char to_match_gender = request_user_gender();
 
-    cout << "Gender is ";
-    if (to_match_gender == all_user_gender[user_id]) cout << "correct";
-    else cout << "NOT correct, set new gender '";
-    cout << "for user '" << all_user_name[user_id] << "'\n";
-    
-    all_user_gender[user_id] = request_user_gender();
+    cout << "Current user gender is: " << user_gender << "\n";
+    cout << "Checked gender is ";
+    if (to_match_gender == all_user_gender[user_id]) cout << "CORRECT";
+    else {
+        cout << "NOT correct, set new gender for user '" << user_name << "': \n";
+        all_user_gender[user_id] = request_user_gender();
+        cout << "New gender saved sucessfully.\n";
+        cout << "Old gender: " << user_gender << "\n";
+        cout << "New gender: " << all_user_gender[user_id] << "\n";
+    }
 }
 
 bool check_if_adult(int age)
@@ -69,74 +76,58 @@ float calc_bmi(float height, float weight)
     cout << bmi << " (kg/m)\n";
 }
 
-void print_user_row()
-{
-
-}
-
-
-void list_users()
+void print_user_row(int longest_name_length, int user_pos)
 {
     int MINIMUM_RIGHT_SPACING = 9; // Used name in list less than menu header "name     |", persist minimum empty spaces for right prompt style in name list
-    string user_name;
-    int total_users = MAX_TOTAL_USER_ON_MEMORY;
-    int longest_name_length = get_longest_string_in_array(all_user_name);
-    cout << " - (id) name     | age | gender | marital status | weight (kg) | height (cm)\n";
-    cout << "------------------------------------------------------------------------\n";
-    int right_empty_spaces;
-    for (int user_pos = 0; user_pos < total_users; user_pos++) {
-        user_name = all_user_name[user_pos];
-        if (all_user_name[user_pos] == "") break;
-        longest_name_length = (longest_name_length > MINIMUM_RIGHT_SPACING) ? longest_name_length : MINIMUM_RIGHT_SPACING;
-        right_empty_spaces = (longest_name_length - user_name.size());
-
-        print_user_row();
-
-        if (right_empty_spaces != 0 ) right_empty_spaces += 1;
-        cout << " - (" << user_pos << ") " << all_user_name[user_pos] << setw(right_empty_spaces) << " ";
-        cout << "|  " << all_user_age[user_pos] <<  "  |  "
-                << all_user_gender[user_pos] << "  |  "
-                << all_user_marital_status[user_pos] << "  |  "
-                << all_user_weight[user_pos] << " (kg)  |  "
-                << all_user_height[user_pos] << " (cm)\n";
-    }
+    longest_name_length = (longest_name_length > MINIMUM_RIGHT_SPACING) ? longest_name_length : MINIMUM_RIGHT_SPACING;
+    int right_empty_spaces_after_user_name = (longest_name_length - all_user_name[user_pos].size());
+    if (right_empty_spaces_after_user_name != 0 ) right_empty_spaces_after_user_name += 1;
+    cout << " - (" << user_pos << ") " << all_user_name[user_pos] << setw(right_empty_spaces_after_user_name) << " ";
+    cout << "|  " << all_user_age[user_pos] <<  "  |  "
+            << all_user_gender[user_pos] << "  |  "
+            << all_user_marital_status[user_pos] << "  |  "
+            << all_user_weight[user_pos] << " (kg)  |  "
+            << all_user_height[user_pos] << " (cm)\n";
 }
 
-int select_user()
+
+void print_users()
 {
-    int selected_user_id;
-    list_users();
-    cout << "\nSelect user id: \n";
-    selected_user_id = cin_number_int();
-    return selected_user_id;
+    int total_users = MAX_TOTAL_USER_ON_MEMORY;
+    cout << "\n";
+    cout << " - (id) name     | age | gender | marital status | weight (kg) | height (cm)\n";
+    cout << "------------------------------------------------------------------------\n";
+    int longest_name_length = get_longest_string_in_array(all_user_name);
+    for (int user_pos = 0; user_pos < total_users; user_pos++) {
+        if (all_user_name[user_pos] == "") break;
+        print_user_row(longest_name_length, user_pos);
+    }
+    cout << "\n";
 }
 
 string get_operation_title_by_name(string operation_name)
 {
     if (operation_name == "bmi") return "Body Mass Index";
     else if (operation_name == "isadult") return "Is adult?";
-    else if (operation_name == "isgender") return "Is gender ..";
+    else if (operation_name == "isgender") return "Validate gender";
     else if (operation_name == "newdni") return "New DNI number";
 }
 
 int execute(string operation_name)
 {
-    cout << "\n\t>>>>> '" << get_operation_title_by_name(operation_name) << "' operation <<<<< \n\n";
-    int selected_user_id = select_user();
+    string operation_title = get_operation_title_by_name(operation_name);
+    cout << "\n\t>>>>> Using '" << operation_title << "' operation: <<<<< \n\n";
+    print_users();
+    cout << "Select user of list by (id): ";
+    int selected_user_id = cin_number_int();
 
-    string user_name = all_user_name[selected_user_id];
-    int user_age = all_user_age[selected_user_id];
-    char user_gender = all_user_gender[selected_user_id];
-    float user_height = all_user_height[selected_user_id];
-    float user_weight = all_user_weight[selected_user_id];
-
-    cout << "\n'" << get_operation_title_by_name(operation_name) << "' operation result: \n";
     //cout << "User " << "'" << user_name << "' ";
-    if (operation_name == "bmi") cout << calc_bmi(user_height, user_weight);
-    else if (operation_name == "isadult") check_if_adult(user_age);
-    else if (operation_name == "isgender") validate_gender(user_gender);
+    if (operation_name == "bmi") cout << calc_bmi(all_user_height[selected_user_id], all_user_weight[selected_user_id]);
+    else if (operation_name == "isadult") check_if_adult(all_user_age[selected_user_id]);
+    else if (operation_name == "isgender") validate_gender(selected_user_id);
     else if (operation_name == "newdni") calc_dni(selected_user_id);
     cout << "_______________________________________________\n";
+    print_users();
 }
 
 string get_operation_name_by_id(int operation_id)
@@ -228,7 +219,8 @@ string request_user_name()
 void save_users_data()
 {
     int users_to_insert;
-    cout << "Number of users to insert: ";
+    cout << "\n";
+    cout << "Number users to insert: ";
     users_to_insert = cin_number_int();
     cout << "\n";
 
