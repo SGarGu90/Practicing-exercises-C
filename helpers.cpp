@@ -51,27 +51,28 @@ int generate_random_number_by_length(int random_number_length)
     // Don't use srand inside the loop, use it only once, e.g. at the start of main(). And srand() is exactly how you reset this.
     int count_length = random_number_length;
     int pseudo_random_number;
-    string random_number;
+    string random_number = "";
     int position_to_get_from_generated_number;
     srand(time(NULL));
 
     do {
         pseudo_random_number = rand();
+        // if (pseudo_random_number < 0) pseudo_random_number *= -1;
+        int position_to_get_from_generated_number = 0;
         // Generates dynamical position to get from pseudo generated rand number
         // It means the position from each single random number to get from each pseudo random generated number depending if even or odd number or loop
-        if (pseudo_random_number % 2) position_to_get_from_generated_number = 2; // even pseudo_random_number, position to get 2
-        else position_to_get_from_generated_number += 3; // odd pseudo_random_number, position to get 3
-        if (count_length % 2) position_to_get_from_generated_number += 2; // even loop, plus 2 to the position
-        else position_to_get_from_generated_number +=3; // odd loop, plus 3 to the position
+        if (pseudo_random_number % 2 || count_length % 2) position_to_get_from_generated_number += 2; // even pseudo_random_number, position to get 2 OR  even loop, plus 2 to the position
+        else position_to_get_from_generated_number += 3; // odd pseudo_random_number, position to get 3 || odd loop, plus 3 to the position
 
         // Add single random number selected to final random number
         random_number += to_string(pseudo_random_number)[position_to_get_from_generated_number];
 
-        cout << "generated number " << pseudo_random_number << endl;
-        cout << "Position to get " << position_to_get_from_generated_number << endl;
-        cout << "Generated number " << random_number << endl;
+        // cout << "generated number " << pseudo_random_number << endl;
+        // cout << "Position to get " << position_to_get_from_generated_number << endl;
+        // cout << "Generated number " << random_number << endl;
         count_length -= 1;
     } while (count_length > 0);
+
 
     return stoi(random_number);
 }
