@@ -27,16 +27,16 @@ string calc_dni(int user_id)
 
 char request_user_gender()
 {
-    // char gender;
-    // bool is_correct_gender = false;
-    // cout << "Gender:\n " << setw(MENU_INDENT_WIDTH) << " - (m) male\n " << setw(MENU_INDENT_WIDTH) << " - (f) female\n";
-    // do {
-    //     cin >> gender;
-    //     is_correct_gender = (gender == 'm' || gender == 'f');
-    //     if (!is_correct_gender) cout << "Gender '" << gender << "'" << " is not valid.\n " << setw(MENU_INDENT_WIDTH) << " - (m) male\n " << setw(MENU_INDENT_WIDTH) << " - (f) female\n";
-    // } while (!is_correct_gender);
+    char gender;
+    bool is_correct_gender = false;
+    cout << "Gender:\n " << setw(MENU_INDENT_WIDTH) << " - (m) male\n " << setw(MENU_INDENT_WIDTH) << " - (f) female\n";
+    do {
+        cin >> gender; 
+        is_correct_gender = (gender == 'm' || gender == 'f');
+        if (!is_correct_gender) cout << "Gender '" << gender << "'" << " is not valid.\n " << setw(MENU_INDENT_WIDTH) << " - (m) male\n " << setw(MENU_INDENT_WIDTH) << " - (f) female\n";
+    } while (!is_correct_gender);
 
-    // return gender;
+    return gender;
 }
 
 bool validate_gender(int user_id)
@@ -69,22 +69,18 @@ float calc_bmi(float height, float weight)
     cout << bmi << " (kg/m)\n";
 }
 
-int get_longest_name_length()
+void print_user_row()
 {
-    int count;
-    int longest_name = all_user_name[0].size();
-    for (int i = 1; i < 50; i++) {
-        if (all_user_name[i].size() > longest_name) longest_name = all_user_name[i].size();
-    }
-    return longest_name;
+
 }
+
 
 void list_users()
 {
     int MINIMUM_RIGHT_SPACING = 9; // Used name in list less than menu header "name     |", persist minimum empty spaces for right prompt style in name list
     string user_name;
     int total_users = MAX_TOTAL_USER_ON_MEMORY;
-    int longest_name_length = get_longest_name_length();
+    int longest_name_length = get_longest_string_in_array(all_user_name);
     cout << " - (id) name     | age | gender | marital status | weight (kg) | height (cm)\n";
     cout << "------------------------------------------------------------------------\n";
     int right_empty_spaces;
@@ -93,6 +89,8 @@ void list_users()
         if (all_user_name[user_pos] == "") break;
         longest_name_length = (longest_name_length > MINIMUM_RIGHT_SPACING) ? longest_name_length : MINIMUM_RIGHT_SPACING;
         right_empty_spaces = (longest_name_length - user_name.size());
+
+        print_user_row();
 
         if (right_empty_spaces != 0 ) right_empty_spaces += 1;
         cout << " - (" << user_pos << ") " << all_user_name[user_pos] << setw(right_empty_spaces) << " ";

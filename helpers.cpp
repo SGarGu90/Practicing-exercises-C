@@ -31,3 +31,14 @@ long calc_factorial(float number)
       result *= i;
    return result;
 }
+
+int get_longest_string_in_array(string *array_of_strings)
+{
+    int count;
+    int total_elements_in_array = sizeof(array_of_strings)/sizeof(array_of_strings[0]);
+    int longest_string_value = array_of_strings[0].size();
+    for (int i = 1; i < total_elements_in_array; i++) {
+        if (array_of_strings[i].size() > longest_string_value) longest_string_value = array_of_strings[i].size();
+    }
+    return longest_string_value;
+}
