@@ -1,12 +1,20 @@
 #include <iostream>
 #include <string>
+#include <limits> // To request strict number in cin (not allowed letters) numeric_limits<streamsize>..
+#include <math.h>
 using namespace std;
 
-#include "helpers.cpp"
+long calc_factorial(float number) 
+{
+   int i, result = 1;
+   for(i = number; i>1; i--)
+      result *= i;
+   return result;
+}
 
 float calc_operation_by_function_name(string function_name, float num_1 = 0, float num_2 = 0)
 {
-    float result = 1;
+    float result = 0;
     if (num_1 == 0 && num_2 == 0) return 0;
     if (function_name == "addition") result = num_1 + num_2;
     else if (function_name == "substract") result = num_1 - num_2;
@@ -21,7 +29,7 @@ float calc_operation_by_function_name(string function_name, float num_1 = 0, flo
         }
     }
     else if (function_name == "exponential") {
-        result = int(num_1) ^ int(num_2);
+        result = pow(num_1, num_2);
     }
     return result;
 }
@@ -38,32 +46,44 @@ string get_operation_symbol(string function_name)
     else if (function_name == "exponential") return "^";
 }
 
+float cin_number_float() 
+{
+    float input;
+    while (!(cin >> input)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Entered value is not a number, please introduce number\n";
+    }
+    return input;
+}
+
 double execute(string function_name)
 {
     double number_to_operate_1;
     double number_to_operate_2;
-    cout << "Operating '" << function_name << "' function ..\n";
-    cout << "------------------------------------------\n";
-    cout << "Enter all values 0 to finish current operation\n";
-    cout << "------------------------------------------\n";
+    cout << "Operating '" << function_name << "' function .." << endl;
+    cout << "------------------------------------------" << endl;
+    cout << "Enter value '0' to finish current operation (0 + 0 = 0), (0 * 0 = 0) .." << endl;
+    cout << "------------------------------------------" << endl;
+
     float total_calc_operation;
     do {
         if (function_name == "factorial") {
-            cout << "Enter ONE number: \n";
+            cout << "Enter ONE number: " << endl;
             number_to_operate_1 = cin_number_float();
-            cout << get_operation_symbol(function_name) << "\n";
+            cout << get_operation_symbol(function_name) << endl;
             number_to_operate_2 = 0;
         }
         else {
-            cout << "Enter TWO numbers: \n";
+            cout << "Enter TWO numbers: " << endl;
             number_to_operate_1 = cin_number_float();
-            cout << get_operation_symbol(function_name) << "\n";
+            cout << get_operation_symbol(function_name) << endl;
             number_to_operate_2 = cin_number_float();
         }
-
+        
         total_calc_operation = calc_operation_by_function_name(function_name, number_to_operate_1, number_to_operate_2);
-        cout << "-------\n";
-        cout << total_calc_operation << "\n";
+        cout << "-------" << endl;
+        cout << total_calc_operation << endl;
     } while (number_to_operate_1 != 0 || number_to_operate_2 != 0);
 }
 
@@ -82,12 +102,12 @@ void load_menu()
 {
     string operation_name;
     int TOTAL_OPERATION_OPTIONS = 7;
-    cout << "\nSelect operation option: \n";
+    cout << "\nSelect operation option: " << endl;
     for (int operation_option_id = 1; operation_option_id <= TOTAL_OPERATION_OPTIONS; operation_option_id++) {
         operation_name = get_operation_name_by_id(operation_option_id);
-        cout << "\t" << operation_option_id << ": (" << get_operation_symbol(operation_name) << ") " << operation_name << "\n";
+        cout << "\t" << operation_option_id << ": (" << get_operation_symbol(operation_name) << ") " << operation_name << endl;
     }
-    cout << "\t0: EXIT\n";    
+    cout << "\t0: EXIT" << endl;    
 }
 
 int main() 
@@ -105,7 +125,7 @@ int main()
         is_valid_operation_option = operation_name != "undefined";
         
         if (is_valid_operation_option) execute(operation_name);
-        else cout << "Program exited correctly.\n";
+        else cout << "Program exited correctly." << endl;
 
     } while (is_valid_operation_option);
 
