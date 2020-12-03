@@ -1,5 +1,5 @@
 #include <iostream>
-#include <limits>
+#include <limits> // To request strict number in cin (not allowed letters) numeric_limits<streamsize>..
 
 using namespace std;
 

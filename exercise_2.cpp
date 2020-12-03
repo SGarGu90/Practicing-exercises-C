@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip> // use set() to generate empty spaces between text
+#include <limits> // To request strict number in cin (not allowed letters) numeric_limits<streamsize>..
 using namespace std;
 
 long calc_factorial(float number) 
