@@ -25,127 +25,74 @@ float all_user_weight[MAX_TOTAL_USER_ON_MEMORY];
 float all_user_height[MAX_TOTAL_USER_ON_MEMORY];
 
 
-
-string generate_random_number_by_length(int random_number_length, int MAX_RANDOM_NUMBER_VALUE = 0)
+string generate_random_number_by_length(int random_number_length)
 {
-    // The rand() function does not generate a truly random number; it actually returns the next pseudo-random value 
-    // in a sequence of values ranging from 0 to RAND_MAX. You can change the starting point in that sequence using srand().
-    // Don't use srand inside the loop, use it only once, e.g. at the start of main(). And srand() is exactly how you reset this.
     int count_length = random_number_length;
     int pseudo_random_number;
     string random_number = "";
     int position_to_get_from_generated_number;
+    // Don't use srand inside the loop, use it only once, e.g. at the start of main(). And srand() is exactly how you reset this.
     srand(time(NULL));
 
-    string pseudo_random_number_as_str;
     do {
+        // The rand() function does not generate a truly random number; it actually returns the next pseudo-random value 
+        // in a sequence of values ranging from 0 to RAND_MAX. You can change the starting point in that sequence using srand().
         pseudo_random_number = rand();
-        pseudo_random_number_as_str = to_string(pseudo_random_number);
-        // if (pseudo_random_number < 0) pseudo_random_number *= -1;
-        int position_to_get_from_generated_number = 0;
+        int position_to_get_from_generated_number = 2;
         // Generates dynamical position to get from pseudo generated rand number
         // It means the position from each single random number to get from each pseudo random generated number depending if even or odd number or loop
         if (pseudo_random_number % 2 || count_length % 2) position_to_get_from_generated_number += 2; // even pseudo_random_number, position to get 2 OR  even loop, plus 2 to the position
         else position_to_get_from_generated_number += 3; // odd pseudo_random_number, position to get 3 || odd loop, plus 3 to the position
 
-        //cout << "position_to_get_from_generated_number: " << position_to_get_from_generated_number << endl;
+        random_number += to_string(pseudo_random_number)[position_to_get_from_generated_number];
+        count_length -= 1;
+    } while (count_length > 0);
 
-        //cout << "pseudo_random_number_as_str: " << pseudo_random_number_as_str << endl;
-        char random_number_to_add_as_char = pseudo_random_number_as_str[position_to_get_from_generated_number];
+    return random_number;
+}
 
-        
-        if (MAX_RANDOM_NUMBER_VALUE == 0) { // Generate number by length with no limit
-            
-                random_number += random_number_to_add_as_char;
+string custom_rand_number_from_0_to(int random_value_range_to, bool is_included = true)
+{
+    string random_number = "";
+    int count_length = to_string(random_value_range_to).size();
+    int pseudo_random_number;
+    string pseudo_random_number_str;
+    char random_number_as_char;
+    string random_number_to_check_as_str;
+    int random_number_to_check_as_int;
+    // Don't use srand inside the loop, use it only once, e.g. at the start of main(). And srand() is exactly how you reset this.
+    srand(time(NULL));
+
+    do {
+        // The rand() function does not generate a truly random number; it actually returns the next pseudo-random value 
+        // in a sequence of values ranging from 0 to RAND_MAX. You can change the starting point in that sequence using srand().
+        pseudo_random_number = rand();
+        pseudo_random_number_str = to_string(pseudo_random_number);
+        int position_to_get_from_generated_number = 2;
+        // Generates dynamical position to get from pseudo generated rand number
+        // It means the position from each single random number to get from each pseudo random generated number depending if even or odd number or loop
+        if (pseudo_random_number % 2 || count_length % 2) position_to_get_from_generated_number += 2; // even pseudo_random_number, position to get 2 OR  even loop, plus 2 to the position
+        else position_to_get_from_generated_number += 3; // odd pseudo_random_number, position to get 3 || odd loop, plus 3 to the position
+
+        random_number_as_char = pseudo_random_number_str[position_to_get_from_generated_number];
+        random_number_to_check_as_str = random_number + random_number_as_char;
+        random_number_to_check_as_int = stoi(random_number_to_check_as_str);
+
+
+        if (is_included) {
+            if (random_number_to_check_as_int >= 0 && random_number_to_check_as_int <= random_value_range_to)
+            {
+                random_number += random_number_as_char;
                 count_length -= 1;
+            }
         }
         else {
-            cout << "Current random number: " << random_number << endl;
-            string limit_number_as_str = to_string(MAX_RANDOM_NUMBER_VALUE);
-            cout << "Required number length: " << random_number_length << endl;
-            cout << "To MAX: " << MAX_RANDOM_NUMBER_VALUE << endl;
-            cout << "random_number_to_add_as_char: " << random_number_to_add_as_char << endl;
-            cout << "\n";
-
-            if (random_number.size() < limit_number_as_str.size() - 1)
+            if (random_number_to_check_as_int > 0 && random_number_to_check_as_int < random_value_range_to)
             {
-                if (!(count_length == random_number_length && random_number_to_add_as_char == '0')) { // Avoid to areturn a number shorter than required length like "04" => 4 or "065" => 65
-                    random_number += random_number_to_add_as_char;
-                }
+                random_number += random_number_as_char;
+                count_length -= 1;
             }
-            else {
-                string random_number_to_check = random_number + random_number_to_add_as_char;
-                int random_number_to_check_as_int = stoi(random_number_to_check);
-                if (random_number_to_check_as_int <= MAX_RANDOM_NUMBER_VALUE)
-                {
-                    random_number += random_number_to_add_as_char;
-                    count_length -= 1;
-                }
-                else count_length -= 1;
-                
-            }
-
-
-
-            
-            
-            
-
-            // string pseudo_pseudo_random_number_as_str = to_string(pseudo_random_number);
-            // string pseudo_random_number_last_char_as_str = to_string(pseudo_pseudo_random_number_as_str[position_to_get_from_generated_number]);
-            // int pseudo_random_number_last_char_as_int = stoi(pseudo_random_number_last_char_as_str);
-            // cout << "Last character of generated number" << pseudo_random_number_last_char_as_str << endl;
-
-
-
-
-
-            // int limit_number_length = limit_number_as_str.size();
-            // int limit_number_last_char_pos = limit_number_length - 1;
-            // int limit_number_to_check_char_pos = limit_number_last_char_pos - random_number.size();
-            // string limit_number_to_check_as_str = std::string(1, limit_number_as_str[limit_number_to_check_char_pos]);
-
-            // cout << "Limit number as str: " << limit_number_as_str << endl;
-            // cout << "Limit number length: " << limit_number_length << endl;
-            // cout << "Limit number last character pos: " << limit_number_last_char_pos << endl;
-            // cout << "Limit number to check pos: " << limit_number_to_check_char_pos << endl;
-            // cout << "Limit number to check number: " << limit_number_to_check_as_str << endl;
-
-
-            // int random_number_to_add = stoi(std::string(1, random_number_to_add_as_char));
-            // int limit_number_to_check = stoi(limit_number_to_check_as_str);
-            
-            // if (random_number_to_add <= limit_number_to_check) // Confirms that random number to add respect limit
-            // {
-            //     random_number = random_number_to_add_as_char + random_number;
-            //     count_length -= 1;
-            // }
-
-
-
-
-
-
-            // string new_number_to_add_as_str = std::string(1, limit_number_as_str[limit_number_to_check_char_pos]);
-            // int new_number_to_add_as_int = stoi(new_number_to_add_as_str);
-
-            // cout << "Limit number: " << limit_number_as_str << endl;
-
-
-            // cout << "Limit number to add: " << new_number_to_add_as_str << endl;
-            
-            
-            // if (random_number_char_as_int <= limit_number_to_check) // Confirms that random number to add respect limit
-            // {
-            //     random_number = to_string(pseudo_random_number)[position_to_get_from_generated_number] + random_number;
-            //     count_length -= 1;
-            // }
-
         }
-        
-        // cout << "generated number " << pseudo_random_number << endl;
-        // cout << "Position to get " << position_to_get_from_generated_number << endl;
-        // cout << "Generated number " << random_number << endl;
     } while (count_length > 0);
 
 
@@ -154,18 +101,18 @@ string generate_random_number_by_length(int random_number_length, int MAX_RANDOM
 
 char get_random_letter()
 {
-    char letters[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-    string random_number = generate_random_number_by_length(1);
-    
-    char x = letters[rand() % 26];
+    string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    int letters_length = letters.size();
+    string random_letter_pos = custom_rand_number_from_0_to(letters_length);
+    int from_str_to_num_pos = stoi(random_letter_pos);
+    return letters[from_str_to_num_pos];
 }
 
 string calc_dni(int user_id)
 {
     char dni_letter = get_random_letter();
-    string dni_number = generate_random_number_by_length(DNI_NUMBER_LENGTH);
-    cout << "Generated DNI: " << dni_number << dni_letter;
+    string dni_number = custom_rand_number_from_0_to(DNI_NUMBER_LENGTH);
+    cout << "Generated DNI: " << dni_number << dni_letter << endl;
 }
 
 
@@ -173,11 +120,11 @@ char request_user_gender()
 {
     char gender;
     bool is_correct_gender = false;
-    cout << "Gender:\n " << setw(MENU_INDENT_WIDTH) << " - (m) male\n " << setw(MENU_INDENT_WIDTH) << " - (f) female\n";
+    cout << "Gender:\n " << setw(MENU_INDENT_WIDTH) << " - (m) male\n " << setw(MENU_INDENT_WIDTH) << " - (f) female" << endl;
     do {
         cin >> gender; 
         is_correct_gender = (gender == 'm' || gender == 'f');
-        if (!is_correct_gender) cout << "Gender '" << gender << "'" << " is not valid.\n " << setw(MENU_INDENT_WIDTH) << " - (m) male\n " << setw(MENU_INDENT_WIDTH) << " - (f) female\n";
+        if (!is_correct_gender) cout << "Gender '" << gender << "'" << " is not valid.\n " << setw(MENU_INDENT_WIDTH) << " - (m) male\n " << setw(MENU_INDENT_WIDTH) << " - (f) female" << endl;
     } while (!is_correct_gender);
 
     return gender;
@@ -188,18 +135,18 @@ int validate_gender(int user_id)
     string user_name = all_user_name[user_id];
     char user_gender = all_user_gender[user_id];
 
-    cout << "To validate '" << user_name << "' type a gender: \n";
+    cout << "To validate '" << user_name << "' type a gender: " << endl;
     char to_match_gender = request_user_gender();
 
-    cout << "Current user gender is: " << user_gender << "\n";
+    cout << "Current user gender is: " << user_gender << endl;
     cout << "Checked gender is ";
     if (to_match_gender == all_user_gender[user_id]) cout << "CORRECT";
     else {
-        cout << "NOT correct, set new gender for user '" << user_name << "': \n";
+        cout << "NOT correct, set new gender for user '" << user_name << "': " << endl;
         all_user_gender[user_id] = request_user_gender();
-        cout << "New gender saved sucessfully.\n";
-        cout << "Old gender: " << user_gender << "\n";
-        cout << "New gender: " << all_user_gender[user_id] << "\n";
+        cout << "New gender saved sucessfully." << endl;
+        cout << "Old gender: " << user_gender << endl;
+        cout << "New gender: " << all_user_gender[user_id] << endl;
     }
 }
 
@@ -217,7 +164,7 @@ float calc_bmi(float height, float weight)
     else if (bmi >= 21 && bmi <= 25) cout << "Peso ideal: ";
     else if (bmi > 25) cout << "Sobrepeso: ";
     else cout << "It has not been possible to calculate BMI. Check 'weight' nor 'height' of user";
-    cout << bmi << " (kg/m)\n";
+    cout << bmi << " (kg/m)" << endl;
 }
 
 void print_user_row(int longest_name_length, int user_pos)
@@ -231,7 +178,7 @@ void print_user_row(int longest_name_length, int user_pos)
             << all_user_gender[user_pos] << "  |  "
             << all_user_marital_status[user_pos] << "  |  "
             << all_user_weight[user_pos] << " (kg)  |  "
-            << all_user_height[user_pos] << " (cm)\n";
+            << all_user_height[user_pos] << " (cm)" << endl;
 }
 
 int get_longest_string_in_array(string *array_of_strings)
@@ -248,15 +195,15 @@ int get_longest_string_in_array(string *array_of_strings)
 void print_users()
 {
     int total_users = MAX_TOTAL_USER_ON_MEMORY;
-    cout << "\n";
-    cout << " - (id) name     | age | gender | marital status | weight (kg) | height (cm)\n";
-    cout << "------------------------------------------------------------------------\n";
+    cout << endl;
+    cout << " - (id) name     | age | gender | marital status | weight (kg) | height (cm)" << endl;
+    cout << "------------------------------------------------------------------------" << endl;
     int longest_name_length = get_longest_string_in_array(all_user_name);
     for (int user_pos = 0; user_pos < total_users; user_pos++) {
         if (all_user_name[user_pos] == "") break;
         print_user_row(longest_name_length, user_pos);
     }
-    cout << "\n";
+    cout << endl;
 }
 
 string get_operation_title_by_name(string operation_name)
@@ -273,7 +220,7 @@ int cin_number_int()
     while (!(cin >> input)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Entered value is not a number, please introduce number\n";
+        cout << "Entered value is not a number, please introduce number" << endl;
     }
     return input;
 }
@@ -281,7 +228,7 @@ int cin_number_int()
 int execute(string operation_name)
 {
     string operation_title = get_operation_title_by_name(operation_name);
-    cout << "\n\t>>>>> Using '" << operation_title << "' operation: <<<<< \n\n";
+    cout << "\n\t>>>>> Using '" << operation_title << "' operation: <<<<< \n" << endl;;
     print_users();
     cout << "Select user of list by (id): ";
     int selected_user_id = cin_number_int();
@@ -290,7 +237,7 @@ int execute(string operation_name)
     else if (operation_name == "isadult") check_if_adult(all_user_age[selected_user_id]);
     else if (operation_name == "isgender") validate_gender(selected_user_id);
     else if (operation_name == "newdni") calc_dni(selected_user_id);
-    cout << "_______________________________________________\n";
+    cout << "_______________________________________________" << endl;
     print_users();
 }
 
@@ -307,12 +254,12 @@ void load_menu()
     int TOTAL_OPERATIONS = 4;
     string operation_name;
 
-    cout << "\nSelect operation: \n";
+    cout << "\nSelect operation: " << endl;
     for (int operation_id = 1; operation_id <= TOTAL_OPERATIONS; operation_id++) {
         operation_name = get_operation_name_by_id(operation_id);
-        cout << setw(MENU_INDENT_WIDTH) << " "<< operation_id << ": " << get_operation_title_by_name(operation_name) << "\n";
+        cout << setw(MENU_INDENT_WIDTH) << " "<< operation_id << ": " << get_operation_title_by_name(operation_name) << endl;
     }
-    cout << setw(MENU_INDENT_WIDTH) << " " << "0: EXIT\n";
+    cout << setw(MENU_INDENT_WIDTH) << " " << "0: EXIT" << endl;
 }
 
 float cin_number_float() 
@@ -321,7 +268,7 @@ float cin_number_float()
     while (!(cin >> input)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Entered value is not a number, please introduce number\n";
+        cout << "Entered value is not a number, please introduce number" << endl;
     }
     return input;
 }
@@ -334,7 +281,7 @@ float request_user_height()
     do {
         height = cin_number_float();
         is_correct_height = (height > 9 && height <= 250);
-        if (!is_correct_height) cout << "Height '" << height << "'" << " is not valid range.\nEnter valid range(10 - 250) cm\n";
+        if (!is_correct_height) cout << "Height '" << height << "'" << " is not valid range.\nEnter valid range(10 - 250) cm" << endl;
     } while (!is_correct_height);
     
     return height;  
@@ -348,7 +295,7 @@ float request_user_weight()
     do {
         weight = cin_number_float();
         is_correct_weight = (weight > 0 && weight <= 1000);
-        if (!is_correct_weight) cout << "Weight '" << weight << "'" << " is not valid range.\nEnter valid range(0.1 - 1000) kg\n";
+        if (!is_correct_weight) cout << "Weight '" << weight << "'" << " is not valid range.\nEnter valid range(0.1 - 1000) kg" << endl;
     } while (!is_correct_weight);
     
     return weight;  
@@ -358,11 +305,11 @@ char request_user_marital_status()
 {
     char marital_status;
     bool is_correct_marital_status = false;
-    cout << "Marital status:\n " << setw(MENU_INDENT_WIDTH) << " - (s) single\n " << setw(MENU_INDENT_WIDTH) << " - (m) married\n " << setw(MENU_INDENT_WIDTH) << " - (d) divorced\n " << setw(MENU_INDENT_WIDTH) << " - (w) widowed\n";
+    cout << "Marital status:\n " << setw(MENU_INDENT_WIDTH) << " - (s) single\n " << setw(MENU_INDENT_WIDTH) << " - (m) married\n " << setw(MENU_INDENT_WIDTH) << " - (d) divorced\n " << setw(MENU_INDENT_WIDTH) << " - (w) widowed" << endl;
     do {
         cin >> marital_status;
         is_correct_marital_status = (marital_status == 's' || marital_status == 'm' || marital_status == 'd' || marital_status == 'w');
-        if (!is_correct_marital_status) cout << "Marital status '" << marital_status << "'" << " is not valid.\n " << setw(MENU_INDENT_WIDTH) << " - (s) single\n " << setw(MENU_INDENT_WIDTH) << " - (m) married\n " << setw(MENU_INDENT_WIDTH) << " - (d) divorced\n " << setw(MENU_INDENT_WIDTH) << " - (w) widowed\n";
+        if (!is_correct_marital_status) cout << "Marital status '" << marital_status << "'" << " is not valid.\n " << setw(MENU_INDENT_WIDTH) << " - (s) single\n " << setw(MENU_INDENT_WIDTH) << " - (m) married\n " << setw(MENU_INDENT_WIDTH) << " - (d) divorced\n " << setw(MENU_INDENT_WIDTH) << " - (w) widowed" << endl;
     } while (!is_correct_marital_status);
     
     return marital_status;
@@ -376,7 +323,7 @@ int request_user_age()
     do {
         age = cin_number_int();
         is_correct_age = (age >= 1 && age <= 125);
-        if (!is_correct_age) cout << "Age '" << age << "'" << " is not valid range.\nEnter valid range(1 - 125)\n";
+        if (!is_correct_age) cout << "Age '" << age << "'" << " is not valid range.\nEnter valid range(1 - 125)" << endl;
     } while (!is_correct_age);
     
     return age;
@@ -394,24 +341,24 @@ string request_user_name()
 void save_users_data()
 {
     int users_to_insert;
-    cout << "\n";
+    cout << endl;
     cout << "Number users to insert: ";
     users_to_insert = cin_number_int();
-    cout << "\n";
+    cout << endl;
 
     for (int user_position = 0; user_position < users_to_insert; user_position++) {
-        cout << "Insert data user nº " << user_position + 1 << "\n";
+        cout << "Insert data user nº " << user_position + 1 << endl;
         all_user_name[user_position] = request_user_name();
         all_user_age[user_position] = request_user_age();
         all_user_gender[user_position] = request_user_gender();
         all_user_marital_status[user_position] = request_user_marital_status();
         all_user_weight[user_position] = request_user_weight();
         all_user_height[user_position] = request_user_height();
-        cout << "------------------------------\n";
-        cout << "\n";
+        cout << "------------------------------" << endl;
+        cout << endl;
     }
 
-    cout << "Users saved sucessfully\n";
+    cout << "Users saved sucessfully" << endl;
 }
 
 int main()
@@ -430,12 +377,13 @@ int main()
 
     //     if (is_valid_operation_option) execute(operation_name);
 
-    //     else cout << "Program exited correctly.\n";
+    //     else cout << "Program exited correctly." << endl;
         
     // } while (is_valid_operation_option);
-    string random_number = generate_random_number_by_length(2, 26);
 
-    cout << random_number << endl;
+    cout << generate_random_number_by_length(8) << endl;
+
+    cout << custom_rand_number_from_0_to(100) << endl;
 
     return 0;
 }
