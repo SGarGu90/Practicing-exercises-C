@@ -111,8 +111,9 @@ char get_random_letter()
 string calc_dni(int user_id)
 {
     char dni_letter = get_random_letter();
-    string dni_number = custom_rand_number_from_0_to(DNI_NUMBER_LENGTH);
-    cout << "Generated DNI: " << dni_number << dni_letter << endl;
+    string dni_number = generate_random_number_by_length(DNI_NUMBER_LENGTH);
+
+    cout << "\n>>>>> Generated DNI: '" << dni_number << " - " << dni_letter << "' for user '" << all_user_name[user_id] << "' <<<<<" << endl;
 }
 
 
@@ -135,31 +136,31 @@ int validate_gender(int user_id)
     string user_name = all_user_name[user_id];
     char user_gender = all_user_gender[user_id];
 
-    cout << "To validate '" << user_name << "' type a gender: " << endl;
+    cout << "\t>>>>> To validate '" << user_name << "' type a gender: <<<<<" << endl;
     char to_match_gender = request_user_gender();
 
-    cout << "Current user gender is: " << user_gender << endl;
-    cout << "Checked gender is ";
-    if (to_match_gender == all_user_gender[user_id]) cout << "CORRECT";
+    cout << "\t>>>>> Current user gender is: '" << user_gender << "' <<<<<" << endl;
+    cout << "\t>>>>> Gender is ";
+    if (to_match_gender == all_user_gender[user_id]) cout << "CORRECT <<<<<";
     else {
-        cout << "NOT correct, set new gender for user '" << user_name << "': " << endl;
+        cout << "NOT correct, set new gender for user '" << user_name << "': <<<<<" << endl;
         all_user_gender[user_id] = request_user_gender();
-        cout << "New gender saved sucessfully." << endl;
-        cout << "Old gender: " << user_gender << endl;
-        cout << "New gender: " << all_user_gender[user_id] << endl;
+        cout << "\t>>>>> New gender saved sucessfully. <<<<<" << endl;
+        cout << "\t>>>>> Old gender: '" << user_gender << "' <<<<<" << endl;
+        cout << "\t>>>>> New gender: '" << all_user_gender[user_id] << "' <<<<<" << endl;
     }
 }
 
 bool check_if_adult(int age)
 {
-    if (age > 18) cout << "Is adult";
-    else cout << "Is young";
+    if (age > 18) cout << "\t>>>>> Is adult <<<<<";
+    else cout << "\t>>>>> Is young <<<<<";
 }
 
 float calc_bmi(float height, float weight)
 {
     float bmi = (weight / ( int(height) ^ 2 )) / 100;
-    cout << "(BMI): ";
+    cout << "\n\t >>>>> (BMI): ";
     if (bmi < 20) cout << "Debajo de su peso: ";
     else if (bmi >= 21 && bmi <= 25) cout << "Peso ideal: ";
     else if (bmi > 25) cout << "Sobrepeso: ";
@@ -173,7 +174,7 @@ void print_user_row(int longest_name_length, int user_pos)
     longest_name_length = (longest_name_length > MINIMUM_RIGHT_SPACING) ? longest_name_length : MINIMUM_RIGHT_SPACING;
     int right_empty_spaces_after_user_name = (longest_name_length - all_user_name[user_pos].size());
     if (right_empty_spaces_after_user_name != 0 ) right_empty_spaces_after_user_name += 1;
-    cout << " - (" << user_pos << ") " << all_user_name[user_pos] << setw(right_empty_spaces_after_user_name) << " ";
+    cout << "\t - (" << user_pos << ") " << all_user_name[user_pos] << setw(right_empty_spaces_after_user_name) << " ";
     cout << "|  " << all_user_age[user_pos] <<  "  |  "
             << all_user_gender[user_pos] << "  |  "
             << all_user_marital_status[user_pos] << "  |  "
@@ -196,14 +197,13 @@ void print_users()
 {
     int total_users = MAX_TOTAL_USER_ON_MEMORY;
     cout << endl;
-    cout << " - (id) name     | age | gender | marital status | weight (kg) | height (cm)" << endl;
-    cout << "------------------------------------------------------------------------" << endl;
+    cout << "\t - (id) name     | age | gender | marital status | weight (kg) | height (cm)" << endl;
+    cout << "\t------------------------------------------------------------------------" << endl;
     int longest_name_length = get_longest_string_in_array(all_user_name);
     for (int user_pos = 0; user_pos < total_users; user_pos++) {
         if (all_user_name[user_pos] == "") break;
         print_user_row(longest_name_length, user_pos);
     }
-    cout << endl;
 }
 
 string get_operation_title_by_name(string operation_name)
@@ -230,15 +230,24 @@ int execute(string operation_name)
     string operation_title = get_operation_title_by_name(operation_name);
     cout << "\n\t>>>>> Using '" << operation_title << "' operation: <<<<< \n" << endl;;
     print_users();
-    cout << "Select user of list by (id): ";
-    int selected_user_id = cin_number_int();
+    cout << "_______________________________________________" << endl;
+    
+    int selected_user_id;
+    bool is_exist_user;
+    
+    do {
+        cout << "Select user of list by (id): ";
+        selected_user_id = cin_number_int();
+        string user_name = all_user_name[selected_user_id];
+        is_exist_user = (user_name.size() > 0);
+        if(!is_exist_user) cout << "User id '" << selected_user_id << "' does not exist, please insert valid user (id)" << endl;
+    } while (!is_exist_user);
+    
 
     if (operation_name == "bmi") cout << calc_bmi(all_user_height[selected_user_id], all_user_weight[selected_user_id]);
     else if (operation_name == "isadult") check_if_adult(all_user_age[selected_user_id]);
     else if (operation_name == "isgender") validate_gender(selected_user_id);
     else if (operation_name == "newdni") calc_dni(selected_user_id);
-    cout << "_______________________________________________" << endl;
-    print_users();
 }
 
 string get_operation_name_by_id(int operation_id)
@@ -363,27 +372,23 @@ void save_users_data()
 
 int main()
 {
-    // int selected_option_id;
-    // bool is_valid_operation_option;
-    // string operation_name;
+    int selected_option_id;
+    bool is_valid_operation_option;
+    string operation_name;
 
-    // save_users_data();
+    save_users_data();
 
-    // do {
-    //     load_menu();
-    //     selected_option_id = cin_number_int();
-    //     operation_name = get_operation_name_by_id(selected_option_id);
-    //     is_valid_operation_option = operation_name != "undefined";
+    do {
+        load_menu();
+        selected_option_id = cin_number_int();
+        operation_name = get_operation_name_by_id(selected_option_id);
+        is_valid_operation_option = operation_name != "undefined";
 
-    //     if (is_valid_operation_option) execute(operation_name);
+        if (is_valid_operation_option) execute(operation_name);
 
-    //     else cout << "Program exited correctly." << endl;
+        else cout << "Program exited correctly." << endl;
         
-    // } while (is_valid_operation_option);
-
-    cout << generate_random_number_by_length(8) << endl;
-
-    cout << custom_rand_number_from_0_to(100) << endl;
+    } while (is_valid_operation_option);
 
     return 0;
 }
