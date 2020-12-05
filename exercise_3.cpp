@@ -228,7 +228,7 @@ int cin_number_int()
 int execute(string operation_name)
 {
     string operation_title = get_operation_title_by_name(operation_name);
-    cout << "\n\t>>>>> Using '" << operation_title << "' operation: <<<<< \n" << endl;;
+    cout << "\n\t>>>>> Using '" << operation_title << "' operation: <<<<< \n" << endl;
     print_users();
     cout << "_______________________________________________" << endl;
     
