@@ -18,44 +18,46 @@ int cin_number_int()
     return input;
 }
 
-int main()
-{ 
-    int birth_day, birth_month, birth_year;
-    int expect_day, exect_month, expect_year;
+int * request_input_day_month_year()
+{
+    static int day_month_year[3];
+    cout << "\tday: ";
+    day_month_year[0] = cin_number_int();
 
+    cout << "\tmonth: ";
+    day_month_year[1] = cin_number_int();
+
+    cout << "\tyear: ";
+    day_month_year[2] = cin_number_int();
+
+    return day_month_year;
+}
+
+int main()               
+{ 
+    int *user_birth_date;
+    int *to_expect_date;
+    
     cout << "Introduce your birth date: " << endl;
     cout << "> Birth: " << endl;
-    cout << "\tday: ";
-    birth_day = cin_number_int();
-
-    cout << "\tmonth: ";
-    birth_day = cin_number_int();
-
-    cout << "\tyear: ";
-    birth_day = cin_number_int();
-
+    user_birth_date = request_input_day_month_year();
+    int birth_day = user_birth_date[0];
+    int birth_month = user_birth_date[1];
+    int birth_year = user_birth_date[2];
     cout << "\n ----------------------" << endl;
-
     cout << "Introduce date to calculate age: " << endl;
     cout << "> Expect age at: " << endl;
-    cout << "\tday: ";
-    expect_day = cin_number_int();
-
-    cout << "\tmonth: ";
-    expect_day = cin_number_int();
-
-    cout << "\tyear: ";
-    expect_day = cin_number_int();
+    to_expect_date = request_input_day_month_year();
+    int expect_day = user_birth_date[0];
+    int exect_month = user_birth_date[1];
+    int expect_year = user_birth_date[2];
 
 
+    // Diff years
+
+    // Ensure same year if +1 or not
+        // If month expected is higher or equal month birth => check day
+            // If check day higher or equal birth day, => +1
 
     return 0;
 }
-
-
-// Diseñar una función que permita calcular tu edad a partir de una fecha en el futuro dada (año, mes y día). 
-// El programa debepermitir insertar tu edad actual e imprimir la edad en el fututo. 
-//      Por ejemplo: 
-//          a.Si tuintroduces una fecha por ejemplo año=2019, mes=10 y la edad 19
-//            y quiere conocer tu edad en la siguiente fecha año=2025, mes=7
-//            entonces el programa debe retornas que la edad para Julio de 2025 será de 24 años y 8 meses
