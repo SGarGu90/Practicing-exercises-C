@@ -360,9 +360,9 @@ void save_users_data()
     for (int user_position = 0; user_position < users_to_insert; user_position++) {
         cout << "Insert data user nº " << user_position + 1 << endl;
         all_user_name[user_position] = request_user_name();
-        // all_user_age[user_position] = request_user_age();
-        // all_user_gender[user_position] = request_user_gender();
-        // all_user_marital_status[user_position] = request_user_marital_status();
+        all_user_age[user_position] = request_user_age();
+        all_user_gender[user_position] = request_user_gender();
+        all_user_marital_status[user_position] = request_user_marital_status();
         all_user_weight[user_position] = request_user_weight();
         all_user_height[user_position] = request_user_height();
         cout << "------------------------------" << endl;
