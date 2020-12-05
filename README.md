@@ -18,5 +18,5 @@
 > g++ exercise_4.cpp -o exercise_4 && ./exercise_4
 
 
-# Exercise 5 |
+# Exercise 5 | Calc Area and Perimeter from regular polygons
 > g++ exercise_5.cpp -o exercise_5 && ./exercise_5
