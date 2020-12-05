@@ -3,7 +3,6 @@
 #include <limits> // To request strict number in cin (not allowed letters) numeric_limits<streamsize>..
 #include <iomanip> // use setw() to generate empty spaces between text
 #include <math.h>
-// #include <sstream> // string to int 
 
 using namespace std;
 
@@ -18,13 +17,6 @@ float cin_number_float()
         cout << "Entered value is not a number, please introduce number\n";
     }
     return input;
-}
-
-float request_polygon_value()
-{
-    float polygon_value;
-
-    polygon_value = cin_number_float();
 }
 
 int cin_number_int() 
@@ -67,7 +59,7 @@ string get_option_name_by_id(int option_id)
             (option_id == 3) ? "reset" : "undefined";
 }
 
-void load_menu()
+void print_menu()
 {
     int TOTAL_OPTIONS = 3;
     string option_name;
@@ -134,7 +126,7 @@ int main()
 
         is_valid_option = true;
         do {
-            load_menu();
+            print_menu();
 
             selected_option = cin_number_int();
             option_name = get_option_name_by_id(selected_option);
