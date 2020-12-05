@@ -22,7 +22,7 @@ int all_user_age[MAX_TOTAL_USER_ON_MEMORY];
 char all_user_gender[MAX_TOTAL_USER_ON_MEMORY];
 char all_user_marital_status[MAX_TOTAL_USER_ON_MEMORY];
 float all_user_weight[MAX_TOTAL_USER_ON_MEMORY];
-int all_user_height[MAX_TOTAL_USER_ON_MEMORY];
+float all_user_height[MAX_TOTAL_USER_ON_MEMORY];
 
 
 string generate_random_number_by_length(int random_number_length)
@@ -157,9 +157,9 @@ void check_if_adult(int age)
     else cout << "\t>>>>> Is young <<<<<";
 }
 
-void calc_bmi(int height, float weight)
+void calc_bmi(float height, float weight)
 {
-    float bmi = weight / (pow(height/100, 2));
+    float bmi = weight / (height * height);
     cout << "\n\t >>>>> (BMI): ";
     if (bmi < 20) cout << "Debajo de su peso: ";
     else if (bmi >= 21 && bmi <= 25) cout << "Peso ideal: ";
@@ -179,7 +179,7 @@ void print_user_row(int longest_name_length, int user_pos)
             << all_user_gender[user_pos] << "  |  "
             << all_user_marital_status[user_pos] << "  |  "
             << all_user_weight[user_pos] << " (kg)  |  "
-            << all_user_height[user_pos] << " (cm)" << endl;
+            << all_user_height[user_pos] << " (m)" << endl;
 }
 
 int get_longest_string_in_array(string *array_of_strings)
@@ -197,7 +197,7 @@ void print_users()
 {
     int total_users = MAX_TOTAL_USER_ON_MEMORY;
     cout << endl;
-    cout << "\t - (id) name     | age | gender | marital status | weight (kg) | height (cm)" << endl;
+    cout << "\t - (id) name     | age | gender | marital status | weight (kg) | height (m)" << endl;
     cout << "\t------------------------------------------------------------------------" << endl;
     int longest_name_length = get_longest_string_in_array(all_user_name);
     for (int user_pos = 0; user_pos < total_users; user_pos++) {
@@ -288,11 +288,11 @@ float request_user_height()
 {
     float height;
     bool is_correct_height = false;
-    cout << "Height (10 - 250) cm: ";
+    cout << "Height (0.1 - 2.5) m: ";
     do {
         height = cin_number_float();
-        is_correct_height = (height > 9 && height <= 250);
-        if (!is_correct_height) cout << "Height '" << height << "'" << " is not valid range.\nEnter valid range(10 - 250) cm" << endl;
+        is_correct_height = (height > 0.09 && height <= 2.5);
+        if (!is_correct_height) cout << "Height '" << height << "'" << " is not valid range.\nEnter valid range(0.1 - 2.5) m" << endl;
     } while (!is_correct_height);
     
     return height;  
@@ -360,9 +360,9 @@ void save_users_data()
     for (int user_position = 0; user_position < users_to_insert; user_position++) {
         cout << "Insert data user nº " << user_position + 1 << endl;
         all_user_name[user_position] = request_user_name();
-        all_user_age[user_position] = request_user_age();
-        all_user_gender[user_position] = request_user_gender();
-        all_user_marital_status[user_position] = request_user_marital_status();
+        // all_user_age[user_position] = request_user_age();
+        // all_user_gender[user_position] = request_user_gender();
+        // all_user_marital_status[user_position] = request_user_marital_status();
         all_user_weight[user_position] = request_user_weight();
         all_user_height[user_position] = request_user_height();
         cout << "------------------------------" << endl;
