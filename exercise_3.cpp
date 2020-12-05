@@ -22,7 +22,7 @@ int all_user_age[MAX_TOTAL_USER_ON_MEMORY];
 char all_user_gender[MAX_TOTAL_USER_ON_MEMORY];
 char all_user_marital_status[MAX_TOTAL_USER_ON_MEMORY];
 float all_user_weight[MAX_TOTAL_USER_ON_MEMORY];
-float all_user_height[MAX_TOTAL_USER_ON_MEMORY];
+int all_user_height[MAX_TOTAL_USER_ON_MEMORY];
 
 
 string generate_random_number_by_length(int random_number_length)
@@ -108,12 +108,12 @@ char get_random_letter()
     return letters[from_str_to_num_pos];
 }
 
-string calc_dni(int user_id)
+void calc_dni(int user_id)
 {
     char dni_letter = get_random_letter();
     string dni_number = generate_random_number_by_length(DNI_NUMBER_LENGTH);
 
-    cout << "\n>>>>> Generated DNI: '" << dni_number << " - " << dni_letter << "' for user '" << all_user_name[user_id] << "' <<<<<" << endl;
+    cout << "\n>>>>> Generated DNI: '" << dni_number << "-" << dni_letter << "' for user '" << all_user_name[user_id] << "' <<<<<" << endl;
 }
 
 
@@ -131,7 +131,7 @@ char request_user_gender()
     return gender;
 }
 
-int validate_gender(int user_id)
+void validate_gender(int user_id)
 {
     string user_name = all_user_name[user_id];
     char user_gender = all_user_gender[user_id];
@@ -151,15 +151,15 @@ int validate_gender(int user_id)
     }
 }
 
-bool check_if_adult(int age)
+void check_if_adult(int age)
 {
     if (age > 18) cout << "\t>>>>> Is adult <<<<<";
     else cout << "\t>>>>> Is young <<<<<";
 }
 
-float calc_bmi(float height, float weight)
+void calc_bmi(int height, float weight)
 {
-    float bmi = (weight / ( int(height) ^ 2 )) / 100;
+    float bmi = weight / (pow(height/100, 2));
     cout << "\n\t >>>>> (BMI): ";
     if (bmi < 20) cout << "Debajo de su peso: ";
     else if (bmi >= 21 && bmi <= 25) cout << "Peso ideal: ";
@@ -212,6 +212,7 @@ string get_operation_title_by_name(string operation_name)
     else if (operation_name == "isadult") return "Is adult?";
     else if (operation_name == "isgender") return "Validate gender";
     else if (operation_name == "newdni") return "New DNI number";
+    else if (operation_name == "exit") return "EXIT";
 }
 
 int cin_number_int() 
@@ -225,7 +226,7 @@ int cin_number_int()
     return input;
 }
 
-int execute(string operation_name)
+void execute(string operation_name)
 {
     string operation_title = get_operation_title_by_name(operation_name);
     cout << "\n\t>>>>> Using '" << operation_title << "' operation: <<<<< \n" << endl;
@@ -244,7 +245,7 @@ int execute(string operation_name)
     } while (!is_exist_user);
     
 
-    if (operation_name == "bmi") cout << calc_bmi(all_user_height[selected_user_id], all_user_weight[selected_user_id]);
+    if (operation_name == "bmi") calc_bmi(all_user_height[selected_user_id], all_user_weight[selected_user_id]);
     else if (operation_name == "isadult") check_if_adult(all_user_age[selected_user_id]);
     else if (operation_name == "isgender") validate_gender(selected_user_id);
     else if (operation_name == "newdni") calc_dni(selected_user_id);
@@ -252,13 +253,14 @@ int execute(string operation_name)
 
 string get_operation_name_by_id(int operation_id)
 {
-    return (operation_id == 1) ? "bmi" : 
+    return (operation_id == 0) ? "exit" :
+            (operation_id == 1) ? "bmi" : 
             (operation_id == 2) ? "isadult" : 
             (operation_id == 3) ? "isgender" : 
             (operation_id == 4) ? "newdni" : "undefined";
 }
 
-void load_menu()
+void print_menu()
 {
     int TOTAL_OPERATIONS = 4;
     string operation_name;
@@ -374,21 +376,23 @@ int main()
 {
     int selected_option_id;
     bool is_valid_operation_option;
+    bool is_exit_option;
     string operation_name;
 
     save_users_data();
 
     do {
-        load_menu();
+        print_menu();
         selected_option_id = cin_number_int();
         operation_name = get_operation_name_by_id(selected_option_id);
         is_valid_operation_option = operation_name != "undefined";
+        is_exit_option = (operation_name == "exit");
 
-        if (is_valid_operation_option) execute(operation_name);
+        if (is_valid_operation_option && !is_exit_option) execute(operation_name);
+        else if (!is_valid_operation_option) cout << "Is not valid operation" << endl;
 
-        else cout << "Program exited correctly." << endl;
-        
-    } while (is_valid_operation_option);
+        if (is_exit_option) cout << "Program exited correctly." << endl;
+    } while (!is_exit_option);
 
     return 0;
 }

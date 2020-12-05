@@ -57,7 +57,6 @@ string get_option_title_by_name(string option_name)
     if (option_name == "area") return "Area";
     else if (option_name == "perim") return "Perimeter";
     else if (option_name == "reset") return "Reset polygon values";
-    else if (option_name == "exit") return "EXIT";
 }
 
 string get_option_name_by_id(int option_id)
@@ -109,7 +108,6 @@ string execute(string option_name, int polygon_length, float polygon_side_value)
     if (option_name == "area") cout << "Area is: " << calc_area(polygon_length, polygon_side_value) << endl;
     else if (option_name == "perim") cout << "Perimeter is: " << calc_perimeter(polygon_length, polygon_side_value) << endl;
     else if (option_name == "reset") return "reset-menu";
-    else if (option_name == "exit") return "exit";
     return "continue";
 }
 
@@ -141,13 +139,14 @@ int main()
             selected_option = cin_number_int();
             option_name = get_option_name_by_id(selected_option);
             is_valid_option = (option_name != "undefined");
+            is_exit_option = (option_name == "exit");
 
-            if (is_valid_option) process_status = execute(option_name, polygon_length, polygon_side_value);
-            
-            is_exit_option = (process_status == "exit");
-            if (is_exit_option) cout << "Program exited correctly." << endl;
+            if (is_valid_option && !is_exit_option) process_status = execute(option_name, polygon_length, polygon_side_value);
+            else if (!is_valid_option) cout << "Is not valid option" << endl;
             is_same_process = (process_status == "continue");
+            
             if (!is_same_process && !is_exit_option) cout << "Reseted polygon, please enter new polygon values." << endl;
+            if (is_exit_option) cout << "Program exited correctly." << endl;
         } while (is_valid_option && is_same_process && !is_exit_option);
 
     } while (!is_exit_option);

@@ -46,6 +46,17 @@ string get_operation_symbol(string function_name)
     else if (function_name == "exponential") return "^";
 }
 
+int cin_number_int() 
+{
+    int input;
+    while (!(cin >> input)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Entered value is not a number, please introduce number\n";
+    }
+    return input;
+}
+
 float cin_number_float() 
 {
     float input;
@@ -57,8 +68,9 @@ float cin_number_float()
     return input;
 }
 
-double execute(string function_name)
+void execute(string function_name)
 {
+    cout << "_______________________________________________" << endl;
     double number_to_operate_1;
     double number_to_operate_2;
     cout << "Operating '" << function_name << "' function .." << endl;
@@ -89,7 +101,8 @@ double execute(string function_name)
 
 string get_operation_name_by_id(int operation_id)
 {
-    return (operation_id == 1) ? "addition" : 
+    return (operation_id == 0) ? "exit" : 
+            (operation_id == 1) ? "addition" : 
             (operation_id == 2) ? "substract" : 
             (operation_id == 3) ? "multiply" : 
             (operation_id == 4) ? "divide" : 
@@ -98,7 +111,7 @@ string get_operation_name_by_id(int operation_id)
             (operation_id == 7) ? "exponential" : "undefined";
 }
 
-void load_menu()
+void print_menu()
 {
     string operation_name;
     int TOTAL_OPERATION_OPTIONS = 7;
@@ -116,18 +129,21 @@ int main()
     double total_operation_ammount = 0;
     int selected_option_id;
     bool is_valid_operation_option;
+    bool is_exit_option;
     string operation_name;
 
     do{
-        load_menu();
-        selected_option_id = cin_number_float();
+        print_menu();
+        selected_option_id = cin_number_int();
         operation_name = get_operation_name_by_id(selected_option_id);
         is_valid_operation_option = operation_name != "undefined";
+        is_exit_option = (operation_name == "exit");
         
-        if (is_valid_operation_option) execute(operation_name);
-        else cout << "Program exited correctly." << endl;
+        if (is_valid_operation_option && !is_exit_option) execute(operation_name);
+        else if (!is_valid_operation_option) cout << "Is not valid operation" << endl;
 
-    } while (is_valid_operation_option);
+        if (is_exit_option) cout << "Program exited correctly." << endl;
+    } while (!is_exit_option);
 
     return 0;
 }
