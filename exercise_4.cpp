@@ -58,17 +58,18 @@ int main()
     cout << "> Expect age at: " << endl;
     to_expect_date = request_input_day_month_year(birth_year);
     int expect_day = user_birth_date[0];
-    int exect_month = user_birth_date[1];
+    int expect_month = user_birth_date[1];
     int expect_year = user_birth_date[2];
 
     int age;
-
     age = expect_year - birth_year;
+    if (expect_month >= birth_month && expect_day >= birth_day) age++;
+    
+    cout << endl;
+    cout << "Birth date: " << birth_day << "/" << birth_month << "/" << birth_year << endl;
+    cout << "Expect date: " << expect_day << "/" << expect_month << "/" << expect_year << endl;
     cout << "Age is: " << age << endl;
-
-    // Ensure same year if +1 or not
-        // If month expected is higher or equal month birth => check day
-            // If check day higher or equal birth day, => +1
+    cout << endl;
 
     return 0;
 }
