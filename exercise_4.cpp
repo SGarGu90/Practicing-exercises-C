@@ -18,7 +18,7 @@ int cin_number_int()
     return input;
 }
 
-int * request_input_day_month_year()
+int * request_input_day_month_year(int validate_year = 0)
 {
     static int day_month_year[3];
     cout << "\tday: ";
@@ -28,7 +28,16 @@ int * request_input_day_month_year()
     day_month_year[1] = cin_number_int();
 
     cout << "\tyear: ";
-    day_month_year[2] = cin_number_int();
+    if (validate_year > 0) {
+        bool is_correct_year;
+        do
+        {
+            day_month_year[2] = cin_number_int();
+            is_correct_year = (day_month_year[2] >= validate_year);
+            if (!is_correct_year) cout << "Expected must be higher or equal birth year, please introduce valid year," << endl; 
+        } while (!is_correct_year);
+    }
+    else day_month_year[2] = cin_number_int();
 
     return day_month_year;
 }
@@ -47,13 +56,15 @@ int main()
     cout << "\n ----------------------" << endl;
     cout << "Introduce date to calculate age: " << endl;
     cout << "> Expect age at: " << endl;
-    to_expect_date = request_input_day_month_year();
+    to_expect_date = request_input_day_month_year(birth_year);
     int expect_day = user_birth_date[0];
     int exect_month = user_birth_date[1];
     int expect_year = user_birth_date[2];
 
+    int age;
 
-    // Diff years
+    age = expect_year - birth_year;
+    cout << "Age is: " << age << endl;
 
     // Ensure same year if +1 or not
         // If month expected is higher or equal month birth => check day
