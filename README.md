@@ -19,3 +19,4 @@
 
 
 # Exercise 5 |
+> g++ exercise_5.cpp -o exercise_5 && ./exercise_5
