@@ -29,7 +29,9 @@ float calc_operation_by_function_name(string function_name, float num_1 = 0, flo
         }
     }
     else if (function_name == "exponential") {
-        result = pow(num_1, num_2);
+        for (int i = 0; i < num_2; i++) {
+            result += 1 * num_1 ;
+        }
     }
     return result;
 }
