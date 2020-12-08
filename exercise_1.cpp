@@ -28,11 +28,6 @@ float calc_operation_by_function_name(string function_name, float num_1 = 0, flo
             result = calc_factorial(num_1);
         }
     }
-    else if (function_name == "exponential") {
-        for (int i = 0; i < num_2; i++) {
-            result += 1 * num_1 ;
-        }
-    }
     return result;
 }
 
@@ -70,34 +65,55 @@ float cin_number_float()
     return input;
 }
 
+double cin_number_double() 
+{
+    double input;
+    while (!(cin >> input)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Entered value is not a number, please introduce number\n";
+    }
+    return input;
+}
+
+double calc_exponential(float num_1 = 0, float num_2 = 0)
+{
+    double total_calc_operation = 1;
+    for (int i = 1; i <= num_2; i++){
+        total_calc_operation = total_calc_operation * num_1;
+    }
+}
+
 void execute(string function_name)
 {
     cout << "_______________________________________________" << endl;
-    double number_to_operate_1;
-    double number_to_operate_2;
     cout << "Operating '" << function_name << "' function .." << endl;
     cout << "------------------------------------------" << endl;
     cout << "Enter value '0' to finish current operation (0 + 0 = 0), (0 * 0 = 0) .." << endl;
     cout << "------------------------------------------" << endl;
 
+    double number_to_operate_1;
+    double number_to_operate_2;
+
     float total_calc_operation;
     do {
-        if (function_name == "factorial") {
-            cout << "Enter ONE number: " << endl;
-            number_to_operate_1 = cin_number_float();
-            cout << get_operation_symbol(function_name) << endl;
-            number_to_operate_2 = 0;
-        }
-        else {
-            cout << "Enter TWO numbers: " << endl;
-            number_to_operate_1 = cin_number_float();
-            cout << get_operation_symbol(function_name) << endl;
-            number_to_operate_2 = cin_number_float();
+        number_to_operate_1 = 0;
+        number_to_operate_2 = 0;
+        cout << "Enter operation numbers: " << endl;
+        number_to_operate_1 = cin_number_float();
+        cout << get_operation_symbol(function_name) << endl;
+        number_to_operate_2 = cin_number_float();
+
+        if (function_name == "exponential") total_calc_operation = calc_exponential(number_to_operate_1, number_to_operate_2);
+        else total_calc_operation = calc_operation_by_function_name(function_name, number_to_operate_1, number_to_operate_2);
+
+        if (number_to_operate_1 != 0 || number_to_operate_2 != 0)
+        {
+            cout << "-------" << endl;
+            cout << total_calc_operation << endl;
         }
         
-        total_calc_operation = calc_operation_by_function_name(function_name, number_to_operate_1, number_to_operate_2);
-        cout << "-------" << endl;
-        cout << total_calc_operation << endl;
+    
     } while (number_to_operate_1 != 0 || number_to_operate_2 != 0);
 }
 
