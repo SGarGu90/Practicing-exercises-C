@@ -83,8 +83,9 @@ float calc_area(int polygon_length, float polygon_side_value)
 {
     float area;
     float perimeter = calc_perimeter(polygon_length, polygon_side_value);
-    float aphotem = polygon_side_value / (2 * tan(180/polygon_length));
-    area = perimeter * aphotem / 2;
+    // Calc aphotem from n side polygon and transform it to radians
+    float aphotem = polygon_side_value / (2 * tan((180 / polygon_length) * 3.14159 / 180));
+    area = (perimeter * aphotem) / 2;
 
     return area;
 }
@@ -105,8 +106,8 @@ string execute(string option_name, int polygon_length, float polygon_side_value)
 
 int main()               
 { 
-    cout << "Welcome to the P R O G R O N O M E T R I C" << endl;
-    cout << "This program helps to calculate regular polygon area and perimeter from a given length (N sides)" << endl;
+    cout << "\nWelcome to the POLIGOMETRIX" << endl;
+    cout << "This program helps to calculate regular polygon area and perimeter from a given length (N sides)\n" << endl;
     int polygon_length;
     float polygon_side_value;
     int selected_option;
