@@ -1,4 +1,4 @@
-# Práctica evaluada 1
+# Practicing exercises in C++
 
 
 
@@ -14,7 +14,7 @@
 > g++ exercise_3.cpp -o exercise_3 && ./exercise_3
 
 
-# Exercise 4 | Calc age from birth date to expected date
+# Exercise 4 | Calc age from date and age to expected date
 > g++ exercise_4.cpp -o exercise_4 && ./exercise_4
 
 
