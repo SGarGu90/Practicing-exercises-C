@@ -3,8 +3,9 @@
 exercise_[0-9]
 !exercise_[0-9].cpp
 helpers
-!helpers.cpp
-
+!helpers.cp
+toDevelopFn.cpp
+toDevelopFn
 # Prerequisites
 *.d
 
