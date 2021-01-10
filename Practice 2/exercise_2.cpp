@@ -79,8 +79,9 @@ int main()
   cout << "Second vector config: " << endl;
   request_vector_numbers(vector_b);
 
-  cout << "Set position to insert Vector b in vector a" << endl;
+  cout << "Set vector a position to insert vector b" << endl;
   int v_pos_index_a = cin_number_int() - 1;
+  // TBD Check that position could not be higher than vector length, persist required index
 
   vector<int> result_vector;
   result_vector = merge_vectors_by_index(vector_a, vector_b, v_pos_index_a);
