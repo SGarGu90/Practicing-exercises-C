@@ -4,25 +4,27 @@
 
 using namespace std;
 
-float cin_number_float()
+float cin_number_float(int insert_count_number = -1)
 {
-    float input;
-    while (!(cin >> input)) {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Entered value is not a number, please introduce number\n";
-    }
+    if (insert_count_number != -1) cout << "Insert (float): " << insert_count_number + 1 << endl;
+        float input;
+        while (!(cin >> input)) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Entered value is not a number, please introduce number\n";
+        }
     return input;
 }
 
-int cin_number_int()
+int cin_number_int(int insert_count_number = -1)
 {
-    int input;
-    while (!(cin >> input)) {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Entered value is not a number, please introduce number\n";
-    }
+    if (insert_count_number != -1) cout << "Insert (int): " << insert_count_number + 1 << endl;
+        int input;
+        while (!(cin >> input)) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Entered value is not a number, please introduce number\n";
+        }
     return input;
 }
 
