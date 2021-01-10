@@ -3,7 +3,7 @@
 
 using namespace std;
 
-float cin_number_float() 
+float cin_number_float()
 {
     float input;
     while (!(cin >> input)) {
@@ -14,7 +14,7 @@ float cin_number_float()
     return input;
 }
 
-int cin_number_int() 
+int cin_number_int()
 {
     int input;
     while (!(cin >> input)) {
@@ -25,7 +25,7 @@ int cin_number_int()
     return input;
 }
 
-long calc_factorial(float number) 
+long calc_factorial(float number)
 {
    int i, result = 1;
    for(i = number; i>1; i--)
@@ -54,7 +54,7 @@ string generate_random_number_by_length(int random_number_length)
     srand(time(NULL));
 
     do {
-        // The rand() function does not generate a truly random number; it actually returns the next pseudo-random value 
+        // The rand() function does not generate a truly random number; it actually returns the next pseudo-random value
         // in a sequence of values ranging from 0 to RAND_MAX. You can change the starting point in that sequence using srand().
         pseudo_random_number = rand();
         int position_to_get_from_generated_number = 2;
@@ -83,7 +83,7 @@ string custom_rand_number_from_0_to(int random_value_range_to, bool is_included 
     srand(time(NULL));
 
     do {
-        // The rand() function does not generate a truly random number; it actually returns the next pseudo-random value 
+        // The rand() function does not generate a truly random number; it actually returns the next pseudo-random value
         // in a sequence of values ranging from 0 to RAND_MAX. You can change the starting point in that sequence using srand().
         pseudo_random_number = rand();
         pseudo_random_number_str = to_string(pseudo_random_number);
@@ -117,4 +117,3 @@ string custom_rand_number_from_0_to(int random_value_range_to, bool is_included 
 
     return random_number;
 }
-
