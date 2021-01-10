@@ -26,5 +26,11 @@ int main()
   cout << "Insert vector length" << endl;
   int vector_length = cin_number_int();
 
+  for (int number_pos = 0; number_pos < vector_length; number_pos++)
+  {
+    new_number = cin_number_int(number_pos);
+    vector_numbers.insert(vector_numbers.end(), new_number);
+  }
+
   return 0;
 }
