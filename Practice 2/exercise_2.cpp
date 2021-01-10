@@ -33,7 +33,14 @@ void request_vector_numbers(vector<int> &vector_numbers) {
 
 int main()
 {
-  vector<int> vector_numbers;
+  vector<int> vector_numbers_a;
+  vector<int> vector_numbers_b;
+
+  cout << "First vector config: " << endl;
+  request_vector_numbers(vector_numbers_a);
+  cout << "Second vector config: " << endl;
+  request_vector_numbers(vector_numbers_b);
+
 
 
   return 0;
