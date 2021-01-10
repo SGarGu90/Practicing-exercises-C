@@ -12,7 +12,7 @@ void swap_vector_numbers(vector<int> &vector_numbers, int old_pos, int new_pos)
   vector_numbers[new_pos] = number_to_swap;
 }
 
-void print_vector(vector<int> vector_numbers, string text = "")
+void print_vector(vector<int> vector_numbers, string text = "Input vector is: ")
 {
   if (text != "") cout << text << "{ ";
   for (int num_pos = 0; num_pos < vector_numbers.size(); num_pos++) {
@@ -76,7 +76,7 @@ int main()
 {
   vector<int> vector_numbers;
   request_vector_numbers(vector_numbers);
-  print_vector(vector_numbers, "Input vector is: ");
+  print_vector(vector_numbers);
 
   sort_vector(vector_numbers, "ASC");
   print_vector(vector_numbers, "Vector ordered ASC is: ");
