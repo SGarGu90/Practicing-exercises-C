@@ -48,7 +48,7 @@ void sort_vector(vector<int> &vector_numbers, string orientation = "")
 
 int cin_number_int(int insert_count_number = -1)
 {
-  if (insert_count_number != -1) cout << "Insert number: " << insert_count_number + 1 << endl;
+  if (insert_count_number != -1) cout << "Insert (int): " << insert_count_number + 1 << endl;
   int input;
   while (!(cin >> input)) {
       cin.clear();

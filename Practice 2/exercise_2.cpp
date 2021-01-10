@@ -17,7 +17,7 @@ void print_vector(vector<int> vector_numbers, string text = "Input vector is: ")
 
 int cin_number_int(int insert_count_number = -1)
 {
-  if (insert_count_number != -1) cout << "Insert number: " << insert_count_number + 1 << endl;
+  if (insert_count_number != -1) cout << "Insert (int): " << insert_count_number + 1 << endl;
   int input;
   while (!(cin >> input)) {
       cin.clear();
@@ -45,13 +45,17 @@ int main()
 {
   vector<int> vector_numbers_a;
   vector<int> vector_numbers_b;
+  int index_vector_a;
 
   cout << "First vector config: " << endl;
   request_vector_numbers(vector_numbers_a);
   cout << "Second vector config: " << endl;
   request_vector_numbers(vector_numbers_b);
 
-  cout << "Set position from First vector"
+  cout << "Set position from first vector to insert the second vector such as (vector_a -> vector_b[pos])" << endl;
+  index_vector_a = cin_number_int();
+
+
 
   return 0;
 }
