@@ -57,7 +57,6 @@ int cin_number_int(int insert_count_number = -1)
 
 void request_vector_numbers(vector<int> &vector_numbers) {
   int new_number;
-  char answer = 'y';
 
   cout << "Insert vector length" << endl;
   int vector_length = cin_number_int();
