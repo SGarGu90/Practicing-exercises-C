@@ -17,9 +17,7 @@ int cin_number_int(int insert_count_number = -1)
   return input;
 }
 
-int main()
-{
-  vector<int> vector_numbers;
+void request_vector_numbers(vector<int> &vector_numbers) {
   int new_number;
   char answer = 'y';
 
@@ -31,6 +29,12 @@ int main()
     new_number = cin_number_int(number_pos);
     vector_numbers.insert(vector_numbers.end(), new_number);
   }
+}
+
+int main()
+{
+  vector<int> vector_numbers;
+  request_vector_numbers(vector_numbers);
 
   return 0;
 }
