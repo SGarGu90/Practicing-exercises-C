@@ -5,6 +5,13 @@
 
 using namespace std;
 
+void swap_vector_numbers(vector<int> &vector_numbers, int old_pos, int new_pos)
+{
+  int number_to_swap = vector_numbers[old_pos];
+  vector_numbers[old_pos] = vector_numbers[new_pos];
+  vector_numbers[new_pos] = number_to_swap;
+}
+
 void print_vector(vector<int> vector_numbers, string text = "")
 {
   if (text != "") cout << text << "{ ";
@@ -32,9 +39,7 @@ void sort_vector(vector<int> &vector_numbers, string orientation = "")
       if (is_required_swap) {
         old_pos = i - 1;
         new_pos = i;
-        int number_to_swap = vector_numbers[old_pos];
-        vector_numbers[old_pos] = vector_numbers[new_pos];
-        vector_numbers[new_pos] = number_to_swap;
+        swap_vector_numbers(vector_numbers, old_pos, new_pos);
         is_sorted = false;
       }
     }
