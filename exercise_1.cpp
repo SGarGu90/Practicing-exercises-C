@@ -44,7 +44,6 @@ void sort_vector(vector<int> &vector_numbers, string orientation = "")
       }
     }
   } while (!is_sorted);
-  print_vector(vector_numbers, "Vector ordered ASC is: ");
 }
 
 int cin_number_int(int insert_count_number = -1)
@@ -82,5 +81,7 @@ int main()
   sort_vector(vector_numbers, "ASC");
   print_vector(vector_numbers, "Vector ordered ASC is: ");
 
+  sort_vector(vector_numbers, "DES");
+  print_vector(vector_numbers, "Vector ordered DES is: ");
   return 0;
 }
