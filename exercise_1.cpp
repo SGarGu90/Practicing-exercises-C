@@ -47,5 +47,30 @@ int main()
   request_vector_numbers(vector_numbers);
   print_vector(vector_numbers, "Input vector is: ");
 
+  string orientation = "ASC";
+
+  bool is_sorted;
+  bool is_required_swap;
+  int old_pos;
+  int new_pos;
+  do {
+    is_sorted = true;
+    for (int i = 1; i < vector_numbers.size(); i++) {
+      is_required_swap = (
+          orientation == "ASC" && vector_numbers[i - 1] > vector_numbers[i] ||
+          orientation == "DES" && vector_numbers[i - 1] < vector_numbers[i]
+      );
+
+      if (is_required_swap) {
+        old_pos = i - 1;
+        new_pos = i;
+        int number_to_swap = vector_numbers[old_pos];
+        vector_numbers[old_pos] = vector_numbers[new_pos];
+        vector_numbers[new_pos] = number_to_swap;
+        is_sorted = false;
+      }
+    }
+  } while (!is_sorted);
+
   return 0;
 }
