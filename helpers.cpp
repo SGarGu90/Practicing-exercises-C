@@ -131,7 +131,7 @@ void print_vector(vector<int> vector_numbers, string text = "Input vector is: ")
   cout << " }" << endl;
 }
 
-auto merge_vectors_by_index(vector<int> &vector_a, vector<int> &vector_b, int v_pos_index = -1) {
+auto merge_vectors_by_index(vector<int> vector_a, vector<int> vector_b, int v_pos_index = -1) {
   vector<int> result_vector;
   int result_vector_length = vector_a.size() + vector_b.size();
   int count_used_from_a = 0;

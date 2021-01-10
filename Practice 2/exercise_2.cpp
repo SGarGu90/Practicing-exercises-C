@@ -5,7 +5,7 @@
 
 using namespace std;
 
-vector merge_vectors_by_index(vector<int> &vector_a, vector<int> &vector_b, int v_pos_index_a) {
+auto merge_vectors_by_index(vector<int> vector_a, vector<int> vector_b, int v_pos_index_a) {
   vector<int> result_vector;
   int result_vector_length = vector_a.size() + vector_b.size();
   int count_used_from_a = 0;
@@ -30,6 +30,7 @@ vector merge_vectors_by_index(vector<int> &vector_a, vector<int> &vector_b, int 
     }
     result_vector.insert(result_vector.end(), current_number_to_insert);
   }
+  return result_vector;
 }
 
 void print_vector(vector<int> vector_numbers, string text = "Input vector is: ")
