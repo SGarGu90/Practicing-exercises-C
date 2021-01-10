@@ -12,12 +12,11 @@
   - f. Factorial of a Number.
   - g. Squared (Can't use pow function)
 - Remember that you can perform as many operations as the user wants
-
-> cd Practica 1 && g++ exercise_1.cpp -o exercise_1 && ./exercise_1
+> g++ Practice\ 1/exercise_1.cpp -o Practice\ 1/exercise_1 && ./Practice\ 1/exercise_1
 
 ## P1.Exercise 2
 - Design a program to print Pascal's triangle on the screen. Remember make an original implementation.
-> cd Practica 1 && g++ exercise_2.cpp -o exercise_2 && ./exercise_2
+> g++ Practice\ 1/exercise_2.cpp -o Practice\ 1/exercise_2 && ./Practice\ 1/exercise_2
 
 ## P1.Exercise 3
 - Design a program that allows inserting the personal information of a number n of people (name, age, marital status, weight, height) and allow calculating through a menu of operations.
@@ -25,25 +24,25 @@
   - b) If he is of legal age: indicates if he is of legal age, it will return a Boolean True / False
   - c) Enter Sex (sex char): check that the gender entered is correct. If it's not Right, you must issue a message and request it again.
   - d) GeneraDNI (): generates a random number of 8 digits, generates its number from this its corresponding letter.
-> cd Practica 1 && g++ exercise_3.cpp -o exercise_3 && ./exercise_3
+> g++ Practice\ 1/exercise_3.cpp -o Practice\ 1/exercise_3 && ./Practice\ 1/exercise_3
 
 ## P1.Exercise 4
 - Design a function that allows you to calculate your age from a given date in the future (year, month and day). The program must allow you to insert your current age and print the age in the future. For example:
 - If you enter a date for example year = 2019, month = 10 and age 19 and you want know your age on the following date year = 2025, month = 7 then the program mus returns that the age for July 2025 will be 24 years and 8 months
-> cd Practica 1 && g++ exercise_4.cpp -o exercise_4 && ./exercise_4
+> g++ Practice\ 1/exercise_4.cpp -o Practice\ 1/exercise_4 && ./Practice\ 1/exercise_4
 
 ## P1.Exercise 5
 - Design a free program that allows you to solve a problem. He must have at less 4 methods and a menu of operations managed from the main program.
-> cd Practica 1 && g++ exercise_5.cpp -o exercise_5 && ./exercise_5
-
+> g++ Practice\ 1/exercise_5.cpp -o Practice\ 1/exercise_5 && ./Practice\ 1/exercise_5
 
 # Practice 2
 ## P2.Exercise 1
 - Design a program that, given a vector of n elements, sorts it in ascending order and descending.
-> cd Practica 2 && g++ exercise_1.cpp -o exercise_1 && ./exercise_1
+> g++ Practice\ 2/exercise_1.cpp -o Practice\ 2/exercise_1 && ./Practice\ 2/exercise_1
 
 ## P2.Exercise 2
 - Write a program that given a vector A and a vector B, all the elements of Vector B in vector A, starting from a position given by the user.
+> g++ Practice\ 2/exercise_2.cpp -o Practice\ 2/exercise_2 && ./Practice\ 2/exercise_2
 
 ## P2.Exercise 3
 - Given a vector of n random elements, create a frequency histogram. Help to build a histogram, https://ingenioempresa.com/histograma/
