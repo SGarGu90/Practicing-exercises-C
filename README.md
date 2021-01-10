@@ -2,7 +2,6 @@
 
 
 # Practice 1
-
 ## Exercise 1 | Operations (addition, substract, multiply, divide, factorial, exponential)
 > cd Practica 1 && g++ exercise_1.cpp -o exercise_1 && ./exercise_1
 
@@ -18,10 +17,11 @@
 ## Exercise 5 | Calc Area and Perimeter from regular polygons
 > cd Practica 1 && g++ exercise_5.cpp -o exercise_5 && ./exercise_5
 
-# Practice 2
 
+# Practice 2
 ## Exercise 1
 - Design a program that, given a vector of n elements, sorts it in ascending order and descending.
+> cd Practica 2 && g++ exercise_1.cpp -o exercise_1 && ./exercise_1
 
 ## Exercise 2
 - Write a program that given a vector A and a vector B, all the elements of Vector B in vector A, starting from a position given by the user.
