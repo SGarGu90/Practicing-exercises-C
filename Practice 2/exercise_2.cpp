@@ -5,6 +5,33 @@
 
 using namespace std;
 
+vector merge_vectors_by_index(vector<int> &vector_a, vector<int> &vector_b, int v_pos_index_a) {
+  vector<int> result_vector;
+  int result_vector_length = vector_a.size() + vector_b.size();
+  int count_used_from_a = 0;
+  int count_used_from_b = 0;
+  int current_number_to_insert;
+  bool is_vector_b_filled_in_a;
+
+  for (int v_result_pos = 0; v_result_pos < result_vector_length; v_result_pos++) {
+    is_vector_b_filled_in_a = (count_used_from_b >= vector_b.size());
+    if (v_result_pos < v_pos_index_a) {
+      current_number_to_insert = vector_a[count_used_from_a];
+      count_used_from_a++;
+    } else if (v_result_pos >= v_pos_index_a) {
+      if (!is_vector_b_filled_in_a) {
+        current_number_to_insert = vector_b[count_used_from_b];
+        count_used_from_b++;
+      }
+      else if (is_vector_b_filled_in_a){
+        current_number_to_insert = vector_a[count_used_from_a];
+        count_used_from_a++;
+      }
+    }
+    result_vector.insert(result_vector.end(), current_number_to_insert);
+  }
+}
+
 void print_vector(vector<int> vector_numbers, string text = "Input vector is: ")
 {
   if (text != "") cout << text << "{ ";
@@ -43,44 +70,20 @@ void request_vector_numbers(vector<int> &vector_numbers) {
 
 int main()
 {
-  vector<int> vector_numbers_a;
-  vector<int> vector_numbers_b;
+  vector<int> vector_a;
+  vector<int> vector_b;
 
   cout << "First vector config: " << endl;
-  request_vector_numbers(vector_numbers_a);
+  request_vector_numbers(vector_a);
   cout << "Second vector config: " << endl;
-  request_vector_numbers(vector_numbers_b);
+  request_vector_numbers(vector_b);
 
   cout << "Set position to insert Vector b in vector a" << endl;
   int v_pos_index_a = cin_number_int() - 1;
 
-  vector<int> vector_result;
-
-  int vector_result_length = vector_numbers_a.size() + vector_numbers_b.size();
-  int count_used_from_a = 0;
-  int count_used_from_b = 0;
-  int current_number_to_insert;
-  bool is_vector_b_filled_in_a;
-
-  for (int v_result_pos = 0; v_result_pos < vector_result_length; v_result_pos++) {
-    is_vector_b_filled_in_a = (count_used_from_b >= vector_numbers_b.size());
-    if (v_result_pos < v_pos_index_a) {
-      current_number_to_insert = vector_numbers_a[count_used_from_a];
-      count_used_from_a++;
-    } else if (v_result_pos >= v_pos_index_a) {
-      if (!is_vector_b_filled_in_a) {
-        current_number_to_insert = vector_numbers_b[count_used_from_b];
-        count_used_from_b++;
-      }
-      else if (is_vector_b_filled_in_a){
-        current_number_to_insert = vector_numbers_a[count_used_from_a];
-        count_used_from_a++;
-      }
-    }
-    vector_result.insert(vector_result.end(), current_number_to_insert);
-  }
-
-  print_vector(vector_result, "Result vector is: ");
+  vector<int> result_vector;
+  result_vector = merge_vectors_by_index(vector_a, vector_b, v_pos_index_a);
+  print_vector(result_vector, "Result vector is: ");
 
   return 0;
 }
