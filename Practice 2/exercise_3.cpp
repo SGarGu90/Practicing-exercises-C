@@ -21,8 +21,6 @@ string generate_random_number_by_length(int random_number_length)
     int pseudo_random_number;
     string random_number = "";
     int position_to_get_from_generated_number;
-    // Don't use srand inside the loop, use it only once, e.g. at the start of main(). And srand() is exactly how you reset this.
-    srand(time(NULL));
 
     do {
         // The rand() function does not generate a truly random number; it actually returns the next pseudo-random value
@@ -68,6 +66,8 @@ void request_vector_numbers(vector<int> &vector_numbers) {
 
 int main()
 {
+  // Don't use srand inside the loop, use it only once, e.g. at the start of main(). And srand() is exactly how you reset this.
+  srand(time(NULL));
   vector<int> vector_numbers;
   request_vector_numbers(vector_numbers);
 
