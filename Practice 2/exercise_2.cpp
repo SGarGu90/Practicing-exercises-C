@@ -45,17 +45,42 @@ int main()
 {
   vector<int> vector_numbers_a;
   vector<int> vector_numbers_b;
-  int index_vector_a;
 
   cout << "First vector config: " << endl;
   request_vector_numbers(vector_numbers_a);
   cout << "Second vector config: " << endl;
   request_vector_numbers(vector_numbers_b);
 
-  cout << "Set position from first vector to insert the second vector such as (vector_a -> vector_b[pos])" << endl;
-  index_vector_a = cin_number_int();
+  cout << "Set position to insert Vector b in vector a" << endl;
+  int v_pos_index_a = cin_number_int() - 1;
 
+  vector<int> vector_result;
 
+  int vector_result_length = vector_numbers_a.size() + vector_numbers_b.size();
+  int count_used_from_a = 0;
+  int count_used_from_b = 0;
+  int current_number_to_insert;
+  bool is_vector_b_filled_in_a;
+
+  for (int v_result_pos = 0; v_result_pos < vector_result_length; v_result_pos++) {
+    is_vector_b_filled_in_a = (count_used_from_b >= vector_numbers_b.size());
+    if (v_result_pos < v_pos_index_a) {
+      current_number_to_insert = vector_numbers_a[count_used_from_a];
+      count_used_from_a++;
+    } else if (v_result_pos >= v_pos_index_a) {
+      if (!is_vector_b_filled_in_a) {
+        current_number_to_insert = vector_numbers_b[count_used_from_b];
+        count_used_from_b++;
+      }
+      else if (is_vector_b_filled_in_a){
+        current_number_to_insert = vector_numbers_a[count_used_from_a];
+        count_used_from_a++;
+      }
+    }
+    vector_result.insert(vector_result.end(), current_number_to_insert);
+  }
+
+  print_vector(vector_result, "Result vector is: ");
 
   return 0;
 }
