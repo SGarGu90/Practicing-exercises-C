@@ -1,5 +1,6 @@
 #include <iostream>
 #include <limits> // To request strict number in cin (not allowed letters) numeric_limits<streamsize>..
+#include <vector>
 
 using namespace std;
 
@@ -116,4 +117,14 @@ string custom_rand_number_from_0_to(int random_value_range_to, bool is_included 
 
 
     return random_number;
+}
+
+void print_vector(vector<int> vector_numbers, string text = "Input vector is: ")
+{
+  if (text != "") cout << text << "{ ";
+  for (int num_pos = 0; num_pos < vector_numbers.size(); num_pos++) {
+    if (num_pos != vector_numbers.size() - 1) cout << vector_numbers[num_pos] << ", ";
+    else cout << vector_numbers[num_pos];
+  }
+  cout << " }" << endl;
 }
