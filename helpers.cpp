@@ -130,3 +130,42 @@ void print_vector(vector<int> vector_numbers, string text = "Input vector is: ")
   }
   cout << " }" << endl;
 }
+
+auto merge_vectors_by_index(vector<int> &vector_a, vector<int> &vector_b, int v_pos_index = -1) {
+  vector<int> result_vector;
+  int result_vector_length = vector_a.size() + vector_b.size();
+  int count_used_from_a = 0;
+  int count_used_from_b = 0;
+  int current_number_to_insert;
+  bool is_vector_b_filled_in_a;
+
+  for (int v_result_pos = 0; v_result_pos < result_vector_length; v_result_pos++) {
+    is_vector_b_filled_in_a = (count_used_from_b >= vector_b.size());
+    if (v_pos_index == -1) {
+      if (v_result_pos < vector_a.size()) {
+        current_number_to_insert = vector_a[count_used_from_a];
+        count_used_from_a++;
+      } else {
+        current_number_to_insert = vector_b[count_used_from_b];
+        count_used_from_b++;
+      }
+    } else {
+      if (v_result_pos < v_pos_index) {
+        current_number_to_insert = vector_a[count_used_from_a];
+        count_used_from_a++;
+      } else if (v_result_pos >= v_pos_index) {
+        if (!is_vector_b_filled_in_a) {
+          current_number_to_insert = vector_b[count_used_from_b];
+          count_used_from_b++;
+        }
+        else if (is_vector_b_filled_in_a){
+          current_number_to_insert = vector_a[count_used_from_a];
+          count_used_from_a++;
+        }
+      }
+    }
+
+    result_vector.insert(result_vector.end(), current_number_to_insert);
+  }
+  return result_vector;
+}
