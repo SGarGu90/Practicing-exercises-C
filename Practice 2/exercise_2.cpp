@@ -5,6 +5,16 @@
 
 using namespace std;
 
+void print_vector(vector<int> vector_numbers, string text = "Input vector is: ")
+{
+  if (text != "") cout << text << "{ ";
+  for (int num_pos = 0; num_pos < vector_numbers.size(); num_pos++) {
+    if (num_pos != vector_numbers.size() - 1) cout << vector_numbers[num_pos] << ", ";
+    else cout << vector_numbers[num_pos];
+  }
+  cout << " }" << endl;
+}
+
 int cin_number_int(int insert_count_number = -1)
 {
   if (insert_count_number != -1) cout << "Insert number: " << insert_count_number + 1 << endl;
@@ -41,7 +51,7 @@ int main()
   cout << "Second vector config: " << endl;
   request_vector_numbers(vector_numbers_b);
 
-
+  cout << "Set position from First vector"
 
   return 0;
 }
