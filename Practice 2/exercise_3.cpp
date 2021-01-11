@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <limits> // To request strict number in cin (not allowed letters) numeric_limits<streamsize>..
+#include<cmath>
 
 using namespace std;
 
@@ -63,8 +64,8 @@ int cin_number_int(int insert_count_number = -1)
   return input;
 }
 
-void populate_vector_with_N_custom_random_numbers(vector<int> &vector_numbers) {
-  vector<int> vector_numbers;
+void populate_vector_with_customized_random_numbers_by_length(vector<int> &vector_numbers)
+{
   int new_number;
 
   cout << "Insert vector length (N). { ...n, ...(N) }" << endl;
@@ -74,7 +75,7 @@ void populate_vector_with_N_custom_random_numbers(vector<int> &vector_numbers) {
 
   cout << "Vector values will be generated for you." << endl;
   cout << "Set new maximum value for random numbers or 0 for default (100)" << endl;
-  cout << "rand[0-100]. X(100)? =";
+  cout << "rand[0-100]. X(100)? = ";
   int vector_max_value = cin_number_int();
   cout << endl;
   if (vector_max_value == 0) vector_max_value = 100;
@@ -88,36 +89,69 @@ void populate_vector_with_N_custom_random_numbers(vector<int> &vector_numbers) {
   }
 }
 
-void print_vector(vector<int> vector_numbers, string text = "Input vector is: ")
+void print_vector_numbers(vector<int> vector, string text = "Input vector is: ")
 {
   if (text != "") cout << text << "{ ";
-  for (int num_pos = 0; num_pos < vector_numbers.size(); num_pos++) {
-    if (num_pos != vector_numbers.size() - 1) cout << vector_numbers[num_pos] << ", ";
-    else cout << vector_numbers[num_pos];
+  for (int v_pos = 0; v_pos < vector.size(); v_pos++) {
+    if (v_pos != vector.size() - 1) cout << vector[v_pos] << ", ";
+    else cout << vector[v_pos];
   }
   cout << " }" << endl;
 }
 
-void set_x_axis_interval_values(vector<int> &vector_numbers)
+void print_vector_strings(vector<string> vector, string text = "Input vector is: ")
 {
+  if (text != "") cout << text << "{ ";
+  for (int v_pos = 0; v_pos < vector.size(); v_pos++) {
+    if (v_pos != vector.size() - 1) cout << vector[v_pos] << ", ";
+    else cout << vector[v_pos];
+  }
+  cout << " }" << endl;
+}
 
+int find_vector_value(vector<int> vector_numbers, string filter)
+{
+  int value = vector_numbers[0];
+  for (int v_pos = 1; v_pos < vector_numbers.size(); v_pos++) {
+    if (filter == "max" && value < vector_numbers[v_pos]) value = vector_numbers[v_pos];
+    else if (filter == "min" && value > vector_numbers[v_pos]) value = vector_numbers[v_pos];
+  }
+
+  return value;
+}
+
+void configure_X_axis_histogram_range_values_by_input_vector(vector<string> &x_axis_intervals, vector<int> vector_numbers)
+{
+  int vector_length = vector_numbers.size();
+  int k_classes = round(sqrt(vector_length));
+
+  int min_vector_value = find_vector_value(vector_numbers, "min");
+  int max_vector_value = find_vector_value(vector_numbers, "max");
+
+  cout << "Llegamos" << endl;
+  cout << "Min " << min_vector_value << endl;
+  cout << "Max " << max_vector_value << endl;
+  cout << "K " << k_classes << endl;
+  string interval;
+
+  for (int range_interval = min_vector_value; range_interval <= (max_vector_value + k_classes); range_interval += k_classes) {
+    interval = std::to_string(range_interval) + "-" + std::to_string(range_interval + k_classes);
+    x_axis_intervals.insert(x_axis_intervals.end(), interval);
+  }
 }
 
 int main()
 {
   vector<int> vector_numbers;
-  populate_vector_with_N_custom_random_numbers(vector_numbers);
-  print_vector(vector_numbers, "Result vector is: ");
+  populate_vector_with_customized_random_numbers_by_length(vector_numbers);
+  print_vector_numbers(vector_numbers, "Generated vector: ");
 
-  vector<int> x_axis_intervals;
-  set_x_axis_interval_values(x_axis_intervals);
+  vector<string> x_axis_intervals;
+  configure_X_axis_histogram_range_values_by_input_vector(x_axis_intervals, vector_numbers);
+  print_vector_strings(x_axis_intervals, "Histogram intervals ");
 
   vector<int> y_axis_frequencies;
 
-  for (int v_pos = 0; v_pos < vector_numbers.size(); v_pos++) {
-    int current_v_num = vector_numbers[v_pos];
-
-  }
 
   return 0;
 }

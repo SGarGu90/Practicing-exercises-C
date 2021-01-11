@@ -118,8 +118,8 @@ string custom_rand_number_from_0_to(int random_value_range_to, bool is_included 
 }
 
 // Depends of function 'custom_rand_number_from_0_to' and set 'srand(time(NULL))' correctly not in loop
-void populate_vector_with_N_custom_random_numbers(vector<int> &vector_numbers) {
-  vector<int> vector_numbers;
+void populate_vector_with_customized_random_numbers_by_length(vector<int> &vector_numbers)
+{
   int new_number;
 
   cout << "Insert vector length (N). { ...n, ...(N) }" << endl;
@@ -129,7 +129,7 @@ void populate_vector_with_N_custom_random_numbers(vector<int> &vector_numbers) {
 
   cout << "Vector values will be generated for you." << endl;
   cout << "Set new maximum value for random numbers or 0 for default (100)" << endl;
-  cout << "rand[0-100]. X(100)? =";
+  cout << "rand[0-100]. X(100)? = ";
   int vector_max_value = cin_number_int();
   cout << endl;
   if (vector_max_value == 0) vector_max_value = 100;
@@ -143,17 +143,28 @@ void populate_vector_with_N_custom_random_numbers(vector<int> &vector_numbers) {
   }
 }
 
-void print_vector(vector<int> vector_numbers, string text = "Input vector is: ")
+void print_vector_numbers(vector<int> vector, string text = "Input vector is: ")
 {
   if (text != "") cout << text << "{ ";
-  for (int num_pos = 0; num_pos < vector_numbers.size(); num_pos++) {
-    if (num_pos != vector_numbers.size() - 1) cout << vector_numbers[num_pos] << ", ";
-    else cout << vector_numbers[num_pos];
+  for (int v_pos = 0; v_pos < vector.size(); v_pos++) {
+    if (v_pos != vector.size() - 1) cout << vector[v_pos] << ", ";
+    else cout << vector[v_pos];
   }
   cout << " }" << endl;
 }
 
-auto merge_vectors_by_index(vector<int> vector_a, vector<int> vector_b, int v_pos_index = -1) {
+void print_vector_strings(vector<string> vector, string text = "Input vector is: ")
+{
+  if (text != "") cout << text << "{ ";
+  for (int v_pos = 0; v_pos < vector.size(); v_pos++) {
+    if (v_pos != vector.size() - 1) cout << vector[v_pos] << ", ";
+    else cout << vector[v_pos];
+  }
+  cout << " }" << endl;
+}
+
+auto merge_vectors_by_index(vector<int> vector_a, vector<int> vector_b, int v_pos_index = -1)
+{
   vector<int> result_vector;
   int result_vector_length = vector_a.size() + vector_b.size();
   int count_used_from_a = 0;
