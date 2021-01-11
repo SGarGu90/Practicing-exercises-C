@@ -122,7 +122,7 @@ string custom_rand_number_from_0_to(int random_value_range_to, bool is_included 
 }
 
 // Depends of function 'custom_rand_number_from_0_to' and set 'srand(time(NULL))' correctly not in loop
-auto get_rand_vector_num_values_by_max_value() {
+void populate_vector_with_N_custom_random_numbers(vector<int> &vector_numbers) {
   vector<int> vector_numbers;
   int new_number;
 
@@ -137,7 +137,7 @@ auto get_rand_vector_num_values_by_max_value() {
   int vector_max_value = cin_number_int();
   cout << endl;
   if (vector_max_value == 0) vector_max_value = 100;
-  cout << "Result vector: {...rand[0-" << vector_max_value << "], ...Rand[0-" << vector_max_value << "](" << vector_length << ")}" << endl;
+  cout << "Creating vector: {...rand[0-" << vector_max_value << "], ...Rand[0-" << vector_max_value << "](" << vector_length << ")} ..." << endl;
 
   // Don't use srand inside the loop, use it only once, e.g. at the start of main(). And srand() is exactly how you reset this.
   srand(time(NULL));
@@ -145,8 +145,6 @@ auto get_rand_vector_num_values_by_max_value() {
     new_number = stoi(custom_rand_number_from_0_to(vector_max_value));
     vector_numbers.insert(vector_numbers.end(), new_number);
   }
-
-  return vector_numbers;
 }
 
 void print_vector(vector<int> vector_numbers, string text = "Input vector is: ")

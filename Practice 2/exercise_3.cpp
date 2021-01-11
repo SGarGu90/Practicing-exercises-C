@@ -73,7 +73,7 @@ int cin_number_int(int insert_count_number = -1)
   return input;
 }
 
-auto get_rand_vector_num_values_by_max_value() {
+void populate_vector_with_N_custom_random_numbers(vector<int> &vector_numbers) {
   vector<int> vector_numbers;
   int new_number;
 
@@ -88,7 +88,7 @@ auto get_rand_vector_num_values_by_max_value() {
   int vector_max_value = cin_number_int();
   cout << endl;
   if (vector_max_value == 0) vector_max_value = 100;
-  cout << "Result vector: {...rand[0-" << vector_max_value << "], ...Rand[0-" << vector_max_value << "](" << vector_length << ")}" << endl;
+  cout << "Creating vector: {...rand[0-" << vector_max_value << "], ...Rand[0-" << vector_max_value << "](" << vector_length << ")} ..." << endl;
 
   // Don't use srand inside the loop, use it only once, e.g. at the start of main(). And srand() is exactly how you reset this.
   srand(time(NULL));
@@ -96,18 +96,17 @@ auto get_rand_vector_num_values_by_max_value() {
     new_number = stoi(custom_rand_number_from_0_to(vector_max_value));
     vector_numbers.insert(vector_numbers.end(), new_number);
   }
-
-  return vector_numbers;
 }
 
 int main()
 {
   vector<int> vector_numbers;
-  vector_numbers = get_rand_vector_num_values_by_max_value();
+  populate_vector_with_N_custom_random_numbers(vector_numbers);
   print_vector(vector_numbers, "Result vector is: ");
 
-  vector<int> y_axis_frequencies;
   vector<int> x_axis_intervals;
+
+  vector<int> y_axis_frequencies;
 
   for (int v_pos = 0; v_pos < vector_numbers.size(); v_pos++) {
     int current_v_num = vector_numbers[v_pos];
