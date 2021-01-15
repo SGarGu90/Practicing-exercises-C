@@ -165,12 +165,31 @@ void configure_Y_axis_frequencies(vector<int> &frequencies, vector<string> x_axi
   }
 }
 
+void print_frequency_numbers(int current_row_n, int total_rows)
+{
+  int SPACING_ADAPT_FREQ_NUMS = 0;
+  if (total_rows > 9 && current_row_n <= 9) SPACING_ADAPT_FREQ_NUMS = 2;
+  else if (total_rows > 99 && current_row_n <= 99) SPACING_ADAPT_FREQ_NUMS = 2;
+  else if (total_rows > 999 && current_row_n <= 999) SPACING_ADAPT_FREQ_NUMS = 3;
+  else if (total_rows > 9999 && current_row_n <= 9999) SPACING_ADAPT_FREQ_NUMS = 4;
+  else if (total_rows > 99999 && current_row_n <= 99999) SPACING_ADAPT_FREQ_NUMS = 5;
+  cout << current_row_n << setw(SPACING_ADAPT_FREQ_NUMS) << " " << "| ";
+}
+
 void print_histogram_by(vector<string> x_axis_intervals, vector<int> frequencies)
 {
-
+    int total_rows = find_vector_value(frequencies, "max");
+    string min_interval_value;
+    string max_interval_value;
+    int WIDTH_SPACING = 2;
+    int LAST_ROW = 0;
 
     for(int current_row_n = total_rows; current_row_n >= 0; current_row_n--) {
+      print_frequency_numbers(current_row_n, total_rows);
+      min_interval_value = "";
+      max_interval_value = "";
 
+      cout << endl;
     }
 }
 
