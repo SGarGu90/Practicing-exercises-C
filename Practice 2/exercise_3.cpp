@@ -137,7 +137,11 @@ void configure_X_axis_histogram_range_values_by_input_vector(vector<string> &x_a
 
 void configure_Y_axis_frequencies(vector<int> &y_axis_frequencies, vector<string> x_axis_intervals, vector<int> vector_numbers)
 {
+  string intervalAsStr;
 
+  for (int interval_v_pos = 0; interval_v_pos < x_axis_intervals.size(); interval_v_pos ++) {
+    intervalAsStr = x_axis_intervals[interval_v_pos];
+  }
 }
 
 int main()
