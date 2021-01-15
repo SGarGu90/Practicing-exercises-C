@@ -176,6 +176,12 @@ void print_frequency_numbers(int current_row_n, int total_rows)
   cout << current_row_n << setw(SPACING_ADAPT_FREQ_NUMS) << " " << "| ";
 }
 
+void print_intervals(vector<string> x_axis_intervals, int WIDTH_SPACING)
+{
+  for (int x_axis_pos = 0; x_axis_pos < x_axis_intervals.size(); x_axis_pos++)
+    cout << x_axis_intervals[x_axis_pos] << setw(WIDTH_SPACING) << " ";
+}
+
 void print_histogram_by(vector<string> x_axis_intervals, vector<int> frequencies)
 {
     int total_rows = find_vector_value(frequencies, "max");
@@ -189,6 +195,7 @@ void print_histogram_by(vector<string> x_axis_intervals, vector<int> frequencies
       min_interval_value = "";
       max_interval_value = "";
 
+      if (current_row_n == LAST_ROW) print_intervals(x_axis_intervals, WIDTH_SPACING);
       cout << endl;
     }
 }
