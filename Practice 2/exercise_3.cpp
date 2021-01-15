@@ -135,6 +135,11 @@ void configure_X_axis_histogram_range_values_by_input_vector(vector<string> &x_a
   }
 }
 
+void configure_Y_axis_frequencies(vector<int> &y_axis_frequencies, vector<string> x_axis_intervals, vector<int> vector_numbers)
+{
+
+}
+
 int main()
 {
   vector<int> vector_numbers;
@@ -144,6 +149,10 @@ int main()
   vector<string> x_axis_intervals;
   configure_X_axis_histogram_range_values_by_input_vector(x_axis_intervals, vector_numbers);
   print_vector_strings(x_axis_intervals, "Intervals: ");
+
+  vector<int> y_axis_frequencies;
+  configure_Y_axis_frequencies(y_axis_frequencies, x_axis_intervals, vector_numbers);
+
 
   return 0;
 }
