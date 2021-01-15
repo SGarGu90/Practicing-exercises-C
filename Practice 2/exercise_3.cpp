@@ -141,18 +141,26 @@ void configure_Y_axis_frequencies(vector<int> &y_axis_frequencies, vector<string
   string min_interval_value;
   string max_interval_value;
   bool isProcessingMinValue;
+  int interval_freq;
 
   for (int interval_v_pos = 0; interval_v_pos < x_axis_intervals.size(); interval_v_pos ++) {
     intervalAsStr = x_axis_intervals[interval_v_pos];
     isProcessingMinValue = true;
     min_interval_value = "";
     max_interval_value = "";
+    interval_freq = 0;
 
     for (int str_pos = 0; str_pos < intervalAsStr.size(); str_pos++) {
       if (intervalAsStr[str_pos] == '-') isProcessingMinValue = false;
       else if (isProcessingMinValue) min_interval_value.push_back(intervalAsStr[str_pos]);
       else if (!isProcessingMinValue) max_interval_value.push_back(intervalAsStr[str_pos]);
     }
+
+    for (int num_v_pos = 0; num_v_pos < vector_numbers.size(); num_v_pos++) {
+      if (stoi(min_interval_value) <= vector_numbers[num_v_pos] && vector_numbers[num_v_pos] <= stoi(max_interval_value)) interval_freq++;
+    }
+
+    y_axis_frequencies.insert(y_axis_frequencies.end(), interval_freq);
   }
 }
 
