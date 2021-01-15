@@ -128,10 +128,10 @@ void configure_X_axis_histogram_range_values_by_input_vector(vector<string> &x_a
   int min_vector_value = find_vector_value(vector_numbers, "min");
   int max_vector_value = find_vector_value(vector_numbers, "max");
 
-  string interval;
+  string intervalAsStr;
   for (int range_interval = min_vector_value; range_interval <= (max_vector_value + k_classes); range_interval += k_classes) {
-    interval = std::to_string(range_interval) + "-" + std::to_string(range_interval + k_classes);
-    x_axis_intervals.insert(x_axis_intervals.end(), interval);
+    intervalAsStr = std::to_string(range_interval) + "-" + std::to_string(range_interval + k_classes);
+    x_axis_intervals.insert(x_axis_intervals.end(), intervalAsStr);
   }
 }
 
@@ -143,10 +143,7 @@ int main()
 
   vector<string> x_axis_intervals;
   configure_X_axis_histogram_range_values_by_input_vector(x_axis_intervals, vector_numbers);
-  print_vector_strings(x_axis_intervals, "Histogram intervals: ");
-
-  vector<int> y_axis_frequencies;
-
+  print_vector_strings(x_axis_intervals, "Intervals: ");
 
   return 0;
 }
