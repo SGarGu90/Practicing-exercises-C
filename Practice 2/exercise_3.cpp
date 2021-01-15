@@ -180,5 +180,16 @@ int main()
 
   vector<int> y_axis_frequencies;
 
+  int totalPrintHeight;
+  for (int char_pos = 0; char_pos < 200; char_pos++) {
+    totalPrintHeight = find_vector_value(frequencies, "max") + 2;
+
+    if (totalPrintHeight % char_pos == 0) {
+      cout << "*" << endl;
+    }
+  }
+
+
+
   return 0;
 }
