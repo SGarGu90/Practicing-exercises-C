@@ -3,6 +3,7 @@
 #include <string>
 #include <limits> // To request strict number in cin (not allowed letters) numeric_limits<streamsize>..
 #include<cmath>
+#include <iomanip> // use set() to generate empty spaces between text
 
 using namespace std;
 
@@ -164,6 +165,15 @@ void configure_Y_axis_frequencies(vector<int> &frequencies, vector<string> x_axi
   }
 }
 
+void print_histogram_by(vector<string> x_axis_intervals, vector<int> frequencies)
+{
+
+
+    for(int current_row_n = total_rows; current_row_n >= 0; current_row_n--) {
+
+    }
+}
+
 int main()
 {
   vector<int> vector_numbers;
@@ -178,18 +188,7 @@ int main()
   configure_Y_axis_frequencies(frequencies, x_axis_intervals, vector_numbers);
   print_vector_numbers(frequencies, "Frequencies: ");
 
-  vector<int> y_axis_frequencies;
-
-  int totalPrintHeight;
-  for (int char_pos = 0; char_pos < 200; char_pos++) {
-    totalPrintHeight = find_vector_value(frequencies, "max") + 2;
-
-    if (totalPrintHeight % char_pos == 0) {
-      cout << "*" << endl;
-    }
-  }
-
-
+  print_histogram_by(x_axis_intervals, frequencies);
 
   return 0;
 }
