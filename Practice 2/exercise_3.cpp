@@ -176,6 +176,7 @@ int main()
 
   vector<int> y_axis_frequencies;
   configure_Y_axis_frequencies(y_axis_frequencies, x_axis_intervals, vector_numbers);
+  print_vector_numbers(y_axis_frequencies, "Frequencies: ");
 
 
   return 0;
