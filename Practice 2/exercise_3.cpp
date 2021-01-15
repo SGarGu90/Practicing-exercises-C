@@ -138,9 +138,21 @@ void configure_X_axis_histogram_range_values_by_input_vector(vector<string> &x_a
 void configure_Y_axis_frequencies(vector<int> &y_axis_frequencies, vector<string> x_axis_intervals, vector<int> vector_numbers)
 {
   string intervalAsStr;
+  string min_interval_value;
+  string max_interval_value;
+  bool isProcessingMinValue;
 
   for (int interval_v_pos = 0; interval_v_pos < x_axis_intervals.size(); interval_v_pos ++) {
     intervalAsStr = x_axis_intervals[interval_v_pos];
+    isProcessingMinValue = true;
+    min_interval_value = "";
+    max_interval_value = "";
+
+    for (int str_pos = 0; str_pos < intervalAsStr.size(); str_pos++) {
+      if (intervalAsStr[str_pos] == '-') isProcessingMinValue = false;
+      else if (isProcessingMinValue) min_interval_value.push_back(intervalAsStr[str_pos]);
+      else if (!isProcessingMinValue) max_interval_value.push_back(intervalAsStr[str_pos]);
+    }
   }
 }
 
