@@ -67,6 +67,7 @@ int cin_number_int(int insert_count_number = -1)
 
 void populate_vector_with_customized_random_numbers_by_length(vector<int> &vector_numbers)
 {
+  int DEFAULT_MAX_RAND_VALUE = 50;
   int new_number;
 
   cout << "Insert vector length (N). { ...n, ...(N) }" << endl;
@@ -75,12 +76,12 @@ void populate_vector_with_customized_random_numbers_by_length(vector<int> &vecto
   cout << "\n";
 
   cout << "Vector values will be generated for you." << endl;
-  cout << "Set new maximum value for random numbers or 0 for default (100)" << endl;
-  cout << "rand[0-100]. X(100)? = ";
+  cout << "Set new maximum value for random numbers or 0 for default "<< "(" << DEFAULT_MAX_RAND_VALUE << ")" << endl;
+  cout << "rand[0-" << DEFAULT_MAX_RAND_VALUE << "]. X(" << DEFAULT_MAX_RAND_VALUE << ")? = ";
   int vector_max_value = cin_number_int();
   cout << endl;
-  if (vector_max_value == 0) vector_max_value = 100;
-  cout << "Creating vector: {...rand[0-" << vector_max_value << "], ...Rand[0-" << vector_max_value << "](" << vector_length << ")} ..." << endl;
+  if (vector_max_value == 0) vector_max_value = DEFAULT_MAX_RAND_VALUE;
+  cout << "Creating vector: {...rand[0-" << vector_max_value << "], ...Rand[0-" << vector_max_value << "]}(" << vector_length << ") ..." << endl;
 
   // Don't use srand inside the loop, use it only once, e.g. at the start of main(). And srand() is exactly how you reset this.
   srand(time(NULL));
