@@ -59,7 +59,7 @@
           R1 R2 R3 R4 R5
 
        Where f1 is the frequency and R is range
-
+> g++ Practice\ 2/exercise_3.cpp -o Practice\ 2/exercise_3 && ./Practice\ 2/exercise_3
 
 ## P2.Exercise 4
 - Given a vector of N positions, perform a statistical analysis that allows you to find the mean, median, mode, standard deviation, variance, and if you can calculate the outliers that has that data set.

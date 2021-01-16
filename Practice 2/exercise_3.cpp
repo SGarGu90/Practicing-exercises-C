@@ -252,11 +252,11 @@ int main()
   configure_X_axis_histogram_range_values_by_input_vector(x_axis_intervals, vector_numbers);
   print_vector_strings(x_axis_intervals, "Intervals: ");
 
-  vector<int> frequencies;
-  configure_Y_axis_frequencies(frequencies, x_axis_intervals, vector_numbers);
-  print_vector_numbers(frequencies, "Frequencies: ");
+  vector<int> y_axis_frequencies;
+  configure_Y_axis_frequencies(y_axis_frequencies, x_axis_intervals, vector_numbers);
+  print_vector_numbers(y_axis_frequencies, "Frequencies: ");
 
-  print_histogram_by(x_axis_intervals, frequencies);
+  print_histogram_by(x_axis_intervals, y_axis_frequencies);
 
   return 0;
 }
