@@ -63,6 +63,7 @@
 
 ## P2.Exercise 4
 - Given a vector of N positions, perform a statistical analysis that allows you to find the mean, median, mode, standard deviation, variance, and if you can calculate the outliers that has that data set.
+> g++ Practice\ 2/exercise_4.cpp -o Practice\ 2/exercise_4 && ./Practice\ 2/exercise_4
 
 ## P2.Exercise 5
 - Dada tres strings de dimensión N, genera un password y luego almacénalo en un cuarto string.
