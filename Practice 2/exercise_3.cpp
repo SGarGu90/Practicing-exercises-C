@@ -178,10 +178,18 @@ int print_Y_axis_frequency_numbers(int current_row_n, int total_rows, int &SPACI
   return SPACING_ADAPT_FREQ_NUMS;
 }
 
-void print_intervals(int current_row_n, vector<string> x_axis_intervals, int WIDTH_SPACING, int SPACING_ADAPT_FREQ_NUMS)
+void print_Y_axis_separator(int current_row_n)
 {
+  // TO DO (//--- separator)
+}
+
+void print_Y_axis_intervals(int current_row_n, vector<string> x_axis_intervals, int SPACING_ADAPT_FREQ_NUMS)
+{
+
+  int WIDTH_SPACING = 2;
   int LAST_ROW = 0;
   if (current_row_n == LAST_ROW) {
+    print_Y_axis_separator(current_row_n);
     int SPACING_FROM_PRINT_FREQ_NUMS = 3;
     cout << setw(SPACING_FROM_PRINT_FREQ_NUMS + SPACING_ADAPT_FREQ_NUMS) << " ";
     for (int x_axis_pos = 0; x_axis_pos < x_axis_intervals.size(); x_axis_pos++)
@@ -203,18 +211,12 @@ int set_correct_spacing_between_cols(string intervalAsStr)
   return SPACING_ADAPT_FREQ_DOTS;
 }
 
-void print_histogram_line(int current_row_n, vector<string> x_axis_intervals, vector<int> frequencies)
+void print_histogram_line_dots(int current_row_n, vector<string> x_axis_intervals, vector<int> frequencies)
 {
   int LAST_ROW = 0;
   if (current_row_n != LAST_ROW) {
     int total_chars_per_line = x_axis_intervals.size();
-    int total_interval_str_size;
-    int dot_position_at_interval = 1;
     int SPACING_ADAPT_FREQ_DOTS;
-
-    string intervalAsStr;
-    string min_interval_value;
-    string max_interval_value;
     bool isExistValue = false;
 
     for (int char_pos = 0; char_pos < total_chars_per_line; char_pos++) {
@@ -228,26 +230,15 @@ void print_histogram_line(int current_row_n, vector<string> x_axis_intervals, ve
   }
 }
 
-void print_Y_axis_separator(int current_row_n)
-{
-  int LAST_ROW = 0;
-  if (current_row_n == LAST_ROW) {
-    // TO DO (//--- separator)
-  }
-}
-
 void print_histogram_by(vector<string> x_axis_intervals, vector<int> frequencies)
 {
     int total_rows = find_vector_value(frequencies, "max");
-    int WIDTH_SPACING = 2;
-    int LAST_ROW = 0;
     int SPACING_ADAPT_FREQ_NUMS;
 
     for(int current_row_n = total_rows; current_row_n >= 0; current_row_n--) {
       print_Y_axis_frequency_numbers(current_row_n, total_rows, SPACING_ADAPT_FREQ_NUMS);
-      print_histogram_line(current_row_n, x_axis_intervals, frequencies);
-      print_Y_axis_separator(current_row_n);
-      print_intervals(current_row_n, x_axis_intervals, WIDTH_SPACING, SPACING_ADAPT_FREQ_NUMS);
+      print_histogram_line_dots(current_row_n, x_axis_intervals, frequencies);
+      print_Y_axis_intervals(current_row_n, x_axis_intervals, SPACING_ADAPT_FREQ_NUMS);
     }
 }
 
