@@ -202,3 +202,60 @@ auto merge_vectors_by_index(vector<int> vector_a, vector<int> vector_b, int v_po
   }
   return result_vector;
 }
+
+void populate_vector_with_customized_random_numbers_by_length(vector<int> &vector_numbers)
+{
+  int DEFAULT_MAX_RAND_VALUE = 50;
+  int new_number;
+
+  cout << "Insert vector length (N). { ...n, ...(N) }" << endl;
+  int vector_length = cin_number_int();
+  cout << "Result vector: {...rand[0-X], ...Rand[0-X](" << vector_length << ")}" << endl;
+  cout << "\n";
+
+  cout << "Vector values will be generated for you." << endl;
+  cout << "Set new maximum value for random numbers or 0 for default "<< "(" << DEFAULT_MAX_RAND_VALUE << ")" << endl;
+  cout << "rand[0-" << DEFAULT_MAX_RAND_VALUE << "]. X(" << DEFAULT_MAX_RAND_VALUE << ")? = ";
+  int vector_max_value = cin_number_int();
+  cout << endl;
+  if (vector_max_value == 0) vector_max_value = DEFAULT_MAX_RAND_VALUE;
+  cout << "Creating vector: {...rand[0-" << vector_max_value << "], ...Rand[0-" << vector_max_value << "]}(" << vector_length << ") ..." << endl;
+
+  // Don't use srand inside the loop, use it only once, e.g. at the start of main(). And srand() is exactly how you reset this.
+  srand(time(NULL));
+  for (int number_pos = 0; number_pos < vector_length; number_pos++) {
+    new_number = stoi(custom_rand_number_from_0_to(vector_max_value));
+    vector_numbers.insert(vector_numbers.end(), new_number);
+  }
+}
+
+int find_vector_value(vector<int> vector_numbers, string filter)
+{
+  int value = vector_numbers[0];
+  for (int v_pos = 1; v_pos < vector_numbers.size(); v_pos++) {
+    if (filter == "max" && value < vector_numbers[v_pos]) value = vector_numbers[v_pos];
+    else if (filter == "min" && value > vector_numbers[v_pos]) value = vector_numbers[v_pos];
+  }
+
+  return value;
+}
+
+void print_vector_numbers(vector<int> vector, string text = "Input vector is: ")
+{
+  if (text != "") cout << text << "{ ";
+  for (int v_pos = 0; v_pos < vector.size(); v_pos++) {
+    if (v_pos != vector.size() - 1) cout << vector[v_pos] << ", ";
+    else cout << vector[v_pos];
+  }
+  cout << " }" << endl;
+}
+
+void print_vector_strings(vector<string> vector, string text = "Input vector is: ")
+{
+  if (text != "") cout << text << "{ ";
+  for (int v_pos = 0; v_pos < vector.size(); v_pos++) {
+    if (v_pos != vector.size() - 1) cout << vector[v_pos] << ", ";
+    else cout << vector[v_pos];
+  }
+  cout << " }" << endl;
+}
