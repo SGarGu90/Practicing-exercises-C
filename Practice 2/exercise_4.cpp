@@ -4,6 +4,7 @@
 #include <limits> // To request strict number in cin (not allowed letters) numeric_limits<streamsize>..
 #include<cmath>
 #include <iomanip> // use set() to generate empty spaces between text
+#include <algorithm>
 
 using namespace std;
 
@@ -122,11 +123,83 @@ int find_vector_value(vector<int> vector_numbers, string filter)
   return value;
 }
 
+
+int total_sum(vector<int> vector)
+{
+  int total_sum;
+  for (int v_pos = 0; v_pos < vector.size(); v_pos++) total_sum+=vector[v_pos];
+  return total_sum;
+}
+
+double calc_mean(vector<int> vector)
+{
+  return (total_sum(vector) / vector.size());
+}
+
+int calc_median(vector<int> vector)
+{
+  int vector_length = vector.size();
+  sort(vector.begin(), vector.end());
+  double vector_middle_val = vector_length/2;
+  return vector_length % 2 == 0 ? (vector[vector_middle_val] + vector[vector_middle_val-1]) / 2 : vector[vector_middle_val];
+}
+
+int calc_mode(vector<int> vector)
+{
+  int first_number = vector[0];
+  int vector_length = vector.size();
+  int mode = first_number;
+  int count = 1;
+  int counted = 1;
+
+  for (int v_pos = 1; v_pos < vector_length; v_pos++) {
+    if (vector[v_pos] == first_number) count++;
+    else {
+      if (count > counted) counted = count;mode = first_number;
+      count = 1;
+      first_number = vector[v_pos];
+    }
+  }
+  return mode;
+}
+
+double calc_variance(vector<int> vector, double mean)
+{
+  double variance = 0;
+  for( int n = 0; n < vector.size(); n++ ) {
+    variance += (vector[n] - mean) * (vector[n] - mean);
+  }
+  variance = (variance / vector.size());
+  return variance;
+}
+
+double calc_std_dev(double variance)
+{
+  return sqrt(variance);
+}
+
+int make_statistical_analysis(vector<int> vector_numbers)
+{
+  double mean = calc_mean(vector_numbers);
+  int median = calc_median(vector_numbers);
+  int mode = calc_mode(vector_numbers);
+  double variance = calc_variance(vector_numbers, mean);
+  double std_dev = calc_std_dev(variance);
+
+  cout << "Mean:     " << mean << endl;
+  cout << "Median:   " << median << endl;
+  cout << "Mode:     " << mode << endl;
+  cout << "Variance: " << variance << endl;
+  cout << "std_dev:  " << std_dev << endl;
+}
+
 int main()
 {
   vector<int> vector_numbers;
   populate_vector_with_customized_random_numbers_by_length(vector_numbers);
   print_vector_numbers(vector_numbers, "Generated vector: ");
+
+  make_statistical_analysis(vector_numbers);
 
   return 0;
 }
