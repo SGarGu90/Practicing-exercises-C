@@ -17,12 +17,21 @@ string cin_string()
 
 int main()
 {
-  cout << "Insert string (1):  ";
+  cout << "Insert string (1): ";
   string str_input_1 = cin_string();
+  cout << endl;
+
   cout << "Insert string (2): ";
   string str_input_2 = cin_string();
+  cout << endl;
+
   cout << "Insert string (3): ";
   string str_input_3 = cin_string();
+  cout << endl;
+
+  string total_str = str_input_1 + str_input_2 +  str_input_3;
+
+  cout << total_str;
 
 
 
