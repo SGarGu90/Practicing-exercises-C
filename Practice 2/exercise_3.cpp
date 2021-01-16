@@ -166,7 +166,7 @@ void configure_Y_axis_frequencies(vector<int> &frequencies, vector<string> x_axi
   }
 }
 
-int print_Y_axis_frequency_numbers(int current_row_n, int total_rows, int &SPACING_ADAPT_FREQ_NUMS)
+int print_Y_axis_frequencies(int current_row_n, int total_rows, int &SPACING_ADAPT_FREQ_NUMS)
 {
   SPACING_ADAPT_FREQ_NUMS = 1;
   if (total_rows > 9 && current_row_n <= 9) SPACING_ADAPT_FREQ_NUMS++;
@@ -178,67 +178,72 @@ int print_Y_axis_frequency_numbers(int current_row_n, int total_rows, int &SPACI
   return SPACING_ADAPT_FREQ_NUMS;
 }
 
-void print_Y_axis_separator(int current_row_n)
-{
-  // TO DO (//--- separator)
-}
+// void print_X_axis_separator(vector<string> x_axis_intervals)
+// {
+//   for (int i = 0; i < x_axis_intervals.size(); i++) for (int i = 0; i < x_axis_intervals.size(); i++) cout << "-";
+//   cout << endl;
+// }
 
-void print_Y_axis_intervals(int current_row_n, vector<string> x_axis_intervals, int SPACING_ADAPT_FREQ_NUMS)
+void print_X_axis_intervals(vector<string> x_axis_intervals, int SPACING_ADAPT_FREQ_NUMS)
 {
-
   int WIDTH_SPACING = 2;
-  int LAST_ROW = 0;
-  if (current_row_n == LAST_ROW) {
-    print_Y_axis_separator(current_row_n);
-    int SPACING_FROM_PRINT_FREQ_NUMS = 3;
-    cout << setw(SPACING_FROM_PRINT_FREQ_NUMS + SPACING_ADAPT_FREQ_NUMS) << " ";
-    for (int x_axis_pos = 0; x_axis_pos < x_axis_intervals.size(); x_axis_pos++)
-      cout << x_axis_intervals[x_axis_pos] << setw(WIDTH_SPACING) << " ";
-    cout << endl;
-  }
+  int SPACING_FROM_PRINT_FREQ_NUMS = 3;
+  cout << setw(SPACING_FROM_PRINT_FREQ_NUMS + SPACING_ADAPT_FREQ_NUMS) << " ";
+  for (int x_axis_pos = 0; x_axis_pos < x_axis_intervals.size(); x_axis_pos++)
+    cout << x_axis_intervals[x_axis_pos] << setw(WIDTH_SPACING) << " ";
+  cout << endl;
 }
 
-int set_correct_spacing_between_cols(string intervalAsStr)
+void print_X_axis_intervals(int current_row_n, vector<string> x_axis_intervals, int SPACING_ADAPT_FREQ_NUMS)
 {
-  int SPACING_ADAPT_FREQ_DOTS = 0;
-  int total_interval_str_size = intervalAsStr.size();
-  if (total_interval_str_size == 3) SPACING_ADAPT_FREQ_DOTS = 2;
-  if (total_interval_str_size == 4) SPACING_ADAPT_FREQ_DOTS = 4;
-  if (total_interval_str_size == 5) SPACING_ADAPT_FREQ_DOTS = 6;
-  if (total_interval_str_size == 6) SPACING_ADAPT_FREQ_DOTS = 8;
-  if (total_interval_str_size == 7) SPACING_ADAPT_FREQ_DOTS = 10;
-  SPACING_ADAPT_FREQ_DOTS++;
-  return SPACING_ADAPT_FREQ_DOTS;
+  // print_X_axis_separator(x_axis_intervals);
+  print_X_axis_intervals(x_axis_intervals, SPACING_ADAPT_FREQ_NUMS);
 }
 
-void print_histogram_line_dots(int current_row_n, vector<string> x_axis_intervals, vector<int> frequencies)
+void set_correct_spacing_between_cols(int char_pos, vector<string> x_axis_intervals, int current_row_n, vector<int> frequencies)
 {
-  int LAST_ROW = 0;
-  if (current_row_n != LAST_ROW) {
-    int total_chars_per_line = x_axis_intervals.size();
-    int SPACING_ADAPT_FREQ_DOTS;
-    bool isExistValue = false;
+  int SPACING_ADAPT_FREQ_DOTS = 2;
+  string currentIntervalAsStr = x_axis_intervals[char_pos];
 
-    for (int char_pos = 0; char_pos < total_chars_per_line; char_pos++) {
-      isExistValue = (current_row_n <= frequencies[char_pos]);
-      SPACING_ADAPT_FREQ_DOTS = set_correct_spacing_between_cols(x_axis_intervals[char_pos]);
-      if (isExistValue) cout << setw(SPACING_ADAPT_FREQ_DOTS) << "*";
-      else cout << setw(SPACING_ADAPT_FREQ_DOTS) << " ";
-    }
-
-    cout << endl;
+  string current_min_interval_value;
+  string current_max_interval_value;
+  bool isProcessingMinValue = true;
+  for (int str_pos = 0; str_pos < currentIntervalAsStr.size(); str_pos++) {
+    if (currentIntervalAsStr[str_pos] == '-') isProcessingMinValue = false;
+      else if (isProcessingMinValue) current_min_interval_value.push_back(currentIntervalAsStr[str_pos]);
+      else if (!isProcessingMinValue) current_max_interval_value.push_back(currentIntervalAsStr[str_pos]);
   }
+
+  bool isExistValue = false;
+  isExistValue = (current_row_n <= frequencies[char_pos]);
+
+  if (isExistValue) cout << setw(1 + current_min_interval_value.size()) << " " << "*" << setw(current_max_interval_value.size() + 1) << " ";
+  else cout << setw(1 + current_min_interval_value.size()) << " " << " " << setw(current_max_interval_value.size() + 1) << " ";
 }
 
-void print_histogram_by(vector<string> x_axis_intervals, vector<int> frequencies)
+void print_histogram_dots(int current_row_n, vector<string> x_axis_intervals, vector<int> frequencies, int SPACING_ADAPT_FREQ_NUMS)
+{
+  int total_chars_per_line = x_axis_intervals.size();
+  int max_vector_value = find_vector_value(frequencies, "max");
+
+  for (int char_pos = 0; char_pos < total_chars_per_line; char_pos++) {
+    set_correct_spacing_between_cols(char_pos, x_axis_intervals, current_row_n, frequencies);
+  }
+
+  cout << endl;
+}
+
+void print_histogram(vector<string> x_axis_intervals, vector<int> frequencies)
 {
     int total_rows = find_vector_value(frequencies, "max");
     int SPACING_ADAPT_FREQ_NUMS;
 
     for(int current_row_n = total_rows; current_row_n >= 0; current_row_n--) {
-      print_Y_axis_frequency_numbers(current_row_n, total_rows, SPACING_ADAPT_FREQ_NUMS);
-      print_histogram_line_dots(current_row_n, x_axis_intervals, frequencies);
-      print_Y_axis_intervals(current_row_n, x_axis_intervals, SPACING_ADAPT_FREQ_NUMS);
+      bool is_last_row = (current_row_n == 0);
+
+      print_Y_axis_frequencies(current_row_n, total_rows, SPACING_ADAPT_FREQ_NUMS);
+      if (!is_last_row) print_histogram_dots(current_row_n, x_axis_intervals, frequencies, SPACING_ADAPT_FREQ_NUMS);
+      if (is_last_row) print_X_axis_intervals(current_row_n, x_axis_intervals, SPACING_ADAPT_FREQ_NUMS);
     }
 }
 
@@ -256,7 +261,7 @@ int main()
   configure_Y_axis_frequencies(y_axis_frequencies, x_axis_intervals, vector_numbers);
   print_vector_numbers(y_axis_frequencies, "Frequencies: ");
 
-  print_histogram_by(x_axis_intervals, y_axis_frequencies);
+  print_histogram(x_axis_intervals, y_axis_frequencies);
 
   return 0;
 }
