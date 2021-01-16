@@ -178,13 +178,13 @@ int print_Y_axis_frequencies(int current_row_n, int total_rows, int &SPACING_ADA
   return SPACING_ADAPT_FREQ_NUMS;
 }
 
-// void print_X_axis_separator(vector<string> x_axis_intervals)
-// {
-//   for (int i = 0; i < x_axis_intervals.size(); i++) for (int i = 0; i < x_axis_intervals.size(); i++) cout << "-";
-//   cout << endl;
-// }
+void print_separator(vector<string> x_axis_intervals)
+{
+  for (int i = 0; i < x_axis_intervals.size()*8; i++) cout << "-";
+  cout << endl;
+}
 
-void print_X_axis_intervals(vector<string> x_axis_intervals, int SPACING_ADAPT_FREQ_NUMS)
+void print_intervals(vector<string> x_axis_intervals, int SPACING_ADAPT_FREQ_NUMS)
 {
   int WIDTH_SPACING = 2;
   int SPACING_FROM_PRINT_FREQ_NUMS = 3;
@@ -196,8 +196,8 @@ void print_X_axis_intervals(vector<string> x_axis_intervals, int SPACING_ADAPT_F
 
 void print_X_axis_intervals(int current_row_n, vector<string> x_axis_intervals, int SPACING_ADAPT_FREQ_NUMS)
 {
-  // print_X_axis_separator(x_axis_intervals);
-  print_X_axis_intervals(x_axis_intervals, SPACING_ADAPT_FREQ_NUMS);
+  print_separator(x_axis_intervals);
+  print_intervals(x_axis_intervals, SPACING_ADAPT_FREQ_NUMS);
 }
 
 void set_correct_spacing_between_cols(int char_pos, vector<string> x_axis_intervals, int current_row_n, vector<int> frequencies)
