@@ -67,7 +67,7 @@ int cin_number_int(int insert_count_number = -1)
 
 void populate_vector_with_customized_random_numbers_by_length(vector<int> &vector_numbers)
 {
-  int DEFAULT_MAX_RAND_VALUE = 50;
+  int DEFAULT_MAX_RAND_VALUE = 100;
   int new_number;
 
   cout << "Insert vector length (N). { ...n, ...(N) }" << endl;
