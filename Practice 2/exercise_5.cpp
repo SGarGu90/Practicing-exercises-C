@@ -32,5 +32,10 @@ int main()
   string single_string = str_input_1 + str_input_2 + str_input_3;
   cout << single_string << endl;
 
+  vector<string> str_vector;
+  str_vector.push_back(str_input_1);
+  str_vector.push_back(str_input_2);
+  str_vector.push_back(str_input_3);
+
   return 0;
 }
