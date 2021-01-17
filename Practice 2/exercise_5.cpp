@@ -29,11 +29,8 @@ int main()
   string str_input_3 = cin_string();
   cout << endl;
 
-  string total_str = str_input_1 + str_input_2 +  str_input_3;
-
-  cout << total_str;
-
-
+  string single_string = str_input_1 + str_input_2 + str_input_3;
+  cout << single_string << endl;
 
   return 0;
 }
