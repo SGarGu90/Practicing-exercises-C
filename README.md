@@ -72,3 +72,4 @@
 - String2 = mesa
 - String3 = coche
 - String Resultado = cmcaeosscaahe
+> g++ Practice\ 2/exercise_5.cpp -o Practice\ 2/exercise_5 && ./Practice\ 2/exercise_5
