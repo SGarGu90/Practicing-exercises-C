@@ -40,9 +40,11 @@ int main()
   string password;
   for (int str_pos = 0; str_pos < single_string.size(); str_pos++) {
     for (int v_pos = 0; v_pos < str_vector.size(); v_pos++) {
-
+      if (str_vector[v_pos][str_pos]) password.push_back(str_vector[v_pos][str_pos]);
     }
   }
+
+  cout << "Password is: " << password << endl;
 
   return 0;
 }
