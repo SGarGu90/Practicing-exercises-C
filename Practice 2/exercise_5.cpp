@@ -15,6 +15,22 @@ string cin_string()
   return input;
 }
 
+string generate_password(vector<string> vector)
+{
+  string single_str;
+  for (int str_pos = 0; str_pos < vector.size(); str_pos++) single_str+=vector[str_pos];
+
+  bool is_exist_char_in_str;
+  string password;
+  for (int str_pass_pos = 0; str_pass_pos < single_str.size(); str_pass_pos++) {
+    for (int str_in_vector = 0; str_in_vector < vector.size(); str_in_vector++) {
+      is_exist_char_in_str = str_pass_pos < vector[str_in_vector].size();
+      if (is_exist_char_in_str) password.push_back(vector[str_in_vector][str_pass_pos]);
+    }
+  }
+  return password;
+}
+
 int main()
 {
   cout << "Insert string (1): ";
@@ -32,17 +48,12 @@ int main()
   string single_string = str_input_1 + str_input_2 + str_input_3;
   cout << single_string << endl;
 
-  vector<string> str_vector;
-  str_vector.push_back(str_input_1);
-  str_vector.push_back(str_input_2);
-  str_vector.push_back(str_input_3);
+  vector<string> input_strings_vector;
+  input_strings_vector.push_back(str_input_1);
+  input_strings_vector.push_back(str_input_2);
+  input_strings_vector.push_back(str_input_3);
 
-  string password;
-  for (int str_pos = 0; str_pos < single_string.size(); str_pos++) {
-    for (int v_pos = 0; v_pos < str_vector.size(); v_pos++) {
-      if (str_vector[v_pos][str_pos]) password.push_back(str_vector[v_pos][str_pos]);
-    }
-  }
+  string password = generate_password(input_strings_vector);
 
   cout << "Password is: " << password << endl;
 
