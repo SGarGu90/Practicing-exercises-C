@@ -37,5 +37,10 @@ int main()
   str_vector.push_back(str_input_2);
   str_vector.push_back(str_input_3);
 
+  string password;
+  for (int str_pos = 0; str_pos < single_string.size(); str_pos++) {
+
+  }
+
   return 0;
 }
