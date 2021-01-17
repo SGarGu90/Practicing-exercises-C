@@ -66,10 +66,10 @@
 > g++ Practice\ 2/exercise_4.cpp -o Practice\ 2/exercise_4 && ./Practice\ 2/exercise_4
 
 ## P2.Exercise 5
-- Dada tres strings de dimensión N, genera un password y luego almacénalo en un cuarto string.
-- El password se realizará con la combinación de una letra por cada string.
-- Ejemplo string1 = casa
-- String2 = mesa
-- String3 = coche
-- String Resultado = cmcaeosscaahe
+- Given three strings of dimension N, generate a password and then store it in a fourth string.
+- The password will be made with the combination of a letter for each string.
+- Example string1 = house
+- String2 = table
+- String3 = car
+- String Result = htcoaaubrslee
 > g++ Practice\ 2/exercise_5.cpp -o Practice\ 2/exercise_5 && ./Practice\ 2/exercise_5
