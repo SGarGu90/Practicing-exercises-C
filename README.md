@@ -16,6 +16,13 @@
 
 ## P1.Exercise 2
 - Design a program to print Pascal's triangle on the screen. Remember make an original implementation.
+
+                   *
+                 *   *
+               *   *   *
+             *   *   *   *
+           *   *   *   *   *
+
 > g++ Practice\ 1/exercise_2.cpp -o Practice\ 1/exercise_2 && ./Practice\ 1/exercise_2
 
 ## P1.Exercise 3
